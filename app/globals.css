@@ -1,0 +1,2027 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 210 40% 96.1%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    --primary: 196 100% 47%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 196 100% 47%;
+    --radius: 0.75rem;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 196 100% 47%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 196 100% 47%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  /* 以下の行を修正 - スタイルを直接指定する方法に変更 */
+  body {
+    background-color: #f0f4f8;
+    color: hsl(var(--foreground));
+  }
+}
+
+/* ホバー効果のスタイル */
+.hover-effect {
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.hover-effect::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(224, 242, 254, 0.5) 0%, rgba(186, 230, 253, 0.5) 100%);
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  border-radius: 0.5rem;
+}
+
+.hover-effect:hover::before {
+  opacity: 1;
+}
+
+.hover-effect:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+/* 学習計画オプションカードのスタイル */
+.plan-option-card {
+  background-color: white;
+  border-radius: 0.75rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.plan-option-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(224, 242, 254, 0.5) 0%, rgba(186, 230, 253, 0.5) 100%);
+  z-index: 0;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  border-radius: 0.75rem;
+}
+
+.plan-option-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.plan-option-card:hover::before {
+  opacity: 1;
+}
+
+.plan-option-card > div {
+  position: relative;
+  z-index: 1;
+}
+
+/* ゴールナビのスライダー */
+.rank-slider {
+  background-color: #e5e7eb;
+  height: 12px;
+  border-radius: 9999px;
+  position: relative;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.rank-labels {
+  font-size: 0.9rem;
+  color: #6b7280;
+}
+
+/* ゴールボタン専用のスタイル */
+.goal-button {
+  background-color: transparent !important;
+  color: hsl(var(--foreground)) !important;
+  position: relative;
+  z-index: 1;
+  height: auto;
+  font-weight: 500;
+  border-radius: 0.5rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.goal-button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(224, 242, 254, 0.5) 0%, rgba(186, 230, 253, 0.5) 100%);
+  z-index: -1;
+  border-radius: 0.5rem;
+  opacity: 0.7;
+}
+
+.goal-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+.goal-button:hover::before {
+  opacity: 1;
+}
+
+/* カテゴリーカードのグラデーションスタイル */
+.category-card {
+  background-color: white;
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.category-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(224, 242, 254, 0.5) 0%, rgba(186, 230, 253, 0.5) 100%);
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  border-radius: 0.5rem;
+}
+
+.category-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+.category-card:hover::before {
+  opacity: 1;
+}
+
+.category-card.border-blue-500 {
+  background-color: rgba(239, 246, 255, 0.6);
+}
+
+.category-card.border-blue-500:hover {
+  background-color: rgba(239, 246, 255, 0.8);
+}
+
+.category-card-goal::before {
+  background: linear-gradient(135deg, rgba(224, 242, 254, 0.5) 0%, rgba(186, 230, 253, 0.5) 100%);
+}
+
+.category-card-countdown::before {
+  background: linear-gradient(135deg, rgba(219, 234, 254, 0.5) 0%, rgba(191, 219, 254, 0.5) 100%);
+}
+
+/* 体系問題集用のより明るく薄いスカイブルーのグラデーション */
+.category-card-textbook::before {
+  background: linear-gradient(135deg, rgba(224, 242, 254, 0.15) 0%, rgba(56, 189, 248, 0.25) 100%);
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 1px;
+}
+
+.calendar-cell {
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #f0f0f0;
+}
+
+.calendar-header {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  text-align: center;
+  font-weight: 500;
+}
+
+.calendar-day {
+  padding: 0.5rem;
+}
+
+.time-grid {
+  display: grid;
+  grid-template-columns: 50px 1fr;
+  gap: 0;
+}
+
+.time-slot {
+  height: 60px;
+  border-bottom: 1px solid #f0f0f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #666;
+  font-size: 0.875rem;
+}
+
+.day-column {
+  height: 60px;
+  border-bottom: 1px solid #f0f0f0;
+  border-left: 1px solid #f0f0f0;
+}
+
+.week-grid {
+  display: grid;
+  grid-template-columns: 50px repeat(7, 1fr);
+}
+
+.week-header {
+  text-align: center;
+  padding: 0.5rem;
+  font-weight: 500;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.today {
+  background-color: rgba(0, 149, 255, 0.1);
+}
+
+.selected-date {
+  background-color: hsl(var(--primary));
+  color: white;
+  border-radius: 50%;
+}
+
+.other-month {
+  color: #ccc;
+}
+
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 16rem);
+  overflow-y: auto;
+}
+
+.message {
+  max-width: 80%;
+  margin-bottom: 1rem;
+  padding: 0.75rem 1rem;
+  border-radius: 1rem;
+}
+
+.user-message {
+  align-self: flex-end;
+  background-color: hsl(var(--primary));
+  color: white;
+  border-bottom-right-radius: 0.25rem;
+}
+
+.coach-message {
+  align-self: flex-start;
+  background-color: #f0f0f0;
+  border-bottom-left-radius: 0.25rem;
+}
+
+.avatar-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+.avatar-item {
+  aspect-ratio: 1;
+  border-radius: 50%;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.avatar-item:hover,
+.avatar-item.selected {
+  transform: scale(1.05);
+  box-shadow: 0 0 0 3px hsl(var(--primary));
+}
+
+.task-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.task-item {
+  padding: 1rem;
+  border-radius: 0.5rem;
+  background-color: white;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* task-button 関連のスタイルを以下のように修正します */
+
+/* task-buttons関連のスタイルを修正し、問題項目のホバー効果を追加します */
+
+/* 1. task-buttonsのスタイルを横並びに変更します： */
+.task-buttons-row {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+}
+
+.task-button {
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 1px solid #e5e7eb;
+  font-size: 1.25rem;
+  position: relative;
+  overflow: hidden;
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+@media (max-width: 640px) {
+  .task-button {
+    width: 2rem;
+    height: 2rem;
+  }
+}
+
+.task-button:hover {
+  transform: scale(1.15);
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
+}
+
+/* 2. 問題項目のホバー効果を追加します： */
+.problem-item {
+  transition: all 0.2s ease;
+  background-color: white;
+}
+
+/* タスク項目のグラデーションスタイル - 選択状態を常に維持するように修正 */
+.task-complete-gradient {
+  background: linear-gradient(135deg, rgba(219, 234, 254, 0.8) 0%, rgba(191, 219, 254, 0.9) 100%) !important;
+  border-color: rgba(59, 130, 246, 0.5) !important;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15) !important;
+  transform: translateY(-1px);
+}
+
+.task-partial-gradient {
+  background: linear-gradient(135deg, rgba(255, 251, 235, 0.8) 0%, rgba(254, 243, 199, 0.9) 100%) !important;
+  border-color: rgba(245, 158, 11, 0.5) !important;
+  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.15) !important;
+  transform: translateY(-1px);
+}
+
+.task-incorrect-gradient {
+  background: linear-gradient(135deg, rgba(254, 242, 242, 0.8) 0%, rgba(254, 226, 226, 0.9) 100%) !important;
+  border-color: rgba(239, 68, 68, 0.5) !important;
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.15) !important;
+  transform: translateY(-1px);
+}
+
+/* ホバー効果の強化 - より洗練されたグレーに変更 */
+.problem-item:hover:not(.task-complete-gradient):not(.task-partial-gradient):not(.task-incorrect-gradient) {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  background-color: rgba(243, 244, 246, 0.7); /* グレーに変更 */
+  border-color: rgba(209, 213, 219, 0.8); /* グレーのボーダー */
+}
+
+.task-complete-gradient:hover {
+  background: linear-gradient(135deg, rgba(219, 234, 254, 0.9) 0%, rgba(191, 219, 254, 1) 100%) !important;
+  box-shadow: 0 6px 15px rgba(59, 130, 246, 0.25) !important;
+}
+
+.task-partial-gradient:hover {
+  background: linear-gradient(135deg, rgba(255, 251, 235, 0.9) 0%, rgba(254, 243, 199, 1) 100%) !important;
+  box-shadow: 0 6px 15px rgba(245, 158, 11, 0.25) !important;
+}
+
+.task-incorrect-gradient:hover {
+  background: linear-gradient(135deg, rgba(254, 242, 242, 0.9) 0%, rgba(254, 226, 226, 1) 100%) !important;
+  box-shadow: 0 6px 15px rgba(239, 68, 68, 0.25) !important;
+}
+
+/* 完答ボタンのスタイル */
+.complete {
+  background: linear-gradient(135deg, #0088ff, #00c6ff);
+  color: white !important;
+  border: none;
+  box-shadow: 0 0 15px rgba(0, 198, 255, 0.4);
+  transform: scale(1.05);
+}
+
+.complete-outline {
+  background: linear-gradient(135deg, rgba(0, 136, 255, 0.1), rgba(0, 198, 255, 0.1));
+  color: rgba(0, 136, 255, 0.8) !important;
+  border: 1px solid rgba(0, 136, 255, 0.3);
+}
+
+.complete-outline:hover {
+  background: linear-gradient(135deg, rgba(0, 136, 255, 0.2), rgba(0, 198, 255, 0.2));
+  color: rgba(0, 136, 255, 1) !important;
+  border: 1px solid rgba(0, 136, 255, 0.5);
+}
+
+/* 一部正解ボタンのスタイル */
+.partial {
+  background: linear-gradient(135deg, #ffb700, #ffd500);
+  color: white !important;
+  border: none;
+  box-shadow: 0 0 15px rgba(255, 184, 0, 0.4);
+  transform: scale(1.05);
+}
+
+.partial-outline {
+  background: linear-gradient(135deg, rgba(255, 183, 0, 0.1), rgba(255, 213, 0, 0.1));
+  color: rgba(255, 183, 0, 0.8) !important;
+  border: 1px solid rgba(255, 183, 0, 0.3);
+}
+
+.partial-outline:hover {
+  background: linear-gradient(135deg, rgba(255, 183, 0, 0.2), rgba(255, 213, 0, 0.2));
+  color: rgba(255, 183, 0, 1) !important;
+  border: 1px solid rgba(255, 183, 0, 0.5);
+}
+
+/* 誤答ボタンのスタイル */
+.incorrect {
+  background: linear-gradient(135deg, #ff3b30, #ff6b5e);
+  color: white !important;
+  border: none;
+  box-shadow: 0 0 15px rgba(255, 59, 48, 0.4);
+  transform: scale(1.05);
+}
+
+.incorrect-outline {
+  background: linear-gradient(135deg, rgba(255, 59, 48, 0.1), rgba(255, 107, 94, 0.1));
+  color: rgba(255, 59, 48, 0.8) !important;
+  border: 1px solid rgba(255, 59, 48, 0.3);
+}
+
+.incorrect-outline:hover {
+  background: linear-gradient(135deg, rgba(255, 59, 48, 0.2), rgba(255, 107, 94, 0.2));
+  color: rgba(255, 59, 48, 1) !important;
+  border: 1px solid rgba(255, 59, 48, 0.5);
+}
+
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-around;
+  background-color: white;
+  border-top: 1px solid #f0f0f0;
+  padding: 0.5rem 0;
+  z-index: 50;
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 0.75rem;
+}
+
+.nav-icon {
+  margin-bottom: 0.25rem;
+}
+
+.add-button {
+  position: fixed;
+  bottom: 4rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 50%;
+  background-color: hsl(var(--primary));
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  z-index: 51;
+}
+
+.header {
+  position: sticky;
+  top: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background-color: white;
+  border-bottom: 1px solid #f0f0f0;
+  z-index: 40;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.page-title {
+  font-weight: 700;
+  font-size: 1.25rem;
+}
+
+.profile-icon {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.tab-container {
+  display: flex;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.tab {
+  flex: 1;
+  text-align: center;
+  padding: 1rem;
+  cursor: pointer;
+}
+
+.tab.active {
+  color: hsl(var(--primary));
+  border-bottom: 2px solid hsl(var(--primary));
+}
+
+.input-container {
+  display: flex;
+  padding: 0.5rem;
+  border-top: 1px solid #f0f0f0;
+}
+
+.input-field {
+  flex: 1;
+  border: 1px solid #f0f0f0;
+  border-radius: 1.5rem;
+  padding: 0.5rem 1rem;
+  margin-right: 0.5rem;
+}
+
+.send-button {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  background-color: hsl(var(--primary));
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.gradient-bg {
+  background: linear-gradient(135deg, #00c6ff 0%, #0072ff 100%);
+}
+
+.wave-shape {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+}
+
+.wave-shape svg {
+  position: relative;
+  display: block;
+  width: calc(100% + 1.3px);
+  height: 70px;
+}
+
+.wave-shape .shape-fill {
+  fill: #ffffff;
+}
+
+@keyframes rainbow {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes float-text {
+  0% {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  20% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  80% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+}
+
+@keyframes gradient-fade {
+  0% {
+    opacity: 1;
+    background-position: 0% 50%;
+  }
+  50% {
+    opacity: 1;
+    background-position: 100% 50%;
+  }
+  70% {
+    opacity: 1;
+    background-position: 0% 50%;
+  }
+  100% {
+    opacity: 0;
+    background-position: 0% 50%;
+  }
+}
+
+.animate-rainbow {
+  animation: rainbow 3s ease infinite;
+}
+
+.animate-float-text {
+  animation: float-text 3s ease-in-out forwards;
+}
+
+.animate-gradient-fade {
+  animation: gradient-fade 4s ease-in-out forwards;
+}
+
+/* 既存のアニメーションはそのままに、新たに追加するアニメーションスタイルをここに追加 */
+
+/* 虹色テキストのスタイル */
+.rainbow-text {
+  background-image: linear-gradient(90deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #8b00ff);
+  background-size: 200% auto;
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: rainbow-text 2s linear infinite;
+}
+
+@keyframes rainbow-text {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 200% 50%;
+  }
+}
+
+/* 虹色線のコンテナとアニメーション */
+.rainbow-line-container {
+  width: 100%;
+  height: 3px;
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+  overflow: hidden;
+  position: relative;
+}
+
+.rainbow-line {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #8b00ff);
+  animation: rainbow-line-extend 1.5s ease-out forwards;
+}
+
+@keyframes rainbow-line-extend {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+/* 目標スライダーのスタイル */
+.goal-progress-bar {
+  width: 100%;
+  height: 12px;
+  background-color: #f0f0f0;
+  border-radius: 6px;
+  position: relative;
+  margin: 1rem 0;
+}
+
+.goal-progress-bar-fill {
+  height: 100%;
+  background-color: #00c6ff;
+  border-radius: 6px;
+}
+
+.goal-progress-markers {
+  position: absolute;
+  top: -20px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+.goal-progress-marker {
+  width: 1px;
+  height: 8px;
+  background-color: #666;
+}
+
+/* カードのスタイル改善 */
+.card-shadow {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card-shadow:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.12);
+}
+
+/* アニメーションコンテナ */
+.animation-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 100;
+  overflow: hidden;
+}
+
+/* 花火アニメーション - 改良版 */
+.firework {
+  position: absolute;
+  border-radius: 50%;
+  transform: scale(0);
+  animation: firework-explode 1.2s ease-out forwards;
+}
+
+@keyframes firework-explode {
+  0% {
+    transform: scale(0);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+}
+
+/* 紙吹雪アニメーション - 改良版 */
+@keyframes confetti-fall {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh) rotate(720deg);
+    opacity: 0;
+  }
+}
+
+.confetti {
+  position: absolute;
+  top: -10px;
+  transform-origin: center;
+  animation: confetti-fall 4s ease-in-out forwards;
+}
+
+/* 星アニメーション - 改良版 */
+.star {
+  position: absolute;
+  opacity: 0;
+  transform: scale(0);
+  animation: star-pulse 2s ease-in-out forwards;
+}
+
+@keyframes star-pulse {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 1;
+  }
+  75% {
+    transform: scale(0.9);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0;
+  }
+}
+
+/* コーチのアドバイス吹き出し */
+.coach-advice-container {
+  margin-bottom: 1rem;
+}
+
+.coach-advice-bubble {
+  position: relative;
+  background-color: #e6f7ff;
+  border-radius: 1rem;
+  padding: 0.75rem 1rem;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  max-width: calc(100% - 50px);
+}
+
+.coach-advice-bubble::before {
+  content: "";
+  position: absolute;
+  top: 12px;
+  left: -8px;
+  width: 0;
+  height: 0;
+  border-top: 8px solid transparent;
+  border-right: 10px solid #e6f7ff;
+  border-bottom: 8px solid transparent;
+}
+
+/* タブのカスタムスタイル */
+.tab-list-custom {
+  background-color: #f5f5f5;
+  border-radius: 0.5rem;
+  padding: 0.25rem;
+}
+
+.tab-trigger-custom {
+  position: relative;
+  transition: all 0.2s ease;
+  font-weight: 500;
+}
+
+.tab-trigger-custom[data-state="active"] {
+  background-color: white;
+  color: hsl(var(--primary));
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.tab-trigger-custom[data-state="inactive"] {
+  background-color: transparent;
+  color: #666;
+}
+
+.tab-trigger-custom:hover {
+  background: linear-gradient(135deg, rgba(224, 242, 254, 0.5) 0%, rgba(186, 230, 253, 0.5) 100%);
+  transform: translateY(-1px);
+}
+
+/* 紙吹雪コンテナ */
+.confetti-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 100;
+  overflow: hidden;
+}
+
+/* 紙吹雪の個別パーツ */
+.confetti-piece {
+  position: absolute;
+  top: -10px;
+  transform-origin: center;
+  animation: confetti-fall 3s ease-in-out forwards;
+}
+
+/* 紙吹雪の個別パーツ */
+.confetti-piece {
+  position: absolute;
+  top: -10px;
+  transform-origin: center;
+  animation: confetti-fall 3s ease-in-out forwards;
+}
+
+/* 選択されたボタンのホバー状態  */
+.btn-selected:hover {
+  background-color: hsl(var(--primary));
+  color: white;
+}
+
+/* アニメーション用のスタイル */
+@keyframes pop-in {
+  0% {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  70% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.animate-pop-in {
+  animation: pop-in 0.3s ease-out forwards;
+}
+
+/* 既存のスタイルはそのままで、オンボーディング関連のスタイルを追加 */
+
+/* オンボーディングハイライト対象のスタイル */
+.onboarding-highlight-target {
+  position: relative;
+  z-index: 46;
+  transform: scale(1.05);
+  transition: all 0.3s ease;
+  box-shadow: 0 0 20px 4px rgba(0, 198, 255, 0.7);
+  border-radius: 8px;
+}
+
+/* オンボーディングツアーのスタイル */
+.onboarding-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1000;
+  pointer-events: none;
+}
+
+.onboarding-container > * {
+  pointer-events: auto;
+}
+
+.onboarding-tooltip {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  padding: 16px;
+  max-width: 300px;
+  position: absolute;
+  z-index: 1001;
+}
+
+.onboarding-tooltip::before {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-bottom: 8px solid white;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.onboarding-highlight {
+  position: absolute;
+  box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.5);
+  border-radius: 8px;
+  z-index: 1000;
+  pointer-events: none;
+}
+
+/* アニメーション関連のスタイル */
+@keyframes pulse-highlight {
+  0% {
+    box-shadow: 0 0 0 0 rgba(0, 198, 255, 0.4), 0 0 0 9999px rgba(0, 0, 0, 0.5);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(0, 198, 255, 0), 0 0 0 9999px rgba(0, 0, 0, 0.5);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(0, 198, 255, 0), 0 0 0 9999px rgba(0, 0, 0, 0.5);
+  }
+}
+
+.pulse-animation {
+  animation: pulse-highlight 2s infinite;
+}
+
+.z-60 {
+  z-index: 60;
+}
+
+/* Add these animations to your existing globals.css file */
+
+@keyframes sakura-fall {
+  0% {
+    opacity: 0;
+    transform: translateY(0) rotate(0deg);
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(100vh) rotate(720deg);
+  }
+}
+
+@keyframes balloon-rise {
+  0% {
+    opacity: 0;
+    transform: translateY(0) scale(1);
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+    transform: translateY(-80vh) scale(0.8);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-100vh) scale(0.5);
+  }
+}
+
+@keyframes rainbow-fade {
+  0% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.2);
+  }
+}
+
+@keyframes rocket-launch {
+  0% {
+    bottom: -10%;
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  100% {
+    bottom: 110%;
+    opacity: 0;
+  }
+}
+
+@keyframes rocket-flame {
+  0% {
+    height: 15px;
+    background-color: #ff9933;
+  }
+  100% {
+    height: 25px;
+    background-color: #ffcc00;
+  }
+}
+
+/* 新しいスパークルアニメーション */
+@keyframes sparkle-animation {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  25% {
+    transform: scale(1.2);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(0.8);
+    opacity: 0.8;
+  }
+  75% {
+    transform: scale(1.1);
+    opacity: 0.9;
+  }
+  100% {
+    transform: scale(0);
+    opacity: 0;
+  }
+}
+
+/* 既存のアニメーション関連のスタイルの中に、新しい虹のアニメーションを追加します */
+
+/* 虹のアーチアニメーション */
+@keyframes rainbow-arch {
+  0% {
+    opacity: 0;
+    transform: scale(0.8) translateY(20px);
+  }
+  20% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+  80% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.1) translateY(-10px);
+  }
+}
+
+.rainbow-arch {
+  position: absolute;
+  width: 100%;
+  height: 50%;
+  bottom: 0;
+  left: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 0, 0, 0.7) 0%,
+    rgba(255, 165, 0, 0.7) 16%,
+    rgba(255, 255, 0, 0.7) 33%,
+    rgba(0, 128, 0, 0.7) 50%,
+    rgba(0, 0, 255, 0.7) 66%,
+    rgba(75, 0, 130, 0.7) 83%,
+    rgba(238, 130, 238, 0.7) 100%
+  );
+  border-radius: 100% 100% 0 0;
+  transform-origin: bottom center;
+  animation: rainbow-arch 3s ease-in-out forwards;
+  box-shadow: 0 0 40px 10px rgba(255, 255, 255, 0.5);
+  z-index: 10;
+}
+
+/* 既存のCSSに追加 */
+
+/* 丸いチェックボックスのスタイル */
+.rounded-checkbox {
+  border-radius: 50%;
+  border: 2px solid #38bdf8;
+}
+
+.rounded-checkbox[data-state="checked"] {
+  background-color: #38bdf8;
+  color: white;
+}
+
+/* ポップアップダイアログのスタイル */
+.auto-plan-dialog {
+  max-width: 500px;
+  margin: 0 auto;
+  background-color: white;
+  border-radius: 0.75rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.auto-plan-dialog-header {
+  padding: 1.5rem 1.5rem 0.5rem;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.auto-plan-dialog-content {
+  padding: 1.5rem;
+}
+
+.auto-plan-dialog-footer {
+  padding: 1rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  border-top: 1px solid #f0f0f0;
+}
+
+.period-selector {
+  background-color: #f9fafb;
+  border-radius: 0.5rem;
+  padding: 0.75rem 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+}
+
+.day-selector {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.5rem;
+}
+
+.day-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* 既存のCSSに追加 */
+
+/* チャットUI用のスタイル */
+.loading-dots {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  background-color: #f3f4f6;
+  border-radius: 16px;
+}
+
+.loading-dots span {
+  width: 8px;
+  height: 8px;
+  background-color: #6b7280;
+  border-radius: 50%;
+  animation: dot-pulse 1.5s infinite ease-in-out;
+}
+
+.loading-dots span:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.loading-dots span:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes dot-pulse {
+  0%,
+  100% {
+    transform: scale(0.8);
+    opacity: 0.6;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 1;
+  }
+}
+
+/* 曜日選択のスタイル */
+.day-selector-button {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-weight: 500;
+}
+
+.day-selector-button.selected {
+  background-color: #3b82f6;
+  color: white;
+}
+
+.day-selector-button:not(.selected) {
+  background-color: white;
+  border: 1px solid #d1d5db;
+  color: #374151;
+}
+
+.day-selector-button:hover:not(.selected) {
+  background-color: #f3f4f6;
+}
+
+/* 科目選択ボタンのレスポンシブスタイル */
+@media (max-width: 640px) {
+  .grid-cols-1 .w-full.justify-between {
+    height: auto;
+    padding: 0.75rem;
+  }
+
+  .grid-cols-1 .w-full.justify-between .text-lg {
+    font-size: 1rem;
+  }
+
+  .grid-cols-1 .w-full.justify-between .mr-2 svg {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+}
+
+/* ホバーエフェクトの強化 */
+@media (hover: hover) {
+  .hover\:bg-blue-50:hover {
+    background-color: rgba(239, 246, 255, 0.6);
+  }
+
+  .hover\:border-blue-300:hover {
+    border-color: #93c5fd;
+  }
+
+  .hover\:shadow-md:hover {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  }
+
+  .hover\:-translate-y-1:hover {
+    transform: translateY(-0.25rem);
+  }
+}
+
+/* タッチデバイス用のアクティブ状態 */
+@media (hover: none) {
+  .w-full.justify-between:active {
+    background-color: rgba(239, 246, 255, 0.6);
+    border-color: #93c5fd;
+  }
+}
+
+/* 科目選択ボタンのスタイル */
+.subject-button {
+  min-height: 56px;
+  font-weight: 500;
+}
+
+.subject-button:active {
+  background-color: rgba(239, 246, 255, 0.8);
+  border-color: #93c5fd;
+}
+
+@media (max-width: 640px) {
+  .subject-button {
+    min-height: 48px;
+    padding: 0.75rem;
+  }
+
+  .subject-button .text-lg {
+    font-size: 1rem;
+  }
+
+  .subject-button svg {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+}
+
+/* コーチUIコンテナのスタイルを追加 */
+.coach-ui-container {
+  scroll-margin-top: 80px; /* ヘッダーの高さに合わせて調整 */
+  position: relative;
+  z-index: 10;
+}
+
+/* モバイル環境でのスクロール挙動を改善 */
+@media (max-width: 640px) {
+  .coach-ui-container {
+    scroll-margin-top: 60px;
+  }
+}
+
+/* 既存のCSSの最後に以下を追加 */
+
+/* モダンなカードスタイル */
+.modern-card {
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+  overflow: hidden;
+  position: relative;
+}
+
+.modern-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+}
+
+.modern-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, #3b82f6, #00c6ff);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.modern-card:hover::before {
+  opacity: 1;
+}
+
+/* 選択オプションのスタイル */
+.option-card {
+  border-radius: 12px;
+  padding: 1.5rem;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.option-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+}
+
+.option-card.selected {
+  border-color: #3b82f6;
+  background-color: rgba(59, 130, 246, 0.05);
+}
+
+.option-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+/* レスポンシブグリッドレイアウト */
+.responsive-grid {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 1rem;
+}
+
+@media (min-width: 640px) {
+  .responsive-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .responsive-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* アニメーション */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.5s ease forwards;
+}
+
+/* ボタンスタイル */
+.modern-button {
+  background: linear-gradient(90deg, #3b82f6, #00c6ff);
+  color: white;
+  border: none;
+  border-radius: 50px;
+  padding: 0.75rem 1.5rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 198, 255, 0.3);
+}
+
+.modern-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(0, 198, 255, 0.4);
+}
+
+.modern-button:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 5px rgba(0, 198, 255, 0.3);
+}
+
+/* 選択状態のカード */
+.selected-card {
+  border-color: #3b82f6;
+  background-color: rgba(59, 130, 246, 0.05);
+}
+
+.selected-card::before {
+  opacity: 1;
+}
+
+/* 桜吹雪のアニメーションを改良します */
+
+.sakura-petal {
+  position: absolute;
+  animation: sakura-fall 8s ease-in-out forwards;
+  transform-origin: center;
+  z-index: 10;
+}
+
+@keyframes sakura-fall {
+  0% {
+    opacity: 0;
+    transform: translateY(0) rotate(0deg) scale(0.8);
+  }
+  10% {
+    opacity: 1;
+    transform: translateY(10vh) rotate(45deg) scale(1);
+  }
+  25% {
+    transform: translateY(25vh) rotate(90deg) translateX(10px) scale(0.9);
+  }
+  50% {
+    transform: translateY(50vh) rotate(180deg) translateX(-15px) scale(1.1);
+  }
+  75% {
+    transform: translateY(75vh) rotate(270deg) translateX(10px) scale(0.95);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateY(100vh) rotate(360deg) translateX(-5px) scale(0.9);
+    opacity: 0;
+  }
+}
+
+/* 既存のCSSに追加 */
+
+/* カレンダー関連のスタイル */
+.calendar-day-cell {
+  min-height: 100px;
+  position: relative;
+  transition: all 0.2s ease;
+}
+
+.calendar-day-cell:hover {
+  background-color: rgba(59, 130, 246, 0.05);
+}
+
+.calendar-day-cell.today {
+  background-color: rgba(59, 130, 246, 0.1);
+}
+
+.calendar-day-cell.test-day {
+  background-color: rgba(239, 68, 68, 0.1);
+}
+
+/* ヒートマップ関連のスタイル */
+.heatmap-cell {
+  transition: all 0.3s ease;
+}
+
+.heatmap-cell:hover {
+  transform: scale(1.05);
+}
+
+/* タスク項目のドラッグ&ドロップスタイル */
+.task-item-dragging {
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+  opacity: 0.8;
+}
+
+/* カウントダウンバナーのアニメーション */
+@keyframes countdown-pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.countdown-banner-critical {
+  animation: countdown-pulse 2s infinite;
+}
+
+/* 進捗バーのアニメーション */
+@keyframes progress-fill {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: var(--progress-width);
+  }
+}
+
+.progress-bar-animated {
+  animation: progress-fill 1s ease-out forwards;
+}
+
+/*
+既存のCSSの最後に以下のグラデーションスタイルを追加します
+*/
+/* タスク項目のグラデーションスタイル */
+.task-complete-gradient {
+  background: linear-gradient(135deg, rgba(219, 234, 254, 0.8) 0%, rgba(191, 219, 254, 0.9) 100%) !important;
+  border-color: rgba(59, 130, 246, 0.5) !important;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15) !important;
+  transform: translateY(-1px);
+}
+
+.task-partial-gradient {
+  background: linear-gradient(135deg, rgba(255, 251, 235, 0.8) 0%, rgba(254, 243, 199, 0.9) 100%) !important;
+  border-color: rgba(245, 158, 11, 0.5) !important;
+  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.15) !important;
+  transform: translateY(-1px);
+}
+
+.task-incorrect-gradient {
+  background: linear-gradient(135deg, rgba(254, 242, 242, 0.8) 0%, rgba(254, 226, 226, 0.9) 100%) !important;
+  border-color: rgba(239, 68, 68, 0.5) !important;
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.15) !important;
+  transform: translateY(-1px);
+}
+
+/* ホバー効果の強化 - より洗練されたグレーに変更 */
+.problem-item:hover:not(.task-complete-gradient):not(.task-partial-gradient):not(.task-incorrect-gradient) {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  background-color: rgba(243, 244, 246, 0.7); /* グレーに変更 */
+  border-color: rgba(209, 213, 219, 0.8); /* グレーのボーダー */
+}
+
+.task-complete-gradient:hover {
+  background: linear-gradient(135deg, rgba(219, 234, 254, 0.9) 0%, rgba(191, 219, 254, 1) 100%) !important;
+  box-shadow: 0 6px 15px rgba(59, 130, 246, 0.25) !important;
+}
+
+.task-partial-gradient:hover {
+  background: linear-gradient(135deg, rgba(255, 251, 235, 0.9) 0%, rgba(254, 243, 199, 1) 100%) !important;
+  box-shadow: 0 6px 15px rgba(245, 158, 11, 0.25) !important;
+}
+
+.task-incorrect-gradient:hover {
+  background: linear-gradient(135deg, rgba(254, 242, 242, 0.9) 0%, rgba(254, 226, 226, 1) 100%) !important;
+  box-shadow: 0 6px 15px rgba(239, 68, 68, 0.25) !important;
+}
+
+/* スワイプ操作のためのスタイルを追加 */
+.swipe-container {
+  touch-action: pan-y;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+}
+
+/* 表示モード切り替えタブのスタイル改善 */
+.view-mode-tab {
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.view-mode-tab::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: #3b82f6;
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.view-mode-tab.active {
+  color: #3b82f6;
+  font-weight: 500;
+}
+
+.view-mode-tab.active::before {
+  transform: scaleX(1);
+}
+
+.view-mode-tab:hover:not(.active) {
+  background-color: rgba(59, 130, 246, 0.05);
+}
+
+/* 日付ナビゲーションボタンのスタイル改善 */
+.date-nav-button {
+  transition: all 0.2s ease;
+  border-radius: 50%;
+}
+
+.date-nav-button:hover {
+  background-color: rgba(59, 130, 246, 0.1);
+  transform: scale(1.1);
+}
+
+.date-nav-button:active {
+  transform: scale(0.95);
+}
+
+/* スワイプ中のアニメーション */
+@keyframes swipe-hint {
+  0% {
+    opacity: 0;
+    transform: translateX(0);
+  }
+  20% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(var(--swipe-direction));
+  }
+}
+
+.swipe-hint {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  pointer-events: none;
+  animation: swipe-hint 1s ease-in-out forwards;
+  z-index: 50;
+}
+
+.swipe-hint.left {
+  --swipe-direction: -50px;
+}
+
+.swipe-hint.right {
+  --swipe-direction: 50px;
+}
+
+/* タスクボタンのスタイル */
+.task-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.task-button {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  border: 1px solid #e5e7eb;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.task-button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.task-button.complete {
+  background-color: #3b82f6;
+  color: white;
+  border: none;
+}
+
+.task-button.partial {
+  background-color: #f59e0b;
+  color: white;
+  border: none;
+}
+
+.task-button.incorrect {
+  background-color: #ef4444;
+  color: white;
+  border: none;
+}
+
+@media (max-width: 640px) {
+  .problem-item {
+    padding: 0.5rem;
+  }
+
+  .problem-item .text-center {
+    font-size: 0.875rem;
+  }
+
+  .task-buttons {
+    gap: 0.25rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .accordion-trigger {
+    padding: 0.75rem;
+  }
+
+  .accordion-content {
+    padding: 0.5rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .filter-container {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .mode-switcher {
+    width: 100%;
+    margin-top: 0.5rem;
+  }
+
+  .mode-switcher button {
+    flex: 1;
+  }
+}
+
+/* モバイルデバイス向けのタッチ操作の改善 */
+@media (hover: none) {
+  /* タッチ時のハイライト効果を無効化 */
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* タッチターゲットを大きくする */
+  .task-button {
+    min-width: 44px;
+    min-height: 44px;
+    padding: 12px;
+  }
+
+  /* タッチフィードバックを強化 */
+  .task-button:active {
+    transform: scale(0.95);
+    opacity: 0.8;
+  }
+
+  /* カレンダーセルのタッチ対応 */
+  .calendar-cell {
+    touch-action: manipulation;
+  }
+
+  /* タッチ時のフィードバック */
+  .calendar-day-cell:active {
+    background-color: rgba(59, 130, 246, 0.1);
+    transform: scale(0.98);
+  }
+}
+
+/* タスク状態ボタンのアクティブ状態をより明確に */
+.task-button.complete:active,
+.task-button.partial:active,
+.task-button.incorrect:active {
+  transform: scale(0.9);
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.5);
+}
+
+/* タッチ操作のためのより大きなヒットエリア */
+.touch-target {
+  position: relative;
+}
+
+.touch-target::after {
+  content: "";
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  right: -10px;
+  bottom: -10px;
+  z-index: -1;
+}
+
+@media (max-width: 640px) {
+  .problem-item {
+    padding: 0.5rem;
+  }
+
+  .problem-item .text-center {
+    font-size: 0.875rem;
+  }
+
+  .task-buttons {
+    gap: 0.25rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .accordion-trigger {
+    padding: 0.75rem;
+  }
+
+  .accordion-content {
+    padding: 0.5rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .filter-container {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .mode-switcher {
+    width: 100%;
+    margin-top: 0.5rem;
+  }
+
+  .mode-switcher button {
+    flex: 1;
+  }
+}
+
+/* モバイルデバイス向けのタッチ操作の改善 */
+@media (hover: none) {
+  /* タッチデバイス用のスタイル */
+  .task-button {
+    min-width: 36px;
+    min-height: 36px;
+    padding: 8px;
+    margin: 2px;
+  }
+
+  /* タッチターゲットを大きくする */
+  .task-button svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  /* アクティブ状態をより明確に */
+  .task-button:active {
+    transform: scale(0.95);
+    opacity: 0.8;
+  }
+
+  /* 完了状態のボタンをより目立たせる */
+  .task-button.complete:active,
+  .task-button.partial:active,
+  .task-button.incorrect:active {
+    opacity: 0.7;
+  }
+}
+
+/* タスク項目のタッチ操作改善 */
+.task-item {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* モバイルでのタスク状態変更をより確実に */
+.task-status-buttons {
+  touch-action: manipulation;
+  user-select: none;
+}
