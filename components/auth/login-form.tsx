@@ -85,6 +85,9 @@ export function LoginForm({ isRegisterMode = false }: LoginFormProps) {
       })
 
       if (error) {
+        if (error.message.includes("provider is not enabled")) {
+          throw new Error("Googleログインが設定されていません。管理者に連絡してください。")
+        }
         throw error
       }
     } catch (err: any) {
@@ -105,19 +108,37 @@ export function LoginForm({ isRegisterMode = false }: LoginFormProps) {
         <p className="text-gray-600 mt-2">定期テストに向けて効果的に学習しよう</p>
       </div>
 
-      <div className="flex border-b">
+      <div className="flex border-b relative">
         <Link 
           href="/auth/login"
-          className={`flex-1 py-4 text-center font-medium text-lg ${!isRegisterMode ? 'text-blue-500 border-b-3 border-blue-500 bg-blue-50' : 'text-gray-500 hover:bg-gray-50'}`}
+          className={`flex-1 py-4 text-center font-medium text-lg transition-all duration-300 ${
+            !isRegisterMode 
+              ? 'text-blue-600 font-semibold relative z-10' 
+              : 'text-gray-400 hover:text-gray-600'
+          }`}
         >
           ログイン
         </Link>
         <Link 
           href="/auth/register"
-          className={`flex-1 py-4 text-center font-medium text-lg ${isRegisterMode ? 'text-blue-500 border-b-3 border-blue-500 bg-blue-50' : 'text-gray-500 hover:bg-gray-50'}`}
+          className={`flex-1 py-4 text-center font-medium text-lg transition-all duration-300 ${
+            isRegisterMode 
+              ? 'text-blue-600 font-semibold relative z-10' 
+              : 'text-gray-400 hover:text-gray-600'
+          }`}
         >
           新規登録
         </Link>
+        <div className={`absolute bottom-0 h-1 bg-blue-500 transition-all duration-300 ease-in-out ${
+          !isRegisterMode 
+            ? 'left-0 w-1/2' 
+            : 'left-1/2 w-1/2'
+        }`} />
+        <div className={`absolute inset-x-0 bottom-0 top-0 transition-all duration-300 ease-in-out ${
+          !isRegisterMode 
+            ? 'left-0 w-1/2 bg-blue-50' 
+            : 'left-1/2 w-1/2 bg-blue-50'
+        }`} />
       </div>
 
       <div className="p-8">
@@ -136,7 +157,7 @@ export function LoginForm({ isRegisterMode = false }: LoginFormProps) {
               placeholder="your@email.com"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="h-14 rounded-lg bg-gray-50 border-gray-200 w-full text-base"
+              className="h-14 rounded-lg bg-gray-50 border-gray-200 w-full text-base focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
               required
             />
           </div>
@@ -149,14 +170,14 @@ export function LoginForm({ isRegisterMode = false }: LoginFormProps) {
                 type={showPassword ? "text" : "password"}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="h-14 rounded-lg bg-gray-50 border-gray-200 w-full pr-10 text-base"
+                className="h-14 rounded-lg bg-gray-50 border-gray-200 w-full pr-10 text-base focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
                 required
               />
               <Button
                 type="button"
                 variant="ghost"
                 size="icon"
-                className="absolute right-0 top-0 h-14 w-14 text-gray-400 hover:text-gray-600"
+                className="absolute right-0 top-0 h-14 w-14 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-r-lg transition-colors duration-200"
                 onClick={() => setShowPassword(!showPassword)}
               >
                 {showPassword ? (
@@ -180,7 +201,7 @@ export function LoginForm({ isRegisterMode = false }: LoginFormProps) {
                   type={showPassword ? "text" : "password"}
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
-                  className="h-14 rounded-lg bg-gray-50 border-gray-200 w-full pr-10 text-base"
+                  className="h-14 rounded-lg bg-gray-50 border-gray-200 w-full pr-10 text-base focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
                   required
                 />
               </div>
@@ -189,7 +210,7 @@ export function LoginForm({ isRegisterMode = false }: LoginFormProps) {
 
           <Button
             type="submit"
-            className="w-full h-14 bg-blue-500 hover:bg-blue-600 text-white rounded-lg font-medium text-base"
+            className="w-full h-14 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 active:from-blue-700 active:to-blue-800 text-white rounded-lg font-medium text-base shadow-md hover:shadow-lg transform transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0 focus:ring-2 focus:ring-blue-300 focus:ring-offset-2"
             disabled={isLoading}
           >
             {isLoading 
@@ -210,10 +231,11 @@ export function LoginForm({ isRegisterMode = false }: LoginFormProps) {
         <div className="mt-6 grid grid-cols-2 gap-4">
           <Button
             variant="outline"
-            className="h-12 border border-gray-300 rounded-lg bg-white hover:bg-gray-50 flex items-center justify-center shadow-sm"
+            className="h-12 border border-gray-300 rounded-lg bg-white hover:bg-gray-50 active:bg-gray-100 flex items-center justify-center shadow-sm hover:shadow-md transition-all duration-200 hover:border-gray-500 focus:ring-2 focus:ring-gray-300 relative overflow-hidden group"
             onClick={() => handleSocialLogin('apple')}
             disabled={isLoading}
           >
+            <div className="absolute inset-0 w-full h-full bg-black opacity-0 group-hover:opacity-5 transition-opacity duration-200"></div>
             <svg className="w-5 h-5 mr-2" viewBox="0 0 24 24" fill="none">
               <path d="M17.03 11.9999C17.0224 10.8218 17.536 9.83228 18.5743 9.0649C18.0269 8.29174 17.1531 7.83642 15.9755 7.69192C14.8635 7.55159 13.6297 8.24056 13.0456 8.24056C12.4253 8.24056 11.3299 7.719 10.4306 7.719C8.35212 7.7454 6.11377 9.47841 6.11377 13.0095C6.11377 14.028 6.30664 15.084 6.69239 16.1777C7.20453 17.6046 8.92625 20.6 10.7224 20.5457C11.5489 20.5186 12.1322 20.0094 13.1938 20.0094C14.2175 20.0094 14.7594 20.5457 15.6844 20.5457C17.5014 20.5167 19.0483 17.8002 19.5334 16.3692C17.0482 15.2526 17.0298 12.0612 17.0298 11.9999Z" fill="black"/>
               <path d="M14.6694 5.65925C15.398 4.79688 15.8944 3.64443 15.7678 2.5C14.7373 2.55702 13.5476 3.14649 12.7848 4.00886C12.0871 4.77968 11.5003 5.9483 11.6568 7.05531C12.7967 7.14093 13.9098 6.55563 14.6694 5.65925Z" fill="black"/>
@@ -222,10 +244,11 @@ export function LoginForm({ isRegisterMode = false }: LoginFormProps) {
           </Button>
           <Button
             variant="outline"
-            className="h-12 border border-gray-300 rounded-lg bg-white hover:bg-gray-50 flex items-center justify-center shadow-sm"
+            className="h-12 border border-gray-300 rounded-lg bg-white hover:bg-blue-50 active:bg-blue-100 flex items-center justify-center shadow-sm hover:shadow-md transition-all duration-200 hover:border-blue-400 focus:ring-2 focus:ring-blue-200 relative overflow-hidden group"
             onClick={() => handleSocialLogin('google')}
             disabled={isLoading}
           >
+            <div className="absolute inset-0 w-full h-full bg-blue-500 opacity-0 group-hover:opacity-5 transition-opacity duration-200"></div>
             <svg className="w-5 h-5 mr-2" viewBox="0 0 24 24" fill="none">
               <path d="M22.56 12.25C22.56 11.47 22.49 10.72 22.36 10H12V14.26H17.92C17.66 15.63 16.88 16.79 15.71 17.57V20.34H19.28C21.36 18.42 22.56 15.6 22.56 12.25Z" fill="#4285F4"/>
               <path d="M12 23C14.97 23 17.46 22.02 19.28 20.34L15.71 17.57C14.73 18.23 13.48 18.63 12 18.63C9.13999 18.63 6.70999 16.7 5.83999 14.1H2.17999V16.94C3.98999 20.53 7.69999 23 12 23Z" fill="#34A853"/>
@@ -240,18 +263,18 @@ export function LoginForm({ isRegisterMode = false }: LoginFormProps) {
           {isRegisterMode ? (
             <p>
               すでにアカウントをお持ちですか？{' '}
-              <Link href="/auth/login" className="text-blue-500 hover:underline">
+              <Link href="/auth/login" className="text-blue-500 hover:text-blue-700 font-medium hover:underline transition-colors">
                 ログイン
               </Link>
             </p>
           ) : (
             <p>
               登録することで、
-              <Link href="/terms" className="text-blue-500 hover:underline">
+              <Link href="/terms" className="text-blue-500 hover:text-blue-700 font-medium hover:underline transition-colors">
                 利用規約
               </Link>
               と
-              <Link href="/privacy" className="text-blue-500 hover:underline">
+              <Link href="/privacy" className="text-blue-500 hover:text-blue-700 font-medium hover:underline transition-colors">
                 プライバシーポリシー
               </Link>
               に同意したことになります。

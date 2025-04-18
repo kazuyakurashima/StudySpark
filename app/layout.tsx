@@ -12,9 +12,13 @@ import Navbar from '@/components/ui/Navbar'
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "StudySpark - 定期テスト学習アプリ",
+  title: "StudySpark",
   description: "中高生のための定期テスト学習サポートアプリ",
-    generator: 'v0.dev'
+  generator: 'v0.dev',
+  icons: {
+    icon: '/favicon.svg',
+    apple: '/favicon.svg'
+  }
 }
 
 export default function RootLayout({
