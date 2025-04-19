@@ -85,28 +85,9 @@ export function LoginForm({ isRegisterMode = false }: LoginFormProps) {
             console.log("ユーザー確認:", userData)
             
             if (sessionData?.session) {
-              // プロフィール情報をチェックして初回ログインかどうかを判断
-              const userId = sessionData.session.user.id
-              
-              // users テーブルからユーザープロフィール情報を取得
-              const { data: userInfo, error: userInfoError } = await supabase
-                .from('users')
-                .select('onboarding_completed')
-                .eq('id', userId)
-                .single()
-              
-              console.log("ユーザー情報確認:", userInfo, userInfoError)
-              
-              // オンボーディングが完了していない場合
-              if (!userInfo || !userInfo.onboarding_completed) {
-                // オンボーディングが必要な場合は名前入力画面へリダイレクト
-                console.log("オンボーディングが必要です、名前入力画面へリダイレクト")
-                window.location.href = '/onboarding/name'
-              } else {
-                // オンボーディング完了済みならホーム画面へリダイレクト
-                console.log("オンボーディング完了済み、ホーム画面へリダイレクト")
-                window.location.href = '/home'
-              }
+              // ログイン後のアニメーションページにリダイレクト
+              console.log("ログイン成功、アニメーションページへリダイレクト")
+              window.location.href = '/auth/animation'
             } else {
               throw new Error("セッションの確立に失敗しました。再度ログインしてください。")
             }
@@ -140,7 +121,7 @@ export function LoginForm({ isRegisterMode = false }: LoginFormProps) {
       const { data, error } = await supabase.auth.signInWithOAuth({
         provider,
         options: {
-          redirectTo: `${window.location.origin}/auth/callback`,
+          redirectTo: `${window.location.origin}/auth/animation`,
         },
       })
 
@@ -161,7 +142,7 @@ export function LoginForm({ isRegisterMode = false }: LoginFormProps) {
       const { data, error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
-          redirectTo: `${window.location.origin}/auth/callback`
+          redirectTo: `${window.location.origin}/auth/animation`
         }
       });
       

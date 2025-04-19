@@ -3,9 +3,15 @@
 import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+import { useEffect } from "react"
 
 export function OnboardingCompletion() {
   const router = useRouter()
+
+  useEffect(() => {
+    localStorage.setItem("onboarding_completed", "true")
+    console.log("ローカルストレージに onboarding_completed=true をセットしました")
+  }, [])
 
   const handleContinue = () => {
     router.push("/home")

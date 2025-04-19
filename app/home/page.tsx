@@ -8,33 +8,73 @@ import { Flag, Calendar, MessageCircle, BookOpen, Sparkles } from "lucide-react"
 import { SparkIcon } from "@/components/ui/spark-icon"
 import Link from "next/link"
 import { OnboardingTour } from "@/components/onboarding/onboarding-tour"
+import { supabase } from "@/lib/supabase"
 
 export default function HomePage() {
   const [showOnboarding, setShowOnboarding] = useState(false)
   const [isLoaded, setIsLoaded] = useState(false)
 
-  // 初回ログイン時のみオンボーディングを表示
+  // オンボーディングツアーの表示制御
   useEffect(() => {
-    // コンポーネントがマウントされたことを示す
-    setIsLoaded(true)
+    const checkOnboardingStatus = async () => {
+      setIsLoaded(true) // コンポーネントのマウントを示す
 
-    // ローカルストレージからオンボーディング完了フラグを取得
-    const onboardingCompleted = localStorage.getItem("onboarding_completed")
+      try {
+        // 1. Supabaseから現在のユーザー情報を取得
+        const { data: { user } } = await supabase.auth.getUser()
 
-    // フラグがない場合は初回ログインとみなし、オンボーディングを表示
-    if (!onboardingCompleted) {
-      // 少し遅延させてDOMが完全に読み込まれた後に表示
-      const timer = setTimeout(() => {
-        setShowOnboarding(true)
-      }, 1000)
+        if (user) {
+          // 2. usersテーブルからオンボーディング完了状態を取得
+          const { data: userData, error } = await supabase
+            .from('users')
+            .select('onboarding_completed')
+            .eq('id', user.id)
+            .single()
 
-      return () => clearTimeout(timer)
+          if (error && error.code !== 'PGRST116') {
+            console.error("ユーザーデータの取得エラー:", error)
+            // エラー時もツアーは表示しない（あるいはエラー表示）
+            setShowOnboarding(false)
+            return
+          }
+
+          // 3. DBの状態を確認
+          if (userData?.onboarding_completed) {
+            // DBで完了済みなら、ローカルストレージも完了済みに更新し、ツアーは表示しない
+            localStorage.setItem("onboarding_completed", "true")
+            setShowOnboarding(false)
+            console.log("DBで完了済みを確認。ローカルストレージを更新し、ツアーを非表示にしました。")
+          } else {
+            // DBで未完了の場合、ローカルストレージを確認
+            const localOnboardingCompleted = localStorage.getItem("onboarding_completed")
+            if (!localOnboardingCompleted) {
+              // ローカルストレージにもフラグがない場合のみツアーを表示
+              console.log("DB・ローカルストレージ共に未完了。オンボーディングツアーを表示します。")
+              // 少し遅延させて表示
+              const timer = setTimeout(() => {
+                setShowOnboarding(true)
+              }, 500) // 遅延を少し短く
+              return () => clearTimeout(timer)
+            } else {
+              console.log("ローカルストレージで完了済み。ツアーを非表示にしました。")
+              setShowOnboarding(false)
+            }
+          }
+        } else {
+          // ユーザーが取得できない場合はツアー非表示（ログイン画面等にいるはず）
+          setShowOnboarding(false)
+        }
+      } catch (err) {
+        console.error("オンボーディング状態チェック中にエラー:", err)
+        setShowOnboarding(false) // エラー時も非表示
+      }
     }
+
+    checkOnboardingStatus()
   }, [])
 
   // オンボーディング完了時の処理
   const handleOnboardingComplete = () => {
-    // オンボーディング完了フラグをローカルストレージに保存
     localStorage.setItem("onboarding_completed", "true")
     setShowOnboarding(false)
   }
