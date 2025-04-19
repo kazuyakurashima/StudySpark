@@ -7,20 +7,21 @@ import { useRouter } from "next/navigation"
 import Image from "next/image"
 import { supabase } from "@/lib/supabase"
 import { Loader2 } from "lucide-react"
-import { PrismaClient } from "@/lib/generated/prisma"
+import { Alert, AlertDescription } from "@/components/ui/alert"
+import { AlertCircle } from "lucide-react"
 
 // 実際のファイルパスに合わせてアバター情報を更新
 const avatars = [
-  { id: 1, type: "user1", src: "/images/avatars/users/user1.png" },
-  { id: 2, type: "user2", src: "/images/avatars/users/user2.png" },
-  { id: 3, type: "user3", src: "/images/avatars/users/user3.png" },
-  { id: 4, type: "user4", src: "/images/avatars/users/user4.png" },
-  { id: 5, type: "user5", src: "/images/avatars/users/user5.png" },
-  { id: 6, type: "user6", src: "/images/avatars/users/user6.png" },
+  { id: "user1", type: "user1", src: "/images/avatars/users/user1.png" },
+  { id: "user2", type: "user2", src: "/images/avatars/users/user2.png" },
+  { id: "user3", type: "user3", src: "/images/avatars/users/user3.png" },
+  { id: "user4", type: "user4", src: "/images/avatars/users/user4.png" },
+  { id: "user5", type: "user5", src: "/images/avatars/users/user5.png" },
+  { id: "user6", type: "user6", src: "/images/avatars/users/user6.png" },
 ]
 
 export function AvatarSelection() {
-  const [selectedAvatar, setSelectedAvatar] = useState<number | null>(null)
+  const [selectedAvatar, setSelectedAvatar] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState(false)
   const [userId, setUserId] = useState<string | null>(null)
   const [error, setError] = useState<string | null>(null)
@@ -60,7 +61,7 @@ export function AvatarSelection() {
         // まず、auth.usersテーブルに関連付けられたpublic.usersレコードが存在するか確認
         const { data: userData, error: userCheckError } = await supabase
           .from('users')
-          .select('id')
+          .select('id, avatar_key, display_name, onboarding_completed')
           .eq('id', userId)
           .single()
 
@@ -76,37 +77,47 @@ export function AvatarSelection() {
           const { data: authUser } = await supabase.auth.getUser()
           const email = authUser.user?.email || ''
           
-          const { error: insertError } = await supabase
+          const { data: newUser, error: insertError } = await supabase
             .from('users')
             .insert({
               id: userId,
               email: email,
               display_name: '名前未設定', // 名前は次の画面で設定するので仮の値
-              avatar_key: selectedAvatarData.type,
+              avatar_key: selectedAvatarData.id,
+              onboarding_completed: false,
               created_at: new Date().toISOString(),
               updated_at: new Date().toISOString()
             })
+            .select()
 
           if (insertError) {
             console.error("ユーザー作成エラー:", insertError)
             throw new Error(`ユーザー情報の作成に失敗しました: ${insertError.message}`)
           }
+          
+          console.log("ユーザーを作成しました:", newUser)
         } else {
           // 既存のユーザーレコードを更新
           console.log("既存のユーザーレコードを更新します")
           
-          const { error: updateError } = await supabase
+          const { data: updatedUser, error: updateError } = await supabase
             .from('users')
             .update({
-              avatar_key: selectedAvatarData.type,
+              avatar_key: selectedAvatarData.id,
+              // もし名前が設定されていない場合は仮の値を設定
+              display_name: userData.display_name || '名前未設定',
+              onboarding_completed: false, // まだオンボーディング完了ではない
               updated_at: new Date().toISOString()
             })
             .eq('id', userId)
+            .select()
 
           if (updateError) {
             console.error("ユーザー更新エラー:", updateError)
             throw new Error(`ユーザー情報の更新に失敗しました: ${updateError.message}`)
           }
+          
+          console.log("ユーザーを更新しました:", updatedUser)
         }
 
         // 名前入力画面に遷移
@@ -114,10 +125,11 @@ export function AvatarSelection() {
       } catch (error: any) {
         console.error('アバター保存エラー:', error)
         setError('アバターの保存中にエラーが発生しました。再度お試しください。')
-        alert(`エラー詳細: ${error.message || 'エラーが発生しました'}`)
       } finally {
         setIsLoading(false)
       }
+    } else {
+      setError('アバターを選択してください')
     }
   }
 
@@ -129,9 +141,10 @@ export function AvatarSelection() {
       </CardHeader>
       <CardContent>
         {error && (
-          <div className="mb-4 p-3 bg-red-50 border border-red-200 text-red-800 rounded-lg">
-            <p className="text-sm">{error}</p>
-          </div>
+          <Alert variant="destructive" className="mb-4">
+            <AlertCircle className="h-4 w-4" />
+            <AlertDescription>{error}</AlertDescription>
+          </Alert>
         )}
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
           {avatars.map((avatar) => (
