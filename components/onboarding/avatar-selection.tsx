@@ -11,12 +11,12 @@ import { PrismaClient } from "@/lib/generated/prisma"
 
 // 実際のファイルパスに合わせてアバター情報を更新
 const avatars = [
-  { id: 1, type: "user", src: "/images/avatars/users/user1.png" },
-  { id: 2, type: "user", src: "/images/avatars/users/user2.png" },
-  { id: 3, type: "user", src: "/images/avatars/users/user3.png" },
-  { id: 4, type: "user", src: "/images/avatars/users/user4.png" },
-  { id: 5, type: "user", src: "/images/avatars/users/user5.png" },
-  { id: 6, type: "user", src: "/images/avatars/users/user6.png" },
+  { id: 1, key: "user1", src: "/images/avatars/users/user1.png" },
+  { id: 2, key: "user2", src: "/images/avatars/users/user2.png" },
+  { id: 3, key: "user3", src: "/images/avatars/users/user3.png" },
+  { id: 4, key: "user4", src: "/images/avatars/users/user4.png" },
+  { id: 5, key: "user5", src: "/images/avatars/users/user5.png" },
+  { id: 6, key: "user6", src: "/images/avatars/users/user6.png" },
 ]
 
 export function AvatarSelection() {
@@ -82,16 +82,15 @@ export function AvatarSelection() {
               id: userId,
               email: email,
               display_name: '名前未設定', // 名前は次の画面で設定するので仮の値
-              avatar_url: selectedAvatarData.src,
-              avatar_type: selectedAvatarData.type,
-              created_at: new Date().toISOString(),
-              updated_at: new Date().toISOString()
+              avatar_key: selectedAvatarData.key,
             })
+            .select()
 
           if (insertError) {
             console.error("ユーザー作成エラー:", insertError)
-            throw new Error(`ユーザー情報の作成に失敗しました: ${insertError.message}`)
+            throw new Error(`ユーザー情報の作成に失敗しました: ${insertError.message} (code: ${insertError.code})`)
           }
+          console.log("✅ ユーザーレコード作成成功")
         } else {
           // 既存のユーザーレコードを更新
           console.log("既存のユーザーレコードを更新します")
@@ -99,16 +98,17 @@ export function AvatarSelection() {
           const { error: updateError } = await supabase
             .from('users')
             .update({
-              avatar_url: selectedAvatarData.src,
-              avatar_type: selectedAvatarData.type,
+              avatar_key: selectedAvatarData.key,
               updated_at: new Date().toISOString()
             })
             .eq('id', userId)
+            .select()
 
           if (updateError) {
             console.error("ユーザー更新エラー:", updateError)
-            throw new Error(`ユーザー情報の更新に失敗しました: ${updateError.message}`)
+            throw new Error(`ユーザー情報の更新に失敗しました: ${updateError.message} (code: ${updateError.code})`)
           }
+          console.log("✅ ユーザーレコード更新成功")
         }
 
         // 名前入力画面に遷移
@@ -116,7 +116,6 @@ export function AvatarSelection() {
       } catch (error: any) {
         console.error('アバター保存エラー:', error)
         setError('アバターの保存中にエラーが発生しました。再度お試しください。')
-        alert(`エラー詳細: ${error.message || 'エラーが発生しました'}`)
       } finally {
         setIsLoading(false)
       }
