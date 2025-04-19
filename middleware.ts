@@ -1,11 +1,17 @@
-import { createServerClient } from '@supabase/ssr';
+import { createServerClient, type CookieOptions } from '@supabase/ssr';
 import { NextResponse, type NextRequest } from 'next/server';
+// import { useRouter } from 'next/navigation'; // Middlewareでは使用できないため削除
 
 export async function middleware(request: NextRequest) {
-  let response = NextResponse.next({
-    request: {
-      headers: request.headers,
-    },
+  console.log("--- Middleware Start ---");
+  console.log(`
+[Middleware] 🚀 Request Path: ${request.nextUrl.pathname}`);
+  
+  // 変更前の状態に戻す
+  let response = NextResponse.next({ 
+    request: { 
+      headers: request.headers, 
+    }, 
   });
 
   const supabase = createServerClient(
@@ -16,95 +22,143 @@ export async function middleware(request: NextRequest) {
         get(name: string) {
           return request.cookies.get(name)?.value;
         },
-        set(name: string, value: string, options: any) {
-          response.cookies.set({
-            name,
-            value,
-            ...options,
+        // 元の処理に戻す
+        set(name: string, value: string, options: CookieOptions) {
+          request.cookies.set({ name, value, ...options });
+          response = NextResponse.next({
+            request: {
+              headers: request.headers,
+            },
           });
+          response.cookies.set({ name, value, ...options });
         },
-        remove(name: string, options: any) {
-          response.cookies.delete({
-            name,
-            ...options,
+        remove(name: string, options: CookieOptions) {
+          request.cookies.set({ name, value: '', ...options });
+          response = NextResponse.next({
+            request: {
+              headers: request.headers,
+            },
           });
+          response.cookies.set({ name, value: '', ...options });
         },
       },
     }
   );
 
-  const { data: { session } } = await supabase.auth.getSession();
+  console.log('[Middleware] ⏳ セッション取得試行...');
+  const { data: { session }, error: sessionError } = await supabase.auth.getSession();
+  if (sessionError) {
+      console.error('[Middleware] ❌ セッション取得エラー:', sessionError);
+  }
+  console.log(`[Middleware] 📊 セッション: ${session ? `あり (User ID: ${session.user.id})` : 'なし'}`);
 
-  // セッションがある場合、ユーザーのオンボーディング状態を確認
+  // --- セッションあり (ログイン済み) --- 
   if (session) {
-    // ユーザーデータを取得
+    console.log('[Middleware] ⏳ usersテーブルからデータ取得試行...');
     const { data: userData, error } = await supabase
       .from('users')
       .select('onboarding_completed, avatar_key, display_name')
       .eq('id', session.user.id)
       .single();
+    
+    if (error || !userData) {
+      console.error("❌ usersテーブルからのデータ取得エラー または データが存在しません:", error);
+      // エラー時やユーザーデータがない場合はログインページへリダイレクト（あるいはエラーページ）
+      return NextResponse.redirect(new URL('/auth/login?error=user_data_fetch_failed', request.url));
+    }
 
-    // ユーザーデータがあり、オンボーディングが完了していない場合
-    // または avatar_key や display_name が設定されていない場合
-    if (
-      userData && 
-      (!userData.onboarding_completed || !userData.avatar_key || !userData.display_name || userData.display_name === '名前未設定')
-    ) {
-      // オンボーディングページへのアクセスでない場合はリダイレクト
-      if (
-        !request.nextUrl.pathname.startsWith('/onboarding') &&
-        !request.nextUrl.pathname.startsWith('/auth')
-      ) {
-        // アバターが未設定の場合はアバター選択ページへ
+    console.log("📊 [Middleware] 取得したユーザーデータ:", userData);
+
+    // オンボーディング未完了判定
+    const needsOnboarding = userData && 
+      (!userData.onboarding_completed || !userData.avatar_key || !userData.display_name || userData.display_name === '名前未設定');
+      
+    console.log(`[Middleware] 🤔 オンボーディング必要か？: ${needsOnboarding}`);
+
+    if (needsOnboarding) {
+      const isOnboardingPath = request.nextUrl.pathname.startsWith('/onboarding');
+      const isAuthPath = request.nextUrl.pathname.startsWith('/auth');
+      console.log(`[Middleware]   現在のパスはオンボーディングか？: ${isOnboardingPath}`);
+      console.log(`[Middleware]   現在のパスは認証か？: ${isAuthPath}`);
+
+      // オンボーディングが必要なのに、オンボーディング/認証パスにいない場合
+      if (!isOnboardingPath && !isAuthPath) {
+        let redirectPath = '/onboarding'; // デフォルト
         if (!userData.avatar_key) {
-          const redirectUrl = new URL('/onboarding', request.url);
-          return NextResponse.redirect(redirectUrl);
+          redirectPath = '/onboarding/avatar'; // アバター選択へ
+          console.log('[Middleware] ➡️ アバター未設定のためリダイレクト:', redirectPath);
+        } else if (!userData.display_name || userData.display_name === '名前未設定') {
+          redirectPath = '/onboarding/name'; // 名前入力へ
+           console.log('[Middleware] ➡️ 名前未設定のためリダイレクト:', redirectPath);
+        } else {
+            console.log('[Middleware] ➡️ その他のオンボーディング未完了のためリダイレクト:', redirectPath);
         }
-        // 名前が未設定の場合は名前入力ページへ
-        else if (!userData.display_name || userData.display_name === '名前未設定') {
-          const redirectUrl = new URL('/onboarding/name', request.url);
-          return NextResponse.redirect(redirectUrl);
-        }
-        // その他のオンボーディング未完了の場合は最初のページへ
-        else {
-          const redirectUrl = new URL('/onboarding', request.url);
-          return NextResponse.redirect(redirectUrl);
-        }
+        return NextResponse.redirect(new URL(redirectPath, request.url));
       }
+    }
+
+    // ログイン済みで認証ページにアクセスした場合
+    if (
+      request.nextUrl.pathname.startsWith('/auth/login') ||
+      request.nextUrl.pathname.startsWith('/auth/register')
+    ) {
+      console.log('[Middleware] ➡️ ログイン済みで認証ページアクセス、/home へリダイレクト');
+      return NextResponse.redirect(new URL('/home', request.url)); // /dashboardではなく/homeに修正
+    }
+
+    // onboarding_completedに基づいて適切なページにリダイレクト
+    if (userData.onboarding_completed) {
+      // 既にホームにいる場合は何もしない
+      if (request.nextUrl.pathname === '/home') {
+        console.log("🔄 [Middleware] 既にホームにいるためリダイレクト不要");
+        return response;
+      }
+      console.log("🚀 [Middleware] オンボーディング完了済み -> /home へリダイレクト");
+      return NextResponse.redirect(new URL('/home', request.url));
+    } else {
+      // 既にアバター選択にいる場合は何もしない
+      if (request.nextUrl.pathname === '/onboarding/avatar') {
+        console.log("🔄 [Middleware] 既にアバター選択にいるためリダイレクト不要");
+        return response;
+      }
+      console.log("🚀 [Middleware] オンボーディング未完了 -> /onboarding/avatar へリダイレクト");
+      return NextResponse.redirect(new URL('/onboarding/avatar', request.url));
+    }
+
+  // --- セッションなし (未ログイン) --- 
+  } else {
+    // 保護されたルートへのアクセスの場合
+    if (
+      request.nextUrl.pathname.startsWith('/dashboard') || // dashboardは存在するか？
+      request.nextUrl.pathname.startsWith('/profile') ||
+      request.nextUrl.pathname.startsWith('/onboarding') ||
+      request.nextUrl.pathname.startsWith('/home') || // homeも保護
+      request.nextUrl.pathname.startsWith('/spark') || // 保護対象に追加
+      request.nextUrl.pathname.startsWith('/talk') || // 保護対象に追加
+      request.nextUrl.pathname.startsWith('/goal') || // 保護対象に追加
+      request.nextUrl.pathname.startsWith('/countdown') // 保護対象に追加
+    ) {
+      console.log(`[Middleware] ➡️ 未ログインで保護ルート (${request.nextUrl.pathname}) アクセス、/auth/login へリダイレクト`);
+      return NextResponse.redirect(new URL('/auth/login', request.url));
     }
   }
 
-  // 保護されたルートの場合はログインを要求
-  if (!session && (
-    request.nextUrl.pathname.startsWith('/dashboard') ||
-    request.nextUrl.pathname.startsWith('/profile') ||
-    request.nextUrl.pathname.startsWith('/onboarding')
-  )) {
-    const redirectUrl = new URL('/auth/login', request.url);
-    return NextResponse.redirect(redirectUrl);
-  }
-
-  // ログイン済みの場合は認証ページへのアクセスを防ぐ
-  if (session && (
-    request.nextUrl.pathname.startsWith('/auth/login') ||
-    request.nextUrl.pathname.startsWith('/auth/register')
-  )) {
-    const redirectUrl = new URL('/dashboard', request.url);
-    return NextResponse.redirect(redirectUrl);
-  }
-
+  console.log('[Middleware] ✅ チェック完了、次の処理へ');
   return response;
 }
 
-// 認証チェックを適用するパス（ここに指定したパスにのみmiddlewareが実行される）
+// config は変更なし
 export const config = {
   matcher: [
-    '/dashboard/:path*',
-    '/profile/:path*',
-    '/auth/:path*',
-    '/onboarding/:path*',
-    '/',
-    '/spark/:path*',
-    '/talk/:path*'
+    /*
+     * Match all request paths except for the ones starting with:
+     * - api (API routes)
+     * - _next/static (static files)
+     * - _next/image (image optimization files)
+     * - favicon.ico (favicon file)
+     * - images (public/images)
+     * - icons (public/icons)
+     */
+    '/((?!api|_next/static|_next/image|favicon.ico|images|icons).*)',
   ],
 }; 

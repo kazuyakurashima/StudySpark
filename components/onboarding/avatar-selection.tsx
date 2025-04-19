@@ -20,31 +20,23 @@ const avatars = [
   { id: "user6", type: "user6", src: "/images/avatars/users/user6.png" },
 ]
 
-export function AvatarSelection() {
+interface AvatarSelectionProps {
+  userId: string; // 親コンポーネントからuserIdを受け取る
+}
+
+export function AvatarSelection({ userId }: AvatarSelectionProps) { // PropsからuserIdを受け取る
   const [selectedAvatar, setSelectedAvatar] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState(false)
-  const [userId, setUserId] = useState<string | null>(null)
+  // const [userId, setUserId] = useState<string | null>(null) // Stateは不要に
   const [error, setError] = useState<string | null>(null)
   const router = useRouter()
 
-  // ログインユーザーのIDを取得
-  useEffect(() => {
-    const fetchUserId = async () => {
-      const { data } = await supabase.auth.getUser()
-      if (data.user) {
-        setUserId(data.user.id)
-        console.log("取得したユーザーID:", data.user.id)
-      } else {
-        // ユーザーがログインしていない場合はログイン画面にリダイレクト
-        router.push('/auth/login')
-      }
-    }
-
-    fetchUserId()
-  }, [router])
+  // ログインユーザーのIDを取得するuseEffectは削除
+  // useEffect(() => { ... }, [router])
 
   const handleContinue = async () => {
-    if (selectedAvatar !== null && userId) {
+    // userIdはpropsから渡されるので、nullチェックは不要になる（親で保証）
+    if (selectedAvatar !== null) {
       setIsLoading(true)
       setError(null)
       
@@ -58,7 +50,7 @@ export function AvatarSelection() {
 
         console.log("選択したアバター:", selectedAvatarData)
 
-        // まず、auth.usersテーブルに関連付けられたpublic.usersレコードが存在するか確認
+        // userIdはpropsから受け取ったものを使用
         const { data: userData, error: userCheckError } = await supabase
           .from('users')
           .select('id, avatar_key, display_name, onboarding_completed')
@@ -74,13 +66,14 @@ export function AvatarSelection() {
         if (!userData) {
           console.log("ユーザーレコードが存在しないため作成します")
           
+          // emailの取得も親から渡すか、あるいはここで再度取得する必要がある
           const { data: authUser } = await supabase.auth.getUser()
           const email = authUser.user?.email || ''
           
           const { data: newUser, error: insertError } = await supabase
             .from('users')
             .insert({
-              id: userId,
+              id: userId, // propsのuserIdを使用
               email: email,
               display_name: '名前未設定', // 名前は次の画面で設定するので仮の値
               avatar_key: selectedAvatarData.id,
@@ -109,7 +102,7 @@ export function AvatarSelection() {
               onboarding_completed: false, // まだオンボーディング完了ではない
               updated_at: new Date().toISOString()
             })
-            .eq('id', userId)
+            .eq('id', userId) // propsのuserIdを使用
             .select()
 
           if (updateError) {

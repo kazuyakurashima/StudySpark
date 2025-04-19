@@ -73,20 +73,20 @@ export function LoginAnimation() {
               let finalRedirectPath = '/auth/login' // デフォルトはログイン画面
 
               if (!userData) { 
-                console.log("   判定: ユーザーデータなし -> オンボーディングへ")
-                finalRedirectPath = '/onboarding'
+                console.log("   判定: ユーザーデータなし -> /onboarding/avatar へ")
+                finalRedirectPath = '/onboarding/avatar' // 具体的なパスに変更
               } else if (userData.onboarding_completed) {
-                console.log("   判定: オンボーディング完了済み -> ホームへ")
+                console.log("   判定: オンボーディング完了済み -> /home へ")
                 finalRedirectPath = '/home'
               } else if (!userData.avatar_key) {
-                console.log("   判定: アバター未設定 -> オンボーディングへ")
-                finalRedirectPath = '/onboarding' // アバター選択から開始
+                console.log("   判定: アバター未設定 -> /onboarding/avatar へ")
+                finalRedirectPath = '/onboarding/avatar' // 具体的なパスに変更
               } else if (!userData.display_name || userData.display_name === '名前未設定') {
-                console.log("   判定: 名前未設定 -> 名前入力へ")
+                console.log("   判定: 名前未設定 -> /onboarding/name へ")
                 finalRedirectPath = '/onboarding/name'
               } else {
-                // 理論上ここには来ないはずだが、フォールバックとしてホームへ
-                console.log("   判定: 上記以外（フォールバック）-> ホームへ")
+                // DB上は完了しているが、何らかの理由でフラグがfalseの場合など
+                console.log("   判定: 上記以外（フォールバック）-> /home へ")
                 finalRedirectPath = '/home' 
               }
               
