@@ -38,7 +38,8 @@ export async function middleware(request: NextRequest) {
   // 保護されたルートの場合はログインを要求
   if (!session && (
     request.nextUrl.pathname.startsWith('/dashboard') ||
-    request.nextUrl.pathname.startsWith('/profile')
+    request.nextUrl.pathname.startsWith('/profile') ||
+    request.nextUrl.pathname.startsWith('/onboarding')
   )) {
     const redirectUrl = new URL('/auth/login', request.url);
     return NextResponse.redirect(redirectUrl);
@@ -61,6 +62,7 @@ export const config = {
   matcher: [
     '/dashboard/:path*',
     '/profile/:path*',
-    '/auth/:path*'
+    '/auth/:path*',
+    '/onboarding/:path*'
   ],
 }; 

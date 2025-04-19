@@ -1,24 +1,12 @@
-import { AvatarSelection } from "@/components/onboarding/avatar-selection";
-import { createServerClient, type CookieOptions } from '@supabase/ssr';
-import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
+import { AvatarSelection } from "@/components/onboarding/avatar-selection";
+import { createServerSupabaseClient } from '@/utils/supabase-server';
 
 export default async function AvatarPage() {
   console.log("➡️ /onboarding/avatar ページサーバーコンポーネント実行開始");
   
-  const cookieStore = cookies();
-  const supabase = createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-    {
-      cookies: {
-        get(name: string) {
-          return cookieStore.get(name)?.value;
-        },
-        // set/remove はサーバーコンポーネントでは通常不要
-      },
-    }
-  );
+  // サーバーサイドのSupabaseクライアントを作成
+  const supabase = await createServerSupabaseClient();
 
   console.log("⏳ Supabaseクライアント作成完了、ユーザー取得試行...");
   const { data: { user }, error: getUserError } = await supabase.auth.getUser();

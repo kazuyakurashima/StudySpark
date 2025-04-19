@@ -48,16 +48,12 @@ export function AvatarSelection() {
       setError(null)
       
       try {
-        // 選択したアバターを取得
         const selectedAvatarData = avatars.find(avatar => avatar.id === selectedAvatar)
-
-        if (!selectedAvatarData) {
-          throw new Error('アバターが見つかりません')
-        }
-
+        if (!selectedAvatarData) throw new Error('アバターが見つかりません')
         console.log("選択したアバター:", selectedAvatarData)
 
-        // まず、auth.usersテーブルに関連付けられたpublic.usersレコードが存在するか確認
+        // --- ユーザー存在確認 (オプション: 必要なら残す) ---
+        /*
         const { data: userData, error: userCheckError } = await supabase
           .from('users')
           .select('id')
@@ -68,51 +64,36 @@ export function AvatarSelection() {
           console.error("ユーザー確認エラー:", userCheckError)
           throw new Error(`ユーザー情報の確認に失敗しました: ${userCheckError.message}`)
         }
-
-        // usersテーブルにレコードが存在しない場合は作成
         if (!userData) {
-          console.log("ユーザーレコードが存在しないため作成します")
-          
-          const { data: authUser } = await supabase.auth.getUser()
-          const email = authUser.user?.email || ''
-          
-          const { error: insertError } = await supabase
-            .from('users')
-            .insert({
-              id: userId,
-              email: email,
-              display_name: '名前未設定', // 名前は次の画面で設定するので仮の値
-              avatar_key: selectedAvatarData.key,
-            })
-            .select()
-
-          if (insertError) {
-            console.error("ユーザー作成エラー:", insertError)
-            throw new Error(`ユーザー情報の作成に失敗しました: ${insertError.message} (code: ${insertError.code})`)
-          }
-          console.log("✅ ユーザーレコード作成成功")
-        } else {
-          // 既存のユーザーレコードを更新
-          console.log("既存のユーザーレコードを更新します")
-          
-          const { error: updateError } = await supabase
-            .from('users')
-            .update({
-              avatar_key: selectedAvatarData.key,
-              updated_at: new Date().toISOString()
-            })
-            .eq('id', userId)
-            .select()
-
-          if (updateError) {
-            console.error("ユーザー更新エラー:", updateError)
-            throw new Error(`ユーザー情報の更新に失敗しました: ${updateError.message} (code: ${updateError.code})`)
-          }
-          console.log("✅ ユーザーレコード更新成功")
+            // トリガーがまだ動いていない or 失敗した場合の考慮
+            console.error("アバター選択画面表示時点でusersレコードが存在しません。トリガーを確認してください。")
+            throw new Error("ユーザーレコードが見つかりません。少し時間をおいて再度お試しください。")
         }
+        */
 
-        // 名前入力画面に遷移
-        router.push("/onboarding/name")
+        // --- ユーザー作成 (insert) ロジックは削除 ---
+        // トリガーによって users レコードは作成済みのはず
+
+        // --- 既存ユーザーの更新 (update) のみを行う ---
+        console.log("既存のユーザーレコードを更新します (アバターキー設定)")
+        const { error: updateError } = await supabase
+          .from('users')
+          .update({
+            avatar_key: selectedAvatarData.key,
+            updated_at: new Date().toISOString() // updated_at を設定
+          })
+          .eq('id', userId)
+          .select() // 更新結果を取得 (デバッグ用)
+
+        if (updateError) {
+          console.error("ユーザー更新エラー:", updateError)
+          // エラーメッセージに詳細を含める (codeも)
+          throw new Error(`ユーザー情報の更新に失敗しました: ${updateError.message} (code: ${updateError.code})`)
+        }
+        console.log("✅ ユーザーレコード更新成功 (アバターキー)")
+
+        router.push("/onboarding/name") // 名前入力画面へ
+
       } catch (error: any) {
         console.error('アバター保存エラー:', error)
         setError('アバターの保存中にエラーが発生しました。再度お試しください。')

@@ -41,6 +41,9 @@ export function LoginForm({ isRegisterMode = false }: LoginFormProps) {
         const { error } = await supabase.auth.signUp({
           email,
           password,
+          options: {
+            emailRedirectTo: `${window.location.origin}/auth/callback`,
+          }
         })
 
         if (error) {
@@ -70,52 +73,14 @@ export function LoginForm({ isRegisterMode = false }: LoginFormProps) {
             throw error
           }
 
-          // ログイン成功を確認
-          console.log("ログイン成功:", data)
+          // ログイン成功したら、サーバーのコールバックルートに処理を任せるためにリダイレクト
+          // ここではコールバック用のURLを作成して直接リダイレクト
+          console.log("ログイン成功、コールバックルートへリダイレクト");
           
-          try {
-            // セッションが確立されたことを確認
-            console.log("セッション確認開始")
-            const { data: sessionData } = await supabase.auth.getSession()
-            console.log("セッション確認:", sessionData)
-            
-            // ユーザー情報を確認
-            console.log("ユーザー情報確認開始")
-            const { data: userData } = await supabase.auth.getUser()
-            console.log("ユーザー確認:", userData)
-            
-            if (sessionData?.session) {
-              // プロフィール情報をチェックして初回ログインかどうかを判断
-              const userId = sessionData.session.user.id
-              
-              // users テーブルからユーザープロフィール情報を取得
-              const { data: profileData, error: profileError } = await supabase
-                .from('profiles')
-                .select('*')
-                .eq('id', userId)
-                .single()
-              
-              console.log("プロフィール確認:", profileData, profileError)
-              
-              // プロフィールが存在しない、またはavatarが設定されていない場合は初回ログインとみなす
-              const isFirstLogin = !profileData || !profileData.avatar_url
-              
-              if (isFirstLogin) {
-                // 初回ログインの場合は初回ログインアニメーションへリダイレクト
-                console.log("初回ログイン、アニメーションへリダイレクト")
-                window.location.href = '/first-login-animation'
-              } else {
-                // 2回目以降のログインはダッシュボードへリダイレクト
-                console.log("通常ログイン、ダッシュボードへリダイレクト")
-                window.location.href = '/dashboard'
-              }
-            } else {
-              throw new Error("セッションの確立に失敗しました。再度ログインしてください。")
-            }
-          } catch (sessionErr) {
-            console.error("セッション確認エラー:", sessionErr)
-            throw new Error("ログイン後の処理に失敗しました。再度お試しください。")
-          }
+          // 実際にはauth.signInWithPasswordではリダイレクトが自動的に行われないため、
+          // 手動でコールバックルートに移動してセッション確立を確認する
+          router.push('/auth/callback');
+
         } catch (loginErr: any) {
           console.error("ログイン実行エラー:", loginErr)
           throw loginErr
