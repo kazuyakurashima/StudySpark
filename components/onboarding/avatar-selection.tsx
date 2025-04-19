@@ -11,12 +11,12 @@ import { PrismaClient } from "@/lib/generated/prisma"
 
 // 実際のファイルパスに合わせてアバター情報を更新
 const avatars = [
-  { id: 1, type: "user", src: "/images/avatars/users/user1.png" },
-  { id: 2, type: "user", src: "/images/avatars/users/user2.png" },
-  { id: 3, type: "user", src: "/images/avatars/users/user3.png" },
-  { id: 4, type: "user", src: "/images/avatars/users/user4.png" },
-  { id: 5, type: "user", src: "/images/avatars/users/user5.png" },
-  { id: 6, type: "user", src: "/images/avatars/users/user6.png" },
+  { id: 1, type: "user1", src: "/images/avatars/users/user1.png" },
+  { id: 2, type: "user2", src: "/images/avatars/users/user2.png" },
+  { id: 3, type: "user3", src: "/images/avatars/users/user3.png" },
+  { id: 4, type: "user4", src: "/images/avatars/users/user4.png" },
+  { id: 5, type: "user5", src: "/images/avatars/users/user5.png" },
+  { id: 6, type: "user6", src: "/images/avatars/users/user6.png" },
 ]
 
 export function AvatarSelection() {
@@ -82,8 +82,7 @@ export function AvatarSelection() {
               id: userId,
               email: email,
               display_name: '名前未設定', // 名前は次の画面で設定するので仮の値
-              avatar_url: selectedAvatarData.src,
-              avatar_type: selectedAvatarData.type,
+              avatar_key: selectedAvatarData.type,
               created_at: new Date().toISOString(),
               updated_at: new Date().toISOString()
             })
@@ -99,8 +98,7 @@ export function AvatarSelection() {
           const { error: updateError } = await supabase
             .from('users')
             .update({
-              avatar_url: selectedAvatarData.src,
-              avatar_type: selectedAvatarData.type,
+              avatar_key: selectedAvatarData.type,
               updated_at: new Date().toISOString()
             })
             .eq('id', userId)

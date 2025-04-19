@@ -28,8 +28,34 @@ export async function GET(request: NextRequest) {
     );
 
     await supabase.auth.exchangeCodeForSession(code);
+    
+    try {
+      // 認証が完了したユーザー情報を取得
+      const { data: { user } } = await supabase.auth.getUser();
+      
+      if (user) {
+        // ユーザーのプロフィール情報を取得
+        const { data: userData, error } = await supabase
+          .from('users')
+          .select('onboarding_completed')
+          .eq('id', user.id)
+          .single();
+        
+        // オンボーディング完了状態をチェック
+        if (userData && userData.onboarding_completed) {
+          // オンボーディング完了済みならホームページへ
+          return NextResponse.redirect(new URL('/home', request.url));
+        } else {
+          // オンボーディング未完了なら名前入力ページへ
+          // avatarページは存在しない可能性があるため、nameページに変更
+          return NextResponse.redirect(new URL('/onboarding/name', request.url));
+        }
+      }
+    } catch (error) {
+      console.error('Error checking user onboarding status:', error);
+    }
   }
 
-  // ダッシュボードあるいはオンボーディングにリダイレクト
-  return NextResponse.redirect(new URL('/dashboard', request.url));
+  // ユーザー情報が取得できない場合はログインページへ
+  return NextResponse.redirect(new URL('/auth/login', request.url));
 } 

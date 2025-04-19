@@ -89,25 +89,23 @@ export function LoginForm({ isRegisterMode = false }: LoginFormProps) {
               const userId = sessionData.session.user.id
               
               // users テーブルからユーザープロフィール情報を取得
-              const { data: profileData, error: profileError } = await supabase
-                .from('profiles')
-                .select('*')
+              const { data: userInfo, error: userInfoError } = await supabase
+                .from('users')
+                .select('onboarding_completed')
                 .eq('id', userId)
                 .single()
               
-              console.log("プロフィール確認:", profileData, profileError)
+              console.log("ユーザー情報確認:", userInfo, userInfoError)
               
-              // プロフィールが存在しない、またはavatarが設定されていない場合は初回ログインとみなす
-              const isFirstLogin = !profileData || !profileData.avatar_url
-              
-              if (isFirstLogin) {
-                // 初回ログインの場合は初回ログインアニメーションへリダイレクト
-                console.log("初回ログイン、アニメーションへリダイレクト")
-                window.location.href = '/first-login-animation'
+              // オンボーディングが完了していない場合
+              if (!userInfo || !userInfo.onboarding_completed) {
+                // オンボーディングが必要な場合は名前入力画面へリダイレクト
+                console.log("オンボーディングが必要です、名前入力画面へリダイレクト")
+                window.location.href = '/onboarding/name'
               } else {
-                // 2回目以降のログインはダッシュボードへリダイレクト
-                console.log("通常ログイン、ダッシュボードへリダイレクト")
-                window.location.href = '/dashboard'
+                // オンボーディング完了済みならホーム画面へリダイレクト
+                console.log("オンボーディング完了済み、ホーム画面へリダイレクト")
+                window.location.href = '/home'
               }
             } else {
               throw new Error("セッションの確立に失敗しました。再度ログインしてください。")

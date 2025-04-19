@@ -105,6 +105,7 @@ export function NameInput() {
         .from('users')
         .update({
           display_name: name,
+          onboarding_completed: true, // オンボーディング完了フラグを設定
           updated_at: new Date().toISOString(),
         })
         .eq('id', userId)

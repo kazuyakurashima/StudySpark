@@ -3,7 +3,6 @@
 import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { SparkIcon } from "@/components/ui/spark-icon"
 
 export function OnboardingCompletion() {
   const router = useRouter()
@@ -21,8 +20,24 @@ export function OnboardingCompletion() {
             <div className="rainbow-line"></div>
           </div>
           <CardDescription className="text-center flex items-center justify-center">
-            <SparkIcon className="h-4 w-4 mr-1 text-[#00c6ff]" />
-            StudySparkへようこそ！
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              className="mr-2"
+            >
+              <path
+                d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"
+                stroke="#00c6ff"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                fill="none"
+              />
+            </svg>
+            <span className="text-[#00c6ff] font-medium">StudySpark</span><span>へようこそ！</span>
           </CardDescription>
         </CardHeader>
         <CardContent className="text-center">
@@ -30,7 +45,7 @@ export function OnboardingCompletion() {
           <p>まずは目標を設定して、学習を始めましょう！</p>
         </CardContent>
         <CardFooter>
-          <Button className="w-full bg-[#03a9f4] hover:bg-[#0288d1] text-white" onClick={handleContinue}>
+          <Button className="w-full bg-[#00c6ff] hover:bg-[#0288d1] text-white" onClick={handleContinue}>
             始める
           </Button>
         </CardFooter>
