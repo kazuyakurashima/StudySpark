@@ -2356,23 +2356,23 @@ export namespace Prisma {
    */
 
   export type UserCountOutputType = {
+    dailyReflections: number
     goals: number
     learningPlans: number
     attemptLogs: number
-    dailyReflections: number
-    weeklyReflections: number
-    valuePrompts: number
     reflectionBadges: number
+    valuePrompts: number
+    weeklyReflections: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    dailyReflections?: boolean | UserCountOutputTypeCountDailyReflectionsArgs
     goals?: boolean | UserCountOutputTypeCountGoalsArgs
     learningPlans?: boolean | UserCountOutputTypeCountLearningPlansArgs
     attemptLogs?: boolean | UserCountOutputTypeCountAttemptLogsArgs
-    dailyReflections?: boolean | UserCountOutputTypeCountDailyReflectionsArgs
-    weeklyReflections?: boolean | UserCountOutputTypeCountWeeklyReflectionsArgs
-    valuePrompts?: boolean | UserCountOutputTypeCountValuePromptsArgs
     reflectionBadges?: boolean | UserCountOutputTypeCountReflectionBadgesArgs
+    valuePrompts?: boolean | UserCountOutputTypeCountValuePromptsArgs
+    weeklyReflections?: boolean | UserCountOutputTypeCountWeeklyReflectionsArgs
   }
 
   // Custom InputTypes
@@ -2384,6 +2384,13 @@ export namespace Prisma {
      * Select specific fields to fetch from the UserCountOutputType
      */
     select?: UserCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountDailyReflectionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DailyReflectionWhereInput
   }
 
   /**
@@ -2410,15 +2417,8 @@ export namespace Prisma {
   /**
    * UserCountOutputType without action
    */
-  export type UserCountOutputTypeCountDailyReflectionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: DailyReflectionWhereInput
-  }
-
-  /**
-   * UserCountOutputType without action
-   */
-  export type UserCountOutputTypeCountWeeklyReflectionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: WeeklyReflectionWhereInput
+  export type UserCountOutputTypeCountReflectionBadgesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ReflectionBadgeWhereInput
   }
 
   /**
@@ -2431,8 +2431,8 @@ export namespace Prisma {
   /**
    * UserCountOutputType without action
    */
-  export type UserCountOutputTypeCountReflectionBadgesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: ReflectionBadgeWhereInput
+  export type UserCountOutputTypeCountWeeklyReflectionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: WeeklyReflectionWhereInput
   }
 
 
@@ -5666,30 +5666,30 @@ export namespace Prisma {
     id: string | null
     email: string | null
     displayName: string | null
-    avatarKey: string | null
     onboardingCompleted: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
+    avatarKey: string | null
   }
 
   export type UserMaxAggregateOutputType = {
     id: string | null
     email: string | null
     displayName: string | null
-    avatarKey: string | null
     onboardingCompleted: boolean | null
     createdAt: Date | null
     updatedAt: Date | null
+    avatarKey: string | null
   }
 
   export type UserCountAggregateOutputType = {
     id: number
     email: number
     displayName: number
-    avatarKey: number
     onboardingCompleted: number
     createdAt: number
     updatedAt: number
+    avatarKey: number
     _all: number
   }
 
@@ -5698,30 +5698,30 @@ export namespace Prisma {
     id?: true
     email?: true
     displayName?: true
-    avatarKey?: true
     onboardingCompleted?: true
     createdAt?: true
     updatedAt?: true
+    avatarKey?: true
   }
 
   export type UserMaxAggregateInputType = {
     id?: true
     email?: true
     displayName?: true
-    avatarKey?: true
     onboardingCompleted?: true
     createdAt?: true
     updatedAt?: true
+    avatarKey?: true
   }
 
   export type UserCountAggregateInputType = {
     id?: true
     email?: true
     displayName?: true
-    avatarKey?: true
     onboardingCompleted?: true
     createdAt?: true
     updatedAt?: true
+    avatarKey?: true
     _all?: true
   }
 
@@ -5801,10 +5801,10 @@ export namespace Prisma {
     id: string
     email: string
     displayName: string
-    avatarKey: string | null
     onboardingCompleted: boolean
     createdAt: Date
     updatedAt: Date
+    avatarKey: string | null
     _count: UserCountAggregateOutputType | null
     _min: UserMinAggregateOutputType | null
     _max: UserMaxAggregateOutputType | null
@@ -5828,18 +5828,18 @@ export namespace Prisma {
     id?: boolean
     email?: boolean
     displayName?: boolean
-    avatarKey?: boolean
     onboardingCompleted?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    avatar?: boolean | User$avatarArgs<ExtArgs>
+    avatarKey?: boolean
+    dailyReflections?: boolean | User$dailyReflectionsArgs<ExtArgs>
     goals?: boolean | User$goalsArgs<ExtArgs>
     learningPlans?: boolean | User$learningPlansArgs<ExtArgs>
     attemptLogs?: boolean | User$attemptLogsArgs<ExtArgs>
-    dailyReflections?: boolean | User$dailyReflectionsArgs<ExtArgs>
-    weeklyReflections?: boolean | User$weeklyReflectionsArgs<ExtArgs>
-    valuePrompts?: boolean | User$valuePromptsArgs<ExtArgs>
     reflectionBadges?: boolean | User$reflectionBadgesArgs<ExtArgs>
+    avatar?: boolean | User$avatarArgs<ExtArgs>
+    valuePrompts?: boolean | User$valuePromptsArgs<ExtArgs>
+    weeklyReflections?: boolean | User$weeklyReflectionsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -5847,10 +5847,10 @@ export namespace Prisma {
     id?: boolean
     email?: boolean
     displayName?: boolean
-    avatarKey?: boolean
     onboardingCompleted?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    avatarKey?: boolean
     avatar?: boolean | User$avatarArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -5858,10 +5858,10 @@ export namespace Prisma {
     id?: boolean
     email?: boolean
     displayName?: boolean
-    avatarKey?: boolean
     onboardingCompleted?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    avatarKey?: boolean
     avatar?: boolean | User$avatarArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -5869,22 +5869,22 @@ export namespace Prisma {
     id?: boolean
     email?: boolean
     displayName?: boolean
-    avatarKey?: boolean
     onboardingCompleted?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    avatarKey?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "displayName" | "avatarKey" | "onboardingCompleted" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "displayName" | "onboardingCompleted" | "createdAt" | "updatedAt" | "avatarKey", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    avatar?: boolean | User$avatarArgs<ExtArgs>
+    dailyReflections?: boolean | User$dailyReflectionsArgs<ExtArgs>
     goals?: boolean | User$goalsArgs<ExtArgs>
     learningPlans?: boolean | User$learningPlansArgs<ExtArgs>
     attemptLogs?: boolean | User$attemptLogsArgs<ExtArgs>
-    dailyReflections?: boolean | User$dailyReflectionsArgs<ExtArgs>
-    weeklyReflections?: boolean | User$weeklyReflectionsArgs<ExtArgs>
-    valuePrompts?: boolean | User$valuePromptsArgs<ExtArgs>
     reflectionBadges?: boolean | User$reflectionBadgesArgs<ExtArgs>
+    avatar?: boolean | User$avatarArgs<ExtArgs>
+    valuePrompts?: boolean | User$valuePromptsArgs<ExtArgs>
+    weeklyReflections?: boolean | User$weeklyReflectionsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -5897,23 +5897,23 @@ export namespace Prisma {
   export type $UserPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "User"
     objects: {
-      avatar: Prisma.$AvatarPayload<ExtArgs> | null
+      dailyReflections: Prisma.$DailyReflectionPayload<ExtArgs>[]
       goals: Prisma.$GoalPayload<ExtArgs>[]
       learningPlans: Prisma.$LearningPlanPayload<ExtArgs>[]
       attemptLogs: Prisma.$QuestionAttemptLogPayload<ExtArgs>[]
-      dailyReflections: Prisma.$DailyReflectionPayload<ExtArgs>[]
-      weeklyReflections: Prisma.$WeeklyReflectionPayload<ExtArgs>[]
-      valuePrompts: Prisma.$ValuePromptPayload<ExtArgs>[]
       reflectionBadges: Prisma.$ReflectionBadgePayload<ExtArgs>[]
+      avatar: Prisma.$AvatarPayload<ExtArgs> | null
+      valuePrompts: Prisma.$ValuePromptPayload<ExtArgs>[]
+      weeklyReflections: Prisma.$WeeklyReflectionPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       email: string
       displayName: string
-      avatarKey: string | null
       onboardingCompleted: boolean
       createdAt: Date
       updatedAt: Date
+      avatarKey: string | null
     }, ExtArgs["result"]["user"]>
     composites: {}
   }
@@ -6308,14 +6308,14 @@ export namespace Prisma {
    */
   export interface Prisma__UserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    avatar<T extends User$avatarArgs<ExtArgs> = {}>(args?: Subset<T, User$avatarArgs<ExtArgs>>): Prisma__AvatarClient<$Result.GetResult<Prisma.$AvatarPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    dailyReflections<T extends User$dailyReflectionsArgs<ExtArgs> = {}>(args?: Subset<T, User$dailyReflectionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DailyReflectionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     goals<T extends User$goalsArgs<ExtArgs> = {}>(args?: Subset<T, User$goalsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GoalPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     learningPlans<T extends User$learningPlansArgs<ExtArgs> = {}>(args?: Subset<T, User$learningPlansArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LearningPlanPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     attemptLogs<T extends User$attemptLogsArgs<ExtArgs> = {}>(args?: Subset<T, User$attemptLogsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$QuestionAttemptLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    dailyReflections<T extends User$dailyReflectionsArgs<ExtArgs> = {}>(args?: Subset<T, User$dailyReflectionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DailyReflectionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    weeklyReflections<T extends User$weeklyReflectionsArgs<ExtArgs> = {}>(args?: Subset<T, User$weeklyReflectionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WeeklyReflectionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    valuePrompts<T extends User$valuePromptsArgs<ExtArgs> = {}>(args?: Subset<T, User$valuePromptsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ValuePromptPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     reflectionBadges<T extends User$reflectionBadgesArgs<ExtArgs> = {}>(args?: Subset<T, User$reflectionBadgesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ReflectionBadgePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    avatar<T extends User$avatarArgs<ExtArgs> = {}>(args?: Subset<T, User$avatarArgs<ExtArgs>>): Prisma__AvatarClient<$Result.GetResult<Prisma.$AvatarPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    valuePrompts<T extends User$valuePromptsArgs<ExtArgs> = {}>(args?: Subset<T, User$valuePromptsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ValuePromptPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    weeklyReflections<T extends User$weeklyReflectionsArgs<ExtArgs> = {}>(args?: Subset<T, User$weeklyReflectionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$WeeklyReflectionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -6348,10 +6348,10 @@ export namespace Prisma {
     readonly id: FieldRef<"User", 'String'>
     readonly email: FieldRef<"User", 'String'>
     readonly displayName: FieldRef<"User", 'String'>
-    readonly avatarKey: FieldRef<"User", 'String'>
     readonly onboardingCompleted: FieldRef<"User", 'Boolean'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
     readonly updatedAt: FieldRef<"User", 'DateTime'>
+    readonly avatarKey: FieldRef<"User", 'String'>
   }
     
 
@@ -6748,22 +6748,27 @@ export namespace Prisma {
   }
 
   /**
-   * User.avatar
+   * User.dailyReflections
    */
-  export type User$avatarArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type User$dailyReflectionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the Avatar
+     * Select specific fields to fetch from the DailyReflection
      */
-    select?: AvatarSelect<ExtArgs> | null
+    select?: DailyReflectionSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the Avatar
+     * Omit specific fields from the DailyReflection
      */
-    omit?: AvatarOmit<ExtArgs> | null
+    omit?: DailyReflectionOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: AvatarInclude<ExtArgs> | null
-    where?: AvatarWhereInput
+    include?: DailyReflectionInclude<ExtArgs> | null
+    where?: DailyReflectionWhereInput
+    orderBy?: DailyReflectionOrderByWithRelationInput | DailyReflectionOrderByWithRelationInput[]
+    cursor?: DailyReflectionWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: DailyReflectionScalarFieldEnum | DailyReflectionScalarFieldEnum[]
   }
 
   /**
@@ -6839,51 +6844,46 @@ export namespace Prisma {
   }
 
   /**
-   * User.dailyReflections
+   * User.reflectionBadges
    */
-  export type User$dailyReflectionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type User$reflectionBadgesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the DailyReflection
+     * Select specific fields to fetch from the ReflectionBadge
      */
-    select?: DailyReflectionSelect<ExtArgs> | null
+    select?: ReflectionBadgeSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the DailyReflection
+     * Omit specific fields from the ReflectionBadge
      */
-    omit?: DailyReflectionOmit<ExtArgs> | null
+    omit?: ReflectionBadgeOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: DailyReflectionInclude<ExtArgs> | null
-    where?: DailyReflectionWhereInput
-    orderBy?: DailyReflectionOrderByWithRelationInput | DailyReflectionOrderByWithRelationInput[]
-    cursor?: DailyReflectionWhereUniqueInput
+    include?: ReflectionBadgeInclude<ExtArgs> | null
+    where?: ReflectionBadgeWhereInput
+    orderBy?: ReflectionBadgeOrderByWithRelationInput | ReflectionBadgeOrderByWithRelationInput[]
+    cursor?: ReflectionBadgeWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: DailyReflectionScalarFieldEnum | DailyReflectionScalarFieldEnum[]
+    distinct?: ReflectionBadgeScalarFieldEnum | ReflectionBadgeScalarFieldEnum[]
   }
 
   /**
-   * User.weeklyReflections
+   * User.avatar
    */
-  export type User$weeklyReflectionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type User$avatarArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the WeeklyReflection
+     * Select specific fields to fetch from the Avatar
      */
-    select?: WeeklyReflectionSelect<ExtArgs> | null
+    select?: AvatarSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the WeeklyReflection
+     * Omit specific fields from the Avatar
      */
-    omit?: WeeklyReflectionOmit<ExtArgs> | null
+    omit?: AvatarOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: WeeklyReflectionInclude<ExtArgs> | null
-    where?: WeeklyReflectionWhereInput
-    orderBy?: WeeklyReflectionOrderByWithRelationInput | WeeklyReflectionOrderByWithRelationInput[]
-    cursor?: WeeklyReflectionWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: WeeklyReflectionScalarFieldEnum | WeeklyReflectionScalarFieldEnum[]
+    include?: AvatarInclude<ExtArgs> | null
+    where?: AvatarWhereInput
   }
 
   /**
@@ -6911,27 +6911,27 @@ export namespace Prisma {
   }
 
   /**
-   * User.reflectionBadges
+   * User.weeklyReflections
    */
-  export type User$reflectionBadgesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type User$weeklyReflectionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the ReflectionBadge
+     * Select specific fields to fetch from the WeeklyReflection
      */
-    select?: ReflectionBadgeSelect<ExtArgs> | null
+    select?: WeeklyReflectionSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the ReflectionBadge
+     * Omit specific fields from the WeeklyReflection
      */
-    omit?: ReflectionBadgeOmit<ExtArgs> | null
+    omit?: WeeklyReflectionOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: ReflectionBadgeInclude<ExtArgs> | null
-    where?: ReflectionBadgeWhereInput
-    orderBy?: ReflectionBadgeOrderByWithRelationInput | ReflectionBadgeOrderByWithRelationInput[]
-    cursor?: ReflectionBadgeWhereUniqueInput
+    include?: WeeklyReflectionInclude<ExtArgs> | null
+    where?: WeeklyReflectionWhereInput
+    orderBy?: WeeklyReflectionOrderByWithRelationInput | WeeklyReflectionOrderByWithRelationInput[]
+    cursor?: WeeklyReflectionWhereUniqueInput
     take?: number
     skip?: number
-    distinct?: ReflectionBadgeScalarFieldEnum | ReflectionBadgeScalarFieldEnum[]
+    distinct?: WeeklyReflectionScalarFieldEnum | WeeklyReflectionScalarFieldEnum[]
   }
 
   /**
@@ -10555,8 +10555,8 @@ export namespace Prisma {
     orderIndex?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    chapter?: boolean | ChapterDefaultArgs<ExtArgs>
     questions?: boolean | Section$questionsArgs<ExtArgs>
+    chapter?: boolean | ChapterDefaultArgs<ExtArgs>
     _count?: boolean | SectionCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["section"]>
 
@@ -10591,8 +10591,8 @@ export namespace Prisma {
 
   export type SectionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "chapterId" | "title" | "orderIndex" | "createdAt" | "updatedAt", ExtArgs["result"]["section"]>
   export type SectionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    chapter?: boolean | ChapterDefaultArgs<ExtArgs>
     questions?: boolean | Section$questionsArgs<ExtArgs>
+    chapter?: boolean | ChapterDefaultArgs<ExtArgs>
     _count?: boolean | SectionCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type SectionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -10605,8 +10605,8 @@ export namespace Prisma {
   export type $SectionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Section"
     objects: {
-      chapter: Prisma.$ChapterPayload<ExtArgs>
       questions: Prisma.$QuestionPayload<ExtArgs>[]
+      chapter: Prisma.$ChapterPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -11009,8 +11009,8 @@ export namespace Prisma {
    */
   export interface Prisma__SectionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    chapter<T extends ChapterDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ChapterDefaultArgs<ExtArgs>>): Prisma__ChapterClient<$Result.GetResult<Prisma.$ChapterPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     questions<T extends Section$questionsArgs<ExtArgs> = {}>(args?: Subset<T, Section$questionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$QuestionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    chapter<T extends ChapterDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ChapterDefaultArgs<ExtArgs>>): Prisma__ChapterClient<$Result.GetResult<Prisma.$ChapterPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -11690,9 +11690,9 @@ export namespace Prisma {
     difficulty?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    section?: boolean | SectionDefaultArgs<ExtArgs>
     learningTasks?: boolean | Question$learningTasksArgs<ExtArgs>
     attemptLogs?: boolean | Question$attemptLogsArgs<ExtArgs>
+    section?: boolean | SectionDefaultArgs<ExtArgs>
     _count?: boolean | QuestionCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["question"]>
 
@@ -11727,9 +11727,9 @@ export namespace Prisma {
 
   export type QuestionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "sectionId" | "content" | "difficulty" | "createdAt" | "updatedAt", ExtArgs["result"]["question"]>
   export type QuestionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    section?: boolean | SectionDefaultArgs<ExtArgs>
     learningTasks?: boolean | Question$learningTasksArgs<ExtArgs>
     attemptLogs?: boolean | Question$attemptLogsArgs<ExtArgs>
+    section?: boolean | SectionDefaultArgs<ExtArgs>
     _count?: boolean | QuestionCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type QuestionIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -11742,9 +11742,9 @@ export namespace Prisma {
   export type $QuestionPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Question"
     objects: {
-      section: Prisma.$SectionPayload<ExtArgs>
       learningTasks: Prisma.$LearningTaskPayload<ExtArgs>[]
       attemptLogs: Prisma.$QuestionAttemptLogPayload<ExtArgs>[]
+      section: Prisma.$SectionPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -12147,9 +12147,9 @@ export namespace Prisma {
    */
   export interface Prisma__QuestionClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    section<T extends SectionDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SectionDefaultArgs<ExtArgs>>): Prisma__SectionClient<$Result.GetResult<Prisma.$SectionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     learningTasks<T extends Question$learningTasksArgs<ExtArgs> = {}>(args?: Subset<T, Question$learningTasksArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LearningTaskPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     attemptLogs<T extends Question$attemptLogsArgs<ExtArgs> = {}>(args?: Subset<T, Question$attemptLogsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$QuestionAttemptLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    section<T extends SectionDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SectionDefaultArgs<ExtArgs>>): Prisma__SectionClient<$Result.GetResult<Prisma.$SectionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -12897,8 +12897,8 @@ export namespace Prisma {
     reviewWeekdays?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
     goal?: boolean | GoalDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
     learningTasks?: boolean | LearningPlan$learningTasksArgs<ExtArgs>
     planRevisions?: boolean | LearningPlan$planRevisionsArgs<ExtArgs>
     _count?: boolean | LearningPlanCountOutputTypeDefaultArgs<ExtArgs>
@@ -12916,8 +12916,8 @@ export namespace Prisma {
     reviewWeekdays?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
     goal?: boolean | GoalDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["learningPlan"]>
 
   export type LearningPlanSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -12932,8 +12932,8 @@ export namespace Prisma {
     reviewWeekdays?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
     goal?: boolean | GoalDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["learningPlan"]>
 
   export type LearningPlanSelectScalar = {
@@ -12952,26 +12952,26 @@ export namespace Prisma {
 
   export type LearningPlanOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "goalId" | "generatedBy" | "maxDays" | "baseDays" | "finalStudyDate" | "reviewDays" | "reviewWeekdays" | "createdAt" | "updatedAt", ExtArgs["result"]["learningPlan"]>
   export type LearningPlanInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
     goal?: boolean | GoalDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
     learningTasks?: boolean | LearningPlan$learningTasksArgs<ExtArgs>
     planRevisions?: boolean | LearningPlan$planRevisionsArgs<ExtArgs>
     _count?: boolean | LearningPlanCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type LearningPlanIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
     goal?: boolean | GoalDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }
   export type LearningPlanIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
     goal?: boolean | GoalDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }
 
   export type $LearningPlanPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "LearningPlan"
     objects: {
-      user: Prisma.$UserPayload<ExtArgs>
       goal: Prisma.$GoalPayload<ExtArgs>
+      user: Prisma.$UserPayload<ExtArgs>
       learningTasks: Prisma.$LearningTaskPayload<ExtArgs>[]
       planRevisions: Prisma.$PlanRevisionPayload<ExtArgs>[]
     }
@@ -13381,8 +13381,8 @@ export namespace Prisma {
    */
   export interface Prisma__LearningPlanClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     goal<T extends GoalDefaultArgs<ExtArgs> = {}>(args?: Subset<T, GoalDefaultArgs<ExtArgs>>): Prisma__GoalClient<$Result.GetResult<Prisma.$GoalPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     learningTasks<T extends LearningPlan$learningTasksArgs<ExtArgs> = {}>(args?: Subset<T, LearningPlan$learningTasksArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LearningTaskPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     planRevisions<T extends LearningPlan$planRevisionsArgs<ExtArgs> = {}>(args?: Subset<T, LearningPlan$planRevisionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PlanRevisionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
@@ -15206,8 +15206,8 @@ export namespace Prisma {
     status?: boolean
     source?: boolean
     updatedAt?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
     question?: boolean | QuestionDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["questionAttemptLog"]>
 
   export type QuestionAttemptLogSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -15218,8 +15218,8 @@ export namespace Prisma {
     status?: boolean
     source?: boolean
     updatedAt?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
     question?: boolean | QuestionDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["questionAttemptLog"]>
 
   export type QuestionAttemptLogSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -15230,8 +15230,8 @@ export namespace Prisma {
     status?: boolean
     source?: boolean
     updatedAt?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
     question?: boolean | QuestionDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["questionAttemptLog"]>
 
   export type QuestionAttemptLogSelectScalar = {
@@ -15246,23 +15246,23 @@ export namespace Prisma {
 
   export type QuestionAttemptLogOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "questionId" | "date" | "status" | "source" | "updatedAt", ExtArgs["result"]["questionAttemptLog"]>
   export type QuestionAttemptLogInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
     question?: boolean | QuestionDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }
   export type QuestionAttemptLogIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
     question?: boolean | QuestionDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }
   export type QuestionAttemptLogIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
     question?: boolean | QuestionDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }
 
   export type $QuestionAttemptLogPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "QuestionAttemptLog"
     objects: {
-      user: Prisma.$UserPayload<ExtArgs>
       question: Prisma.$QuestionPayload<ExtArgs>
+      user: Prisma.$UserPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -15666,8 +15666,8 @@ export namespace Prisma {
    */
   export interface Prisma__QuestionAttemptLogClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     question<T extends QuestionDefaultArgs<ExtArgs> = {}>(args?: Subset<T, QuestionDefaultArgs<ExtArgs>>): Prisma__QuestionClient<$Result.GetResult<Prisma.$QuestionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -21503,10 +21503,10 @@ export namespace Prisma {
     id: 'id',
     email: 'email',
     displayName: 'displayName',
-    avatarKey: 'avatarKey',
     onboardingCompleted: 'onboardingCompleted',
     createdAt: 'createdAt',
-    updatedAt: 'updatedAt'
+    updatedAt: 'updatedAt',
+    avatarKey: 'avatarKey'
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -21919,36 +21919,36 @@ export namespace Prisma {
     id?: StringFilter<"User"> | string
     email?: StringFilter<"User"> | string
     displayName?: StringFilter<"User"> | string
-    avatarKey?: StringNullableFilter<"User"> | string | null
     onboardingCompleted?: BoolFilter<"User"> | boolean
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
-    avatar?: XOR<AvatarNullableScalarRelationFilter, AvatarWhereInput> | null
+    avatarKey?: StringNullableFilter<"User"> | string | null
+    dailyReflections?: DailyReflectionListRelationFilter
     goals?: GoalListRelationFilter
     learningPlans?: LearningPlanListRelationFilter
     attemptLogs?: QuestionAttemptLogListRelationFilter
-    dailyReflections?: DailyReflectionListRelationFilter
-    weeklyReflections?: WeeklyReflectionListRelationFilter
-    valuePrompts?: ValuePromptListRelationFilter
     reflectionBadges?: ReflectionBadgeListRelationFilter
+    avatar?: XOR<AvatarNullableScalarRelationFilter, AvatarWhereInput> | null
+    valuePrompts?: ValuePromptListRelationFilter
+    weeklyReflections?: WeeklyReflectionListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
     id?: SortOrder
     email?: SortOrder
     displayName?: SortOrder
-    avatarKey?: SortOrderInput | SortOrder
     onboardingCompleted?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    avatar?: AvatarOrderByWithRelationInput
+    avatarKey?: SortOrderInput | SortOrder
+    dailyReflections?: DailyReflectionOrderByRelationAggregateInput
     goals?: GoalOrderByRelationAggregateInput
     learningPlans?: LearningPlanOrderByRelationAggregateInput
     attemptLogs?: QuestionAttemptLogOrderByRelationAggregateInput
-    dailyReflections?: DailyReflectionOrderByRelationAggregateInput
-    weeklyReflections?: WeeklyReflectionOrderByRelationAggregateInput
-    valuePrompts?: ValuePromptOrderByRelationAggregateInput
     reflectionBadges?: ReflectionBadgeOrderByRelationAggregateInput
+    avatar?: AvatarOrderByWithRelationInput
+    valuePrompts?: ValuePromptOrderByRelationAggregateInput
+    weeklyReflections?: WeeklyReflectionOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -21958,28 +21958,28 @@ export namespace Prisma {
     OR?: UserWhereInput[]
     NOT?: UserWhereInput | UserWhereInput[]
     displayName?: StringFilter<"User"> | string
-    avatarKey?: StringNullableFilter<"User"> | string | null
     onboardingCompleted?: BoolFilter<"User"> | boolean
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
-    avatar?: XOR<AvatarNullableScalarRelationFilter, AvatarWhereInput> | null
+    avatarKey?: StringNullableFilter<"User"> | string | null
+    dailyReflections?: DailyReflectionListRelationFilter
     goals?: GoalListRelationFilter
     learningPlans?: LearningPlanListRelationFilter
     attemptLogs?: QuestionAttemptLogListRelationFilter
-    dailyReflections?: DailyReflectionListRelationFilter
-    weeklyReflections?: WeeklyReflectionListRelationFilter
-    valuePrompts?: ValuePromptListRelationFilter
     reflectionBadges?: ReflectionBadgeListRelationFilter
+    avatar?: XOR<AvatarNullableScalarRelationFilter, AvatarWhereInput> | null
+    valuePrompts?: ValuePromptListRelationFilter
+    weeklyReflections?: WeeklyReflectionListRelationFilter
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
     id?: SortOrder
     email?: SortOrder
     displayName?: SortOrder
-    avatarKey?: SortOrderInput | SortOrder
     onboardingCompleted?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    avatarKey?: SortOrderInput | SortOrder
     _count?: UserCountOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
     _min?: UserMinOrderByAggregateInput
@@ -21992,10 +21992,10 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"User"> | string
     email?: StringWithAggregatesFilter<"User"> | string
     displayName?: StringWithAggregatesFilter<"User"> | string
-    avatarKey?: StringNullableWithAggregatesFilter<"User"> | string | null
     onboardingCompleted?: BoolWithAggregatesFilter<"User"> | boolean
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
+    avatarKey?: StringNullableWithAggregatesFilter<"User"> | string | null
   }
 
   export type GoalWhereInput = {
@@ -22213,8 +22213,8 @@ export namespace Prisma {
     orderIndex?: IntFilter<"Section"> | number
     createdAt?: DateTimeFilter<"Section"> | Date | string
     updatedAt?: DateTimeFilter<"Section"> | Date | string
-    chapter?: XOR<ChapterScalarRelationFilter, ChapterWhereInput>
     questions?: QuestionListRelationFilter
+    chapter?: XOR<ChapterScalarRelationFilter, ChapterWhereInput>
   }
 
   export type SectionOrderByWithRelationInput = {
@@ -22224,8 +22224,8 @@ export namespace Prisma {
     orderIndex?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    chapter?: ChapterOrderByWithRelationInput
     questions?: QuestionOrderByRelationAggregateInput
+    chapter?: ChapterOrderByWithRelationInput
   }
 
   export type SectionWhereUniqueInput = Prisma.AtLeast<{
@@ -22238,8 +22238,8 @@ export namespace Prisma {
     orderIndex?: IntFilter<"Section"> | number
     createdAt?: DateTimeFilter<"Section"> | Date | string
     updatedAt?: DateTimeFilter<"Section"> | Date | string
-    chapter?: XOR<ChapterScalarRelationFilter, ChapterWhereInput>
     questions?: QuestionListRelationFilter
+    chapter?: XOR<ChapterScalarRelationFilter, ChapterWhereInput>
   }, "id">
 
   export type SectionOrderByWithAggregationInput = {
@@ -22278,9 +22278,9 @@ export namespace Prisma {
     difficulty?: IntFilter<"Question"> | number
     createdAt?: DateTimeFilter<"Question"> | Date | string
     updatedAt?: DateTimeFilter<"Question"> | Date | string
-    section?: XOR<SectionScalarRelationFilter, SectionWhereInput>
     learningTasks?: LearningTaskListRelationFilter
     attemptLogs?: QuestionAttemptLogListRelationFilter
+    section?: XOR<SectionScalarRelationFilter, SectionWhereInput>
   }
 
   export type QuestionOrderByWithRelationInput = {
@@ -22290,9 +22290,9 @@ export namespace Prisma {
     difficulty?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    section?: SectionOrderByWithRelationInput
     learningTasks?: LearningTaskOrderByRelationAggregateInput
     attemptLogs?: QuestionAttemptLogOrderByRelationAggregateInput
+    section?: SectionOrderByWithRelationInput
   }
 
   export type QuestionWhereUniqueInput = Prisma.AtLeast<{
@@ -22305,9 +22305,9 @@ export namespace Prisma {
     difficulty?: IntFilter<"Question"> | number
     createdAt?: DateTimeFilter<"Question"> | Date | string
     updatedAt?: DateTimeFilter<"Question"> | Date | string
-    section?: XOR<SectionScalarRelationFilter, SectionWhereInput>
     learningTasks?: LearningTaskListRelationFilter
     attemptLogs?: QuestionAttemptLogListRelationFilter
+    section?: XOR<SectionScalarRelationFilter, SectionWhereInput>
   }, "id">
 
   export type QuestionOrderByWithAggregationInput = {
@@ -22351,8 +22351,8 @@ export namespace Prisma {
     reviewWeekdays?: StringNullableListFilter<"LearningPlan">
     createdAt?: DateTimeFilter<"LearningPlan"> | Date | string
     updatedAt?: DateTimeFilter<"LearningPlan"> | Date | string
-    user?: XOR<UserScalarRelationFilter, UserWhereInput>
     goal?: XOR<GoalScalarRelationFilter, GoalWhereInput>
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
     learningTasks?: LearningTaskListRelationFilter
     planRevisions?: PlanRevisionListRelationFilter
   }
@@ -22369,8 +22369,8 @@ export namespace Prisma {
     reviewWeekdays?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    user?: UserOrderByWithRelationInput
     goal?: GoalOrderByWithRelationInput
+    user?: UserOrderByWithRelationInput
     learningTasks?: LearningTaskOrderByRelationAggregateInput
     planRevisions?: PlanRevisionOrderByRelationAggregateInput
   }
@@ -22390,8 +22390,8 @@ export namespace Prisma {
     reviewWeekdays?: StringNullableListFilter<"LearningPlan">
     createdAt?: DateTimeFilter<"LearningPlan"> | Date | string
     updatedAt?: DateTimeFilter<"LearningPlan"> | Date | string
-    user?: XOR<UserScalarRelationFilter, UserWhereInput>
     goal?: XOR<GoalScalarRelationFilter, GoalWhereInput>
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
     learningTasks?: LearningTaskListRelationFilter
     planRevisions?: PlanRevisionListRelationFilter
   }, "id">
@@ -22518,8 +22518,8 @@ export namespace Prisma {
     status?: StringFilter<"QuestionAttemptLog"> | string
     source?: StringFilter<"QuestionAttemptLog"> | string
     updatedAt?: DateTimeFilter<"QuestionAttemptLog"> | Date | string
-    user?: XOR<UserScalarRelationFilter, UserWhereInput>
     question?: XOR<QuestionScalarRelationFilter, QuestionWhereInput>
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }
 
   export type QuestionAttemptLogOrderByWithRelationInput = {
@@ -22530,8 +22530,8 @@ export namespace Prisma {
     status?: SortOrder
     source?: SortOrder
     updatedAt?: SortOrder
-    user?: UserOrderByWithRelationInput
     question?: QuestionOrderByWithRelationInput
+    user?: UserOrderByWithRelationInput
   }
 
   export type QuestionAttemptLogWhereUniqueInput = Prisma.AtLeast<{
@@ -22545,8 +22545,8 @@ export namespace Prisma {
     status?: StringFilter<"QuestionAttemptLog"> | string
     source?: StringFilter<"QuestionAttemptLog"> | string
     updatedAt?: DateTimeFilter<"QuestionAttemptLog"> | Date | string
-    user?: XOR<UserScalarRelationFilter, UserWhereInput>
     question?: XOR<QuestionScalarRelationFilter, QuestionWhereInput>
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }, "id">
 
   export type QuestionAttemptLogOrderByWithAggregationInput = {
@@ -23021,31 +23021,31 @@ export namespace Prisma {
     onboardingCompleted?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
-    avatar?: AvatarCreateNestedOneWithoutUsersInput
+    dailyReflections?: DailyReflectionCreateNestedManyWithoutUserInput
     goals?: GoalCreateNestedManyWithoutUserInput
     learningPlans?: LearningPlanCreateNestedManyWithoutUserInput
     attemptLogs?: QuestionAttemptLogCreateNestedManyWithoutUserInput
-    dailyReflections?: DailyReflectionCreateNestedManyWithoutUserInput
-    weeklyReflections?: WeeklyReflectionCreateNestedManyWithoutUserInput
-    valuePrompts?: ValuePromptCreateNestedManyWithoutUserInput
     reflectionBadges?: ReflectionBadgeCreateNestedManyWithoutUserInput
+    avatar?: AvatarCreateNestedOneWithoutUsersInput
+    valuePrompts?: ValuePromptCreateNestedManyWithoutUserInput
+    weeklyReflections?: WeeklyReflectionCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
     id?: string
     email: string
     displayName: string
-    avatarKey?: string | null
     onboardingCompleted?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    avatarKey?: string | null
+    dailyReflections?: DailyReflectionUncheckedCreateNestedManyWithoutUserInput
     goals?: GoalUncheckedCreateNestedManyWithoutUserInput
     learningPlans?: LearningPlanUncheckedCreateNestedManyWithoutUserInput
     attemptLogs?: QuestionAttemptLogUncheckedCreateNestedManyWithoutUserInput
-    dailyReflections?: DailyReflectionUncheckedCreateNestedManyWithoutUserInput
-    weeklyReflections?: WeeklyReflectionUncheckedCreateNestedManyWithoutUserInput
-    valuePrompts?: ValuePromptUncheckedCreateNestedManyWithoutUserInput
     reflectionBadges?: ReflectionBadgeUncheckedCreateNestedManyWithoutUserInput
+    valuePrompts?: ValuePromptUncheckedCreateNestedManyWithoutUserInput
+    weeklyReflections?: WeeklyReflectionUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -23055,41 +23055,41 @@ export namespace Prisma {
     onboardingCompleted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    avatar?: AvatarUpdateOneWithoutUsersNestedInput
+    dailyReflections?: DailyReflectionUpdateManyWithoutUserNestedInput
     goals?: GoalUpdateManyWithoutUserNestedInput
     learningPlans?: LearningPlanUpdateManyWithoutUserNestedInput
     attemptLogs?: QuestionAttemptLogUpdateManyWithoutUserNestedInput
-    dailyReflections?: DailyReflectionUpdateManyWithoutUserNestedInput
-    weeklyReflections?: WeeklyReflectionUpdateManyWithoutUserNestedInput
-    valuePrompts?: ValuePromptUpdateManyWithoutUserNestedInput
     reflectionBadges?: ReflectionBadgeUpdateManyWithoutUserNestedInput
+    avatar?: AvatarUpdateOneWithoutUsersNestedInput
+    valuePrompts?: ValuePromptUpdateManyWithoutUserNestedInput
+    weeklyReflections?: WeeklyReflectionUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     displayName?: StringFieldUpdateOperationsInput | string
-    avatarKey?: NullableStringFieldUpdateOperationsInput | string | null
     onboardingCompleted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    avatarKey?: NullableStringFieldUpdateOperationsInput | string | null
+    dailyReflections?: DailyReflectionUncheckedUpdateManyWithoutUserNestedInput
     goals?: GoalUncheckedUpdateManyWithoutUserNestedInput
     learningPlans?: LearningPlanUncheckedUpdateManyWithoutUserNestedInput
     attemptLogs?: QuestionAttemptLogUncheckedUpdateManyWithoutUserNestedInput
-    dailyReflections?: DailyReflectionUncheckedUpdateManyWithoutUserNestedInput
-    weeklyReflections?: WeeklyReflectionUncheckedUpdateManyWithoutUserNestedInput
-    valuePrompts?: ValuePromptUncheckedUpdateManyWithoutUserNestedInput
     reflectionBadges?: ReflectionBadgeUncheckedUpdateManyWithoutUserNestedInput
+    valuePrompts?: ValuePromptUncheckedUpdateManyWithoutUserNestedInput
+    weeklyReflections?: WeeklyReflectionUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
     id?: string
     email: string
     displayName: string
-    avatarKey?: string | null
     onboardingCompleted?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    avatarKey?: string | null
   }
 
   export type UserUpdateManyMutationInput = {
@@ -23105,10 +23105,10 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     displayName?: StringFieldUpdateOperationsInput | string
-    avatarKey?: NullableStringFieldUpdateOperationsInput | string | null
     onboardingCompleted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    avatarKey?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type GoalCreateInput = {
@@ -23337,8 +23337,8 @@ export namespace Prisma {
     orderIndex: number
     createdAt?: Date | string
     updatedAt?: Date | string
-    chapter: ChapterCreateNestedOneWithoutSectionsInput
     questions?: QuestionCreateNestedManyWithoutSectionInput
+    chapter: ChapterCreateNestedOneWithoutSectionsInput
   }
 
   export type SectionUncheckedCreateInput = {
@@ -23357,8 +23357,8 @@ export namespace Prisma {
     orderIndex?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    chapter?: ChapterUpdateOneRequiredWithoutSectionsNestedInput
     questions?: QuestionUpdateManyWithoutSectionNestedInput
+    chapter?: ChapterUpdateOneRequiredWithoutSectionsNestedInput
   }
 
   export type SectionUncheckedUpdateInput = {
@@ -23403,9 +23403,9 @@ export namespace Prisma {
     difficulty: number
     createdAt?: Date | string
     updatedAt?: Date | string
-    section: SectionCreateNestedOneWithoutQuestionsInput
     learningTasks?: LearningTaskCreateNestedManyWithoutQuestionInput
     attemptLogs?: QuestionAttemptLogCreateNestedManyWithoutQuestionInput
+    section: SectionCreateNestedOneWithoutQuestionsInput
   }
 
   export type QuestionUncheckedCreateInput = {
@@ -23425,9 +23425,9 @@ export namespace Prisma {
     difficulty?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    section?: SectionUpdateOneRequiredWithoutQuestionsNestedInput
     learningTasks?: LearningTaskUpdateManyWithoutQuestionNestedInput
     attemptLogs?: QuestionAttemptLogUpdateManyWithoutQuestionNestedInput
+    section?: SectionUpdateOneRequiredWithoutQuestionsNestedInput
   }
 
   export type QuestionUncheckedUpdateInput = {
@@ -23477,8 +23477,8 @@ export namespace Prisma {
     reviewWeekdays?: LearningPlanCreatereviewWeekdaysInput | string[]
     createdAt?: Date | string
     updatedAt?: Date | string
-    user: UserCreateNestedOneWithoutLearningPlansInput
     goal: GoalCreateNestedOneWithoutLearningPlansInput
+    user: UserCreateNestedOneWithoutLearningPlansInput
     learningTasks?: LearningTaskCreateNestedManyWithoutLearningPlanInput
     planRevisions?: PlanRevisionCreateNestedManyWithoutLearningPlanInput
   }
@@ -23509,8 +23509,8 @@ export namespace Prisma {
     reviewWeekdays?: LearningPlanUpdatereviewWeekdaysInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    user?: UserUpdateOneRequiredWithoutLearningPlansNestedInput
     goal?: GoalUpdateOneRequiredWithoutLearningPlansNestedInput
+    user?: UserUpdateOneRequiredWithoutLearningPlansNestedInput
     learningTasks?: LearningTaskUpdateManyWithoutLearningPlanNestedInput
     planRevisions?: PlanRevisionUpdateManyWithoutLearningPlanNestedInput
   }
@@ -23652,8 +23652,8 @@ export namespace Prisma {
     status: string
     source: string
     updatedAt?: Date | string
-    user: UserCreateNestedOneWithoutAttemptLogsInput
     question: QuestionCreateNestedOneWithoutAttemptLogsInput
+    user: UserCreateNestedOneWithoutAttemptLogsInput
   }
 
   export type QuestionAttemptLogUncheckedCreateInput = {
@@ -23672,8 +23672,8 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     source?: StringFieldUpdateOperationsInput | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    user?: UserUpdateOneRequiredWithoutAttemptLogsNestedInput
     question?: QuestionUpdateOneRequiredWithoutAttemptLogsNestedInput
+    user?: UserUpdateOneRequiredWithoutAttemptLogsNestedInput
   }
 
   export type QuestionAttemptLogUncheckedUpdateInput = {
@@ -24133,6 +24133,17 @@ export namespace Prisma {
     isCustom?: SortOrder
   }
 
+  export type DateTimeFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
+  }
+
   export type StringNullableFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
@@ -24148,20 +24159,10 @@ export namespace Prisma {
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
-  export type DateTimeFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
-  }
-
-  export type AvatarNullableScalarRelationFilter = {
-    is?: AvatarWhereInput | null
-    isNot?: AvatarWhereInput | null
+  export type DailyReflectionListRelationFilter = {
+    every?: DailyReflectionWhereInput
+    some?: DailyReflectionWhereInput
+    none?: DailyReflectionWhereInput
   }
 
   export type GoalListRelationFilter = {
@@ -24182,16 +24183,15 @@ export namespace Prisma {
     none?: QuestionAttemptLogWhereInput
   }
 
-  export type DailyReflectionListRelationFilter = {
-    every?: DailyReflectionWhereInput
-    some?: DailyReflectionWhereInput
-    none?: DailyReflectionWhereInput
+  export type ReflectionBadgeListRelationFilter = {
+    every?: ReflectionBadgeWhereInput
+    some?: ReflectionBadgeWhereInput
+    none?: ReflectionBadgeWhereInput
   }
 
-  export type WeeklyReflectionListRelationFilter = {
-    every?: WeeklyReflectionWhereInput
-    some?: WeeklyReflectionWhereInput
-    none?: WeeklyReflectionWhereInput
+  export type AvatarNullableScalarRelationFilter = {
+    is?: AvatarWhereInput | null
+    isNot?: AvatarWhereInput | null
   }
 
   export type ValuePromptListRelationFilter = {
@@ -24200,15 +24200,19 @@ export namespace Prisma {
     none?: ValuePromptWhereInput
   }
 
-  export type ReflectionBadgeListRelationFilter = {
-    every?: ReflectionBadgeWhereInput
-    some?: ReflectionBadgeWhereInput
-    none?: ReflectionBadgeWhereInput
+  export type WeeklyReflectionListRelationFilter = {
+    every?: WeeklyReflectionWhereInput
+    some?: WeeklyReflectionWhereInput
+    none?: WeeklyReflectionWhereInput
   }
 
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
+  }
+
+  export type DailyReflectionOrderByRelationAggregateInput = {
+    _count?: SortOrder
   }
 
   export type GoalOrderByRelationAggregateInput = {
@@ -24223,11 +24227,7 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
-  export type DailyReflectionOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type WeeklyReflectionOrderByRelationAggregateInput = {
+  export type ReflectionBadgeOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -24235,7 +24235,7 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
-  export type ReflectionBadgeOrderByRelationAggregateInput = {
+  export type WeeklyReflectionOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -24243,30 +24243,44 @@ export namespace Prisma {
     id?: SortOrder
     email?: SortOrder
     displayName?: SortOrder
-    avatarKey?: SortOrder
     onboardingCompleted?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    avatarKey?: SortOrder
   }
 
   export type UserMaxOrderByAggregateInput = {
     id?: SortOrder
     email?: SortOrder
     displayName?: SortOrder
-    avatarKey?: SortOrder
     onboardingCompleted?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    avatarKey?: SortOrder
   }
 
   export type UserMinOrderByAggregateInput = {
     id?: SortOrder
     email?: SortOrder
     displayName?: SortOrder
-    avatarKey?: SortOrder
     onboardingCompleted?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
+    avatarKey?: SortOrder
+  }
+
+  export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
   export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -24285,20 +24299,6 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedStringNullableFilter<$PrismaModel>
     _max?: NestedStringNullableFilter<$PrismaModel>
-  }
-
-  export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedDateTimeFilter<$PrismaModel>
-    _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
   export type IntFilter<$PrismaModel = never> = {
@@ -24466,15 +24466,15 @@ export namespace Prisma {
     orderIndex?: SortOrder
   }
 
-  export type ChapterScalarRelationFilter = {
-    is?: ChapterWhereInput
-    isNot?: ChapterWhereInput
-  }
-
   export type QuestionListRelationFilter = {
     every?: QuestionWhereInput
     some?: QuestionWhereInput
     none?: QuestionWhereInput
+  }
+
+  export type ChapterScalarRelationFilter = {
+    is?: ChapterWhereInput
+    isNot?: ChapterWhereInput
   }
 
   export type QuestionOrderByRelationAggregateInput = {
@@ -24516,15 +24516,15 @@ export namespace Prisma {
     orderIndex?: SortOrder
   }
 
-  export type SectionScalarRelationFilter = {
-    is?: SectionWhereInput
-    isNot?: SectionWhereInput
-  }
-
   export type LearningTaskListRelationFilter = {
     every?: LearningTaskWhereInput
     some?: LearningTaskWhereInput
     none?: LearningTaskWhereInput
+  }
+
+  export type SectionScalarRelationFilter = {
+    is?: SectionWhereInput
+    isNot?: SectionWhereInput
   }
 
   export type LearningTaskOrderByRelationAggregateInput = {
@@ -24902,10 +24902,11 @@ export namespace Prisma {
     set?: boolean
   }
 
-  export type AvatarCreateNestedOneWithoutUsersInput = {
-    create?: XOR<AvatarCreateWithoutUsersInput, AvatarUncheckedCreateWithoutUsersInput>
-    connectOrCreate?: AvatarCreateOrConnectWithoutUsersInput
-    connect?: AvatarWhereUniqueInput
+  export type DailyReflectionCreateNestedManyWithoutUserInput = {
+    create?: XOR<DailyReflectionCreateWithoutUserInput, DailyReflectionUncheckedCreateWithoutUserInput> | DailyReflectionCreateWithoutUserInput[] | DailyReflectionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: DailyReflectionCreateOrConnectWithoutUserInput | DailyReflectionCreateOrConnectWithoutUserInput[]
+    createMany?: DailyReflectionCreateManyUserInputEnvelope
+    connect?: DailyReflectionWhereUniqueInput | DailyReflectionWhereUniqueInput[]
   }
 
   export type GoalCreateNestedManyWithoutUserInput = {
@@ -24929,18 +24930,17 @@ export namespace Prisma {
     connect?: QuestionAttemptLogWhereUniqueInput | QuestionAttemptLogWhereUniqueInput[]
   }
 
-  export type DailyReflectionCreateNestedManyWithoutUserInput = {
-    create?: XOR<DailyReflectionCreateWithoutUserInput, DailyReflectionUncheckedCreateWithoutUserInput> | DailyReflectionCreateWithoutUserInput[] | DailyReflectionUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: DailyReflectionCreateOrConnectWithoutUserInput | DailyReflectionCreateOrConnectWithoutUserInput[]
-    createMany?: DailyReflectionCreateManyUserInputEnvelope
-    connect?: DailyReflectionWhereUniqueInput | DailyReflectionWhereUniqueInput[]
+  export type ReflectionBadgeCreateNestedManyWithoutUserInput = {
+    create?: XOR<ReflectionBadgeCreateWithoutUserInput, ReflectionBadgeUncheckedCreateWithoutUserInput> | ReflectionBadgeCreateWithoutUserInput[] | ReflectionBadgeUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ReflectionBadgeCreateOrConnectWithoutUserInput | ReflectionBadgeCreateOrConnectWithoutUserInput[]
+    createMany?: ReflectionBadgeCreateManyUserInputEnvelope
+    connect?: ReflectionBadgeWhereUniqueInput | ReflectionBadgeWhereUniqueInput[]
   }
 
-  export type WeeklyReflectionCreateNestedManyWithoutUserInput = {
-    create?: XOR<WeeklyReflectionCreateWithoutUserInput, WeeklyReflectionUncheckedCreateWithoutUserInput> | WeeklyReflectionCreateWithoutUserInput[] | WeeklyReflectionUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: WeeklyReflectionCreateOrConnectWithoutUserInput | WeeklyReflectionCreateOrConnectWithoutUserInput[]
-    createMany?: WeeklyReflectionCreateManyUserInputEnvelope
-    connect?: WeeklyReflectionWhereUniqueInput | WeeklyReflectionWhereUniqueInput[]
+  export type AvatarCreateNestedOneWithoutUsersInput = {
+    create?: XOR<AvatarCreateWithoutUsersInput, AvatarUncheckedCreateWithoutUsersInput>
+    connectOrCreate?: AvatarCreateOrConnectWithoutUsersInput
+    connect?: AvatarWhereUniqueInput
   }
 
   export type ValuePromptCreateNestedManyWithoutUserInput = {
@@ -24950,11 +24950,18 @@ export namespace Prisma {
     connect?: ValuePromptWhereUniqueInput | ValuePromptWhereUniqueInput[]
   }
 
-  export type ReflectionBadgeCreateNestedManyWithoutUserInput = {
-    create?: XOR<ReflectionBadgeCreateWithoutUserInput, ReflectionBadgeUncheckedCreateWithoutUserInput> | ReflectionBadgeCreateWithoutUserInput[] | ReflectionBadgeUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: ReflectionBadgeCreateOrConnectWithoutUserInput | ReflectionBadgeCreateOrConnectWithoutUserInput[]
-    createMany?: ReflectionBadgeCreateManyUserInputEnvelope
-    connect?: ReflectionBadgeWhereUniqueInput | ReflectionBadgeWhereUniqueInput[]
+  export type WeeklyReflectionCreateNestedManyWithoutUserInput = {
+    create?: XOR<WeeklyReflectionCreateWithoutUserInput, WeeklyReflectionUncheckedCreateWithoutUserInput> | WeeklyReflectionCreateWithoutUserInput[] | WeeklyReflectionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: WeeklyReflectionCreateOrConnectWithoutUserInput | WeeklyReflectionCreateOrConnectWithoutUserInput[]
+    createMany?: WeeklyReflectionCreateManyUserInputEnvelope
+    connect?: WeeklyReflectionWhereUniqueInput | WeeklyReflectionWhereUniqueInput[]
+  }
+
+  export type DailyReflectionUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<DailyReflectionCreateWithoutUserInput, DailyReflectionUncheckedCreateWithoutUserInput> | DailyReflectionCreateWithoutUserInput[] | DailyReflectionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: DailyReflectionCreateOrConnectWithoutUserInput | DailyReflectionCreateOrConnectWithoutUserInput[]
+    createMany?: DailyReflectionCreateManyUserInputEnvelope
+    connect?: DailyReflectionWhereUniqueInput | DailyReflectionWhereUniqueInput[]
   }
 
   export type GoalUncheckedCreateNestedManyWithoutUserInput = {
@@ -24978,18 +24985,11 @@ export namespace Prisma {
     connect?: QuestionAttemptLogWhereUniqueInput | QuestionAttemptLogWhereUniqueInput[]
   }
 
-  export type DailyReflectionUncheckedCreateNestedManyWithoutUserInput = {
-    create?: XOR<DailyReflectionCreateWithoutUserInput, DailyReflectionUncheckedCreateWithoutUserInput> | DailyReflectionCreateWithoutUserInput[] | DailyReflectionUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: DailyReflectionCreateOrConnectWithoutUserInput | DailyReflectionCreateOrConnectWithoutUserInput[]
-    createMany?: DailyReflectionCreateManyUserInputEnvelope
-    connect?: DailyReflectionWhereUniqueInput | DailyReflectionWhereUniqueInput[]
-  }
-
-  export type WeeklyReflectionUncheckedCreateNestedManyWithoutUserInput = {
-    create?: XOR<WeeklyReflectionCreateWithoutUserInput, WeeklyReflectionUncheckedCreateWithoutUserInput> | WeeklyReflectionCreateWithoutUserInput[] | WeeklyReflectionUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: WeeklyReflectionCreateOrConnectWithoutUserInput | WeeklyReflectionCreateOrConnectWithoutUserInput[]
-    createMany?: WeeklyReflectionCreateManyUserInputEnvelope
-    connect?: WeeklyReflectionWhereUniqueInput | WeeklyReflectionWhereUniqueInput[]
+  export type ReflectionBadgeUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<ReflectionBadgeCreateWithoutUserInput, ReflectionBadgeUncheckedCreateWithoutUserInput> | ReflectionBadgeCreateWithoutUserInput[] | ReflectionBadgeUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ReflectionBadgeCreateOrConnectWithoutUserInput | ReflectionBadgeCreateOrConnectWithoutUserInput[]
+    createMany?: ReflectionBadgeCreateManyUserInputEnvelope
+    connect?: ReflectionBadgeWhereUniqueInput | ReflectionBadgeWhereUniqueInput[]
   }
 
   export type ValuePromptUncheckedCreateNestedManyWithoutUserInput = {
@@ -24999,25 +24999,29 @@ export namespace Prisma {
     connect?: ValuePromptWhereUniqueInput | ValuePromptWhereUniqueInput[]
   }
 
-  export type ReflectionBadgeUncheckedCreateNestedManyWithoutUserInput = {
-    create?: XOR<ReflectionBadgeCreateWithoutUserInput, ReflectionBadgeUncheckedCreateWithoutUserInput> | ReflectionBadgeCreateWithoutUserInput[] | ReflectionBadgeUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: ReflectionBadgeCreateOrConnectWithoutUserInput | ReflectionBadgeCreateOrConnectWithoutUserInput[]
-    createMany?: ReflectionBadgeCreateManyUserInputEnvelope
-    connect?: ReflectionBadgeWhereUniqueInput | ReflectionBadgeWhereUniqueInput[]
+  export type WeeklyReflectionUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<WeeklyReflectionCreateWithoutUserInput, WeeklyReflectionUncheckedCreateWithoutUserInput> | WeeklyReflectionCreateWithoutUserInput[] | WeeklyReflectionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: WeeklyReflectionCreateOrConnectWithoutUserInput | WeeklyReflectionCreateOrConnectWithoutUserInput[]
+    createMany?: WeeklyReflectionCreateManyUserInputEnvelope
+    connect?: WeeklyReflectionWhereUniqueInput | WeeklyReflectionWhereUniqueInput[]
   }
 
   export type DateTimeFieldUpdateOperationsInput = {
     set?: Date | string
   }
 
-  export type AvatarUpdateOneWithoutUsersNestedInput = {
-    create?: XOR<AvatarCreateWithoutUsersInput, AvatarUncheckedCreateWithoutUsersInput>
-    connectOrCreate?: AvatarCreateOrConnectWithoutUsersInput
-    upsert?: AvatarUpsertWithoutUsersInput
-    disconnect?: AvatarWhereInput | boolean
-    delete?: AvatarWhereInput | boolean
-    connect?: AvatarWhereUniqueInput
-    update?: XOR<XOR<AvatarUpdateToOneWithWhereWithoutUsersInput, AvatarUpdateWithoutUsersInput>, AvatarUncheckedUpdateWithoutUsersInput>
+  export type DailyReflectionUpdateManyWithoutUserNestedInput = {
+    create?: XOR<DailyReflectionCreateWithoutUserInput, DailyReflectionUncheckedCreateWithoutUserInput> | DailyReflectionCreateWithoutUserInput[] | DailyReflectionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: DailyReflectionCreateOrConnectWithoutUserInput | DailyReflectionCreateOrConnectWithoutUserInput[]
+    upsert?: DailyReflectionUpsertWithWhereUniqueWithoutUserInput | DailyReflectionUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: DailyReflectionCreateManyUserInputEnvelope
+    set?: DailyReflectionWhereUniqueInput | DailyReflectionWhereUniqueInput[]
+    disconnect?: DailyReflectionWhereUniqueInput | DailyReflectionWhereUniqueInput[]
+    delete?: DailyReflectionWhereUniqueInput | DailyReflectionWhereUniqueInput[]
+    connect?: DailyReflectionWhereUniqueInput | DailyReflectionWhereUniqueInput[]
+    update?: DailyReflectionUpdateWithWhereUniqueWithoutUserInput | DailyReflectionUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: DailyReflectionUpdateManyWithWhereWithoutUserInput | DailyReflectionUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: DailyReflectionScalarWhereInput | DailyReflectionScalarWhereInput[]
   }
 
   export type GoalUpdateManyWithoutUserNestedInput = {
@@ -25062,32 +25066,28 @@ export namespace Prisma {
     deleteMany?: QuestionAttemptLogScalarWhereInput | QuestionAttemptLogScalarWhereInput[]
   }
 
-  export type DailyReflectionUpdateManyWithoutUserNestedInput = {
-    create?: XOR<DailyReflectionCreateWithoutUserInput, DailyReflectionUncheckedCreateWithoutUserInput> | DailyReflectionCreateWithoutUserInput[] | DailyReflectionUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: DailyReflectionCreateOrConnectWithoutUserInput | DailyReflectionCreateOrConnectWithoutUserInput[]
-    upsert?: DailyReflectionUpsertWithWhereUniqueWithoutUserInput | DailyReflectionUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: DailyReflectionCreateManyUserInputEnvelope
-    set?: DailyReflectionWhereUniqueInput | DailyReflectionWhereUniqueInput[]
-    disconnect?: DailyReflectionWhereUniqueInput | DailyReflectionWhereUniqueInput[]
-    delete?: DailyReflectionWhereUniqueInput | DailyReflectionWhereUniqueInput[]
-    connect?: DailyReflectionWhereUniqueInput | DailyReflectionWhereUniqueInput[]
-    update?: DailyReflectionUpdateWithWhereUniqueWithoutUserInput | DailyReflectionUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: DailyReflectionUpdateManyWithWhereWithoutUserInput | DailyReflectionUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: DailyReflectionScalarWhereInput | DailyReflectionScalarWhereInput[]
+  export type ReflectionBadgeUpdateManyWithoutUserNestedInput = {
+    create?: XOR<ReflectionBadgeCreateWithoutUserInput, ReflectionBadgeUncheckedCreateWithoutUserInput> | ReflectionBadgeCreateWithoutUserInput[] | ReflectionBadgeUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ReflectionBadgeCreateOrConnectWithoutUserInput | ReflectionBadgeCreateOrConnectWithoutUserInput[]
+    upsert?: ReflectionBadgeUpsertWithWhereUniqueWithoutUserInput | ReflectionBadgeUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: ReflectionBadgeCreateManyUserInputEnvelope
+    set?: ReflectionBadgeWhereUniqueInput | ReflectionBadgeWhereUniqueInput[]
+    disconnect?: ReflectionBadgeWhereUniqueInput | ReflectionBadgeWhereUniqueInput[]
+    delete?: ReflectionBadgeWhereUniqueInput | ReflectionBadgeWhereUniqueInput[]
+    connect?: ReflectionBadgeWhereUniqueInput | ReflectionBadgeWhereUniqueInput[]
+    update?: ReflectionBadgeUpdateWithWhereUniqueWithoutUserInput | ReflectionBadgeUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: ReflectionBadgeUpdateManyWithWhereWithoutUserInput | ReflectionBadgeUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: ReflectionBadgeScalarWhereInput | ReflectionBadgeScalarWhereInput[]
   }
 
-  export type WeeklyReflectionUpdateManyWithoutUserNestedInput = {
-    create?: XOR<WeeklyReflectionCreateWithoutUserInput, WeeklyReflectionUncheckedCreateWithoutUserInput> | WeeklyReflectionCreateWithoutUserInput[] | WeeklyReflectionUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: WeeklyReflectionCreateOrConnectWithoutUserInput | WeeklyReflectionCreateOrConnectWithoutUserInput[]
-    upsert?: WeeklyReflectionUpsertWithWhereUniqueWithoutUserInput | WeeklyReflectionUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: WeeklyReflectionCreateManyUserInputEnvelope
-    set?: WeeklyReflectionWhereUniqueInput | WeeklyReflectionWhereUniqueInput[]
-    disconnect?: WeeklyReflectionWhereUniqueInput | WeeklyReflectionWhereUniqueInput[]
-    delete?: WeeklyReflectionWhereUniqueInput | WeeklyReflectionWhereUniqueInput[]
-    connect?: WeeklyReflectionWhereUniqueInput | WeeklyReflectionWhereUniqueInput[]
-    update?: WeeklyReflectionUpdateWithWhereUniqueWithoutUserInput | WeeklyReflectionUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: WeeklyReflectionUpdateManyWithWhereWithoutUserInput | WeeklyReflectionUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: WeeklyReflectionScalarWhereInput | WeeklyReflectionScalarWhereInput[]
+  export type AvatarUpdateOneWithoutUsersNestedInput = {
+    create?: XOR<AvatarCreateWithoutUsersInput, AvatarUncheckedCreateWithoutUsersInput>
+    connectOrCreate?: AvatarCreateOrConnectWithoutUsersInput
+    upsert?: AvatarUpsertWithoutUsersInput
+    disconnect?: AvatarWhereInput | boolean
+    delete?: AvatarWhereInput | boolean
+    connect?: AvatarWhereUniqueInput
+    update?: XOR<XOR<AvatarUpdateToOneWithWhereWithoutUsersInput, AvatarUpdateWithoutUsersInput>, AvatarUncheckedUpdateWithoutUsersInput>
   }
 
   export type ValuePromptUpdateManyWithoutUserNestedInput = {
@@ -25104,22 +25104,36 @@ export namespace Prisma {
     deleteMany?: ValuePromptScalarWhereInput | ValuePromptScalarWhereInput[]
   }
 
-  export type ReflectionBadgeUpdateManyWithoutUserNestedInput = {
-    create?: XOR<ReflectionBadgeCreateWithoutUserInput, ReflectionBadgeUncheckedCreateWithoutUserInput> | ReflectionBadgeCreateWithoutUserInput[] | ReflectionBadgeUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: ReflectionBadgeCreateOrConnectWithoutUserInput | ReflectionBadgeCreateOrConnectWithoutUserInput[]
-    upsert?: ReflectionBadgeUpsertWithWhereUniqueWithoutUserInput | ReflectionBadgeUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: ReflectionBadgeCreateManyUserInputEnvelope
-    set?: ReflectionBadgeWhereUniqueInput | ReflectionBadgeWhereUniqueInput[]
-    disconnect?: ReflectionBadgeWhereUniqueInput | ReflectionBadgeWhereUniqueInput[]
-    delete?: ReflectionBadgeWhereUniqueInput | ReflectionBadgeWhereUniqueInput[]
-    connect?: ReflectionBadgeWhereUniqueInput | ReflectionBadgeWhereUniqueInput[]
-    update?: ReflectionBadgeUpdateWithWhereUniqueWithoutUserInput | ReflectionBadgeUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: ReflectionBadgeUpdateManyWithWhereWithoutUserInput | ReflectionBadgeUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: ReflectionBadgeScalarWhereInput | ReflectionBadgeScalarWhereInput[]
+  export type WeeklyReflectionUpdateManyWithoutUserNestedInput = {
+    create?: XOR<WeeklyReflectionCreateWithoutUserInput, WeeklyReflectionUncheckedCreateWithoutUserInput> | WeeklyReflectionCreateWithoutUserInput[] | WeeklyReflectionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: WeeklyReflectionCreateOrConnectWithoutUserInput | WeeklyReflectionCreateOrConnectWithoutUserInput[]
+    upsert?: WeeklyReflectionUpsertWithWhereUniqueWithoutUserInput | WeeklyReflectionUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: WeeklyReflectionCreateManyUserInputEnvelope
+    set?: WeeklyReflectionWhereUniqueInput | WeeklyReflectionWhereUniqueInput[]
+    disconnect?: WeeklyReflectionWhereUniqueInput | WeeklyReflectionWhereUniqueInput[]
+    delete?: WeeklyReflectionWhereUniqueInput | WeeklyReflectionWhereUniqueInput[]
+    connect?: WeeklyReflectionWhereUniqueInput | WeeklyReflectionWhereUniqueInput[]
+    update?: WeeklyReflectionUpdateWithWhereUniqueWithoutUserInput | WeeklyReflectionUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: WeeklyReflectionUpdateManyWithWhereWithoutUserInput | WeeklyReflectionUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: WeeklyReflectionScalarWhereInput | WeeklyReflectionScalarWhereInput[]
   }
 
   export type NullableStringFieldUpdateOperationsInput = {
     set?: string | null
+  }
+
+  export type DailyReflectionUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<DailyReflectionCreateWithoutUserInput, DailyReflectionUncheckedCreateWithoutUserInput> | DailyReflectionCreateWithoutUserInput[] | DailyReflectionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: DailyReflectionCreateOrConnectWithoutUserInput | DailyReflectionCreateOrConnectWithoutUserInput[]
+    upsert?: DailyReflectionUpsertWithWhereUniqueWithoutUserInput | DailyReflectionUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: DailyReflectionCreateManyUserInputEnvelope
+    set?: DailyReflectionWhereUniqueInput | DailyReflectionWhereUniqueInput[]
+    disconnect?: DailyReflectionWhereUniqueInput | DailyReflectionWhereUniqueInput[]
+    delete?: DailyReflectionWhereUniqueInput | DailyReflectionWhereUniqueInput[]
+    connect?: DailyReflectionWhereUniqueInput | DailyReflectionWhereUniqueInput[]
+    update?: DailyReflectionUpdateWithWhereUniqueWithoutUserInput | DailyReflectionUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: DailyReflectionUpdateManyWithWhereWithoutUserInput | DailyReflectionUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: DailyReflectionScalarWhereInput | DailyReflectionScalarWhereInput[]
   }
 
   export type GoalUncheckedUpdateManyWithoutUserNestedInput = {
@@ -25164,32 +25178,18 @@ export namespace Prisma {
     deleteMany?: QuestionAttemptLogScalarWhereInput | QuestionAttemptLogScalarWhereInput[]
   }
 
-  export type DailyReflectionUncheckedUpdateManyWithoutUserNestedInput = {
-    create?: XOR<DailyReflectionCreateWithoutUserInput, DailyReflectionUncheckedCreateWithoutUserInput> | DailyReflectionCreateWithoutUserInput[] | DailyReflectionUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: DailyReflectionCreateOrConnectWithoutUserInput | DailyReflectionCreateOrConnectWithoutUserInput[]
-    upsert?: DailyReflectionUpsertWithWhereUniqueWithoutUserInput | DailyReflectionUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: DailyReflectionCreateManyUserInputEnvelope
-    set?: DailyReflectionWhereUniqueInput | DailyReflectionWhereUniqueInput[]
-    disconnect?: DailyReflectionWhereUniqueInput | DailyReflectionWhereUniqueInput[]
-    delete?: DailyReflectionWhereUniqueInput | DailyReflectionWhereUniqueInput[]
-    connect?: DailyReflectionWhereUniqueInput | DailyReflectionWhereUniqueInput[]
-    update?: DailyReflectionUpdateWithWhereUniqueWithoutUserInput | DailyReflectionUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: DailyReflectionUpdateManyWithWhereWithoutUserInput | DailyReflectionUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: DailyReflectionScalarWhereInput | DailyReflectionScalarWhereInput[]
-  }
-
-  export type WeeklyReflectionUncheckedUpdateManyWithoutUserNestedInput = {
-    create?: XOR<WeeklyReflectionCreateWithoutUserInput, WeeklyReflectionUncheckedCreateWithoutUserInput> | WeeklyReflectionCreateWithoutUserInput[] | WeeklyReflectionUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: WeeklyReflectionCreateOrConnectWithoutUserInput | WeeklyReflectionCreateOrConnectWithoutUserInput[]
-    upsert?: WeeklyReflectionUpsertWithWhereUniqueWithoutUserInput | WeeklyReflectionUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: WeeklyReflectionCreateManyUserInputEnvelope
-    set?: WeeklyReflectionWhereUniqueInput | WeeklyReflectionWhereUniqueInput[]
-    disconnect?: WeeklyReflectionWhereUniqueInput | WeeklyReflectionWhereUniqueInput[]
-    delete?: WeeklyReflectionWhereUniqueInput | WeeklyReflectionWhereUniqueInput[]
-    connect?: WeeklyReflectionWhereUniqueInput | WeeklyReflectionWhereUniqueInput[]
-    update?: WeeklyReflectionUpdateWithWhereUniqueWithoutUserInput | WeeklyReflectionUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: WeeklyReflectionUpdateManyWithWhereWithoutUserInput | WeeklyReflectionUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: WeeklyReflectionScalarWhereInput | WeeklyReflectionScalarWhereInput[]
+  export type ReflectionBadgeUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<ReflectionBadgeCreateWithoutUserInput, ReflectionBadgeUncheckedCreateWithoutUserInput> | ReflectionBadgeCreateWithoutUserInput[] | ReflectionBadgeUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ReflectionBadgeCreateOrConnectWithoutUserInput | ReflectionBadgeCreateOrConnectWithoutUserInput[]
+    upsert?: ReflectionBadgeUpsertWithWhereUniqueWithoutUserInput | ReflectionBadgeUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: ReflectionBadgeCreateManyUserInputEnvelope
+    set?: ReflectionBadgeWhereUniqueInput | ReflectionBadgeWhereUniqueInput[]
+    disconnect?: ReflectionBadgeWhereUniqueInput | ReflectionBadgeWhereUniqueInput[]
+    delete?: ReflectionBadgeWhereUniqueInput | ReflectionBadgeWhereUniqueInput[]
+    connect?: ReflectionBadgeWhereUniqueInput | ReflectionBadgeWhereUniqueInput[]
+    update?: ReflectionBadgeUpdateWithWhereUniqueWithoutUserInput | ReflectionBadgeUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: ReflectionBadgeUpdateManyWithWhereWithoutUserInput | ReflectionBadgeUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: ReflectionBadgeScalarWhereInput | ReflectionBadgeScalarWhereInput[]
   }
 
   export type ValuePromptUncheckedUpdateManyWithoutUserNestedInput = {
@@ -25206,18 +25206,18 @@ export namespace Prisma {
     deleteMany?: ValuePromptScalarWhereInput | ValuePromptScalarWhereInput[]
   }
 
-  export type ReflectionBadgeUncheckedUpdateManyWithoutUserNestedInput = {
-    create?: XOR<ReflectionBadgeCreateWithoutUserInput, ReflectionBadgeUncheckedCreateWithoutUserInput> | ReflectionBadgeCreateWithoutUserInput[] | ReflectionBadgeUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: ReflectionBadgeCreateOrConnectWithoutUserInput | ReflectionBadgeCreateOrConnectWithoutUserInput[]
-    upsert?: ReflectionBadgeUpsertWithWhereUniqueWithoutUserInput | ReflectionBadgeUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: ReflectionBadgeCreateManyUserInputEnvelope
-    set?: ReflectionBadgeWhereUniqueInput | ReflectionBadgeWhereUniqueInput[]
-    disconnect?: ReflectionBadgeWhereUniqueInput | ReflectionBadgeWhereUniqueInput[]
-    delete?: ReflectionBadgeWhereUniqueInput | ReflectionBadgeWhereUniqueInput[]
-    connect?: ReflectionBadgeWhereUniqueInput | ReflectionBadgeWhereUniqueInput[]
-    update?: ReflectionBadgeUpdateWithWhereUniqueWithoutUserInput | ReflectionBadgeUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: ReflectionBadgeUpdateManyWithWhereWithoutUserInput | ReflectionBadgeUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: ReflectionBadgeScalarWhereInput | ReflectionBadgeScalarWhereInput[]
+  export type WeeklyReflectionUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<WeeklyReflectionCreateWithoutUserInput, WeeklyReflectionUncheckedCreateWithoutUserInput> | WeeklyReflectionCreateWithoutUserInput[] | WeeklyReflectionUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: WeeklyReflectionCreateOrConnectWithoutUserInput | WeeklyReflectionCreateOrConnectWithoutUserInput[]
+    upsert?: WeeklyReflectionUpsertWithWhereUniqueWithoutUserInput | WeeklyReflectionUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: WeeklyReflectionCreateManyUserInputEnvelope
+    set?: WeeklyReflectionWhereUniqueInput | WeeklyReflectionWhereUniqueInput[]
+    disconnect?: WeeklyReflectionWhereUniqueInput | WeeklyReflectionWhereUniqueInput[]
+    delete?: WeeklyReflectionWhereUniqueInput | WeeklyReflectionWhereUniqueInput[]
+    connect?: WeeklyReflectionWhereUniqueInput | WeeklyReflectionWhereUniqueInput[]
+    update?: WeeklyReflectionUpdateWithWhereUniqueWithoutUserInput | WeeklyReflectionUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: WeeklyReflectionUpdateManyWithWhereWithoutUserInput | WeeklyReflectionUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: WeeklyReflectionScalarWhereInput | WeeklyReflectionScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutGoalsInput = {
@@ -25382,12 +25382,6 @@ export namespace Prisma {
     deleteMany?: SectionScalarWhereInput | SectionScalarWhereInput[]
   }
 
-  export type ChapterCreateNestedOneWithoutSectionsInput = {
-    create?: XOR<ChapterCreateWithoutSectionsInput, ChapterUncheckedCreateWithoutSectionsInput>
-    connectOrCreate?: ChapterCreateOrConnectWithoutSectionsInput
-    connect?: ChapterWhereUniqueInput
-  }
-
   export type QuestionCreateNestedManyWithoutSectionInput = {
     create?: XOR<QuestionCreateWithoutSectionInput, QuestionUncheckedCreateWithoutSectionInput> | QuestionCreateWithoutSectionInput[] | QuestionUncheckedCreateWithoutSectionInput[]
     connectOrCreate?: QuestionCreateOrConnectWithoutSectionInput | QuestionCreateOrConnectWithoutSectionInput[]
@@ -25395,19 +25389,17 @@ export namespace Prisma {
     connect?: QuestionWhereUniqueInput | QuestionWhereUniqueInput[]
   }
 
+  export type ChapterCreateNestedOneWithoutSectionsInput = {
+    create?: XOR<ChapterCreateWithoutSectionsInput, ChapterUncheckedCreateWithoutSectionsInput>
+    connectOrCreate?: ChapterCreateOrConnectWithoutSectionsInput
+    connect?: ChapterWhereUniqueInput
+  }
+
   export type QuestionUncheckedCreateNestedManyWithoutSectionInput = {
     create?: XOR<QuestionCreateWithoutSectionInput, QuestionUncheckedCreateWithoutSectionInput> | QuestionCreateWithoutSectionInput[] | QuestionUncheckedCreateWithoutSectionInput[]
     connectOrCreate?: QuestionCreateOrConnectWithoutSectionInput | QuestionCreateOrConnectWithoutSectionInput[]
     createMany?: QuestionCreateManySectionInputEnvelope
     connect?: QuestionWhereUniqueInput | QuestionWhereUniqueInput[]
-  }
-
-  export type ChapterUpdateOneRequiredWithoutSectionsNestedInput = {
-    create?: XOR<ChapterCreateWithoutSectionsInput, ChapterUncheckedCreateWithoutSectionsInput>
-    connectOrCreate?: ChapterCreateOrConnectWithoutSectionsInput
-    upsert?: ChapterUpsertWithoutSectionsInput
-    connect?: ChapterWhereUniqueInput
-    update?: XOR<XOR<ChapterUpdateToOneWithWhereWithoutSectionsInput, ChapterUpdateWithoutSectionsInput>, ChapterUncheckedUpdateWithoutSectionsInput>
   }
 
   export type QuestionUpdateManyWithoutSectionNestedInput = {
@@ -25424,6 +25416,14 @@ export namespace Prisma {
     deleteMany?: QuestionScalarWhereInput | QuestionScalarWhereInput[]
   }
 
+  export type ChapterUpdateOneRequiredWithoutSectionsNestedInput = {
+    create?: XOR<ChapterCreateWithoutSectionsInput, ChapterUncheckedCreateWithoutSectionsInput>
+    connectOrCreate?: ChapterCreateOrConnectWithoutSectionsInput
+    upsert?: ChapterUpsertWithoutSectionsInput
+    connect?: ChapterWhereUniqueInput
+    update?: XOR<XOR<ChapterUpdateToOneWithWhereWithoutSectionsInput, ChapterUpdateWithoutSectionsInput>, ChapterUncheckedUpdateWithoutSectionsInput>
+  }
+
   export type QuestionUncheckedUpdateManyWithoutSectionNestedInput = {
     create?: XOR<QuestionCreateWithoutSectionInput, QuestionUncheckedCreateWithoutSectionInput> | QuestionCreateWithoutSectionInput[] | QuestionUncheckedCreateWithoutSectionInput[]
     connectOrCreate?: QuestionCreateOrConnectWithoutSectionInput | QuestionCreateOrConnectWithoutSectionInput[]
@@ -25436,12 +25436,6 @@ export namespace Prisma {
     update?: QuestionUpdateWithWhereUniqueWithoutSectionInput | QuestionUpdateWithWhereUniqueWithoutSectionInput[]
     updateMany?: QuestionUpdateManyWithWhereWithoutSectionInput | QuestionUpdateManyWithWhereWithoutSectionInput[]
     deleteMany?: QuestionScalarWhereInput | QuestionScalarWhereInput[]
-  }
-
-  export type SectionCreateNestedOneWithoutQuestionsInput = {
-    create?: XOR<SectionCreateWithoutQuestionsInput, SectionUncheckedCreateWithoutQuestionsInput>
-    connectOrCreate?: SectionCreateOrConnectWithoutQuestionsInput
-    connect?: SectionWhereUniqueInput
   }
 
   export type LearningTaskCreateNestedManyWithoutQuestionInput = {
@@ -25458,6 +25452,12 @@ export namespace Prisma {
     connect?: QuestionAttemptLogWhereUniqueInput | QuestionAttemptLogWhereUniqueInput[]
   }
 
+  export type SectionCreateNestedOneWithoutQuestionsInput = {
+    create?: XOR<SectionCreateWithoutQuestionsInput, SectionUncheckedCreateWithoutQuestionsInput>
+    connectOrCreate?: SectionCreateOrConnectWithoutQuestionsInput
+    connect?: SectionWhereUniqueInput
+  }
+
   export type LearningTaskUncheckedCreateNestedManyWithoutQuestionInput = {
     create?: XOR<LearningTaskCreateWithoutQuestionInput, LearningTaskUncheckedCreateWithoutQuestionInput> | LearningTaskCreateWithoutQuestionInput[] | LearningTaskUncheckedCreateWithoutQuestionInput[]
     connectOrCreate?: LearningTaskCreateOrConnectWithoutQuestionInput | LearningTaskCreateOrConnectWithoutQuestionInput[]
@@ -25470,14 +25470,6 @@ export namespace Prisma {
     connectOrCreate?: QuestionAttemptLogCreateOrConnectWithoutQuestionInput | QuestionAttemptLogCreateOrConnectWithoutQuestionInput[]
     createMany?: QuestionAttemptLogCreateManyQuestionInputEnvelope
     connect?: QuestionAttemptLogWhereUniqueInput | QuestionAttemptLogWhereUniqueInput[]
-  }
-
-  export type SectionUpdateOneRequiredWithoutQuestionsNestedInput = {
-    create?: XOR<SectionCreateWithoutQuestionsInput, SectionUncheckedCreateWithoutQuestionsInput>
-    connectOrCreate?: SectionCreateOrConnectWithoutQuestionsInput
-    upsert?: SectionUpsertWithoutQuestionsInput
-    connect?: SectionWhereUniqueInput
-    update?: XOR<XOR<SectionUpdateToOneWithWhereWithoutQuestionsInput, SectionUpdateWithoutQuestionsInput>, SectionUncheckedUpdateWithoutQuestionsInput>
   }
 
   export type LearningTaskUpdateManyWithoutQuestionNestedInput = {
@@ -25506,6 +25498,14 @@ export namespace Prisma {
     update?: QuestionAttemptLogUpdateWithWhereUniqueWithoutQuestionInput | QuestionAttemptLogUpdateWithWhereUniqueWithoutQuestionInput[]
     updateMany?: QuestionAttemptLogUpdateManyWithWhereWithoutQuestionInput | QuestionAttemptLogUpdateManyWithWhereWithoutQuestionInput[]
     deleteMany?: QuestionAttemptLogScalarWhereInput | QuestionAttemptLogScalarWhereInput[]
+  }
+
+  export type SectionUpdateOneRequiredWithoutQuestionsNestedInput = {
+    create?: XOR<SectionCreateWithoutQuestionsInput, SectionUncheckedCreateWithoutQuestionsInput>
+    connectOrCreate?: SectionCreateOrConnectWithoutQuestionsInput
+    upsert?: SectionUpsertWithoutQuestionsInput
+    connect?: SectionWhereUniqueInput
+    update?: XOR<XOR<SectionUpdateToOneWithWhereWithoutQuestionsInput, SectionUpdateWithoutQuestionsInput>, SectionUncheckedUpdateWithoutQuestionsInput>
   }
 
   export type LearningTaskUncheckedUpdateManyWithoutQuestionNestedInput = {
@@ -25540,16 +25540,16 @@ export namespace Prisma {
     set: string[]
   }
 
-  export type UserCreateNestedOneWithoutLearningPlansInput = {
-    create?: XOR<UserCreateWithoutLearningPlansInput, UserUncheckedCreateWithoutLearningPlansInput>
-    connectOrCreate?: UserCreateOrConnectWithoutLearningPlansInput
-    connect?: UserWhereUniqueInput
-  }
-
   export type GoalCreateNestedOneWithoutLearningPlansInput = {
     create?: XOR<GoalCreateWithoutLearningPlansInput, GoalUncheckedCreateWithoutLearningPlansInput>
     connectOrCreate?: GoalCreateOrConnectWithoutLearningPlansInput
     connect?: GoalWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutLearningPlansInput = {
+    create?: XOR<UserCreateWithoutLearningPlansInput, UserUncheckedCreateWithoutLearningPlansInput>
+    connectOrCreate?: UserCreateOrConnectWithoutLearningPlansInput
+    connect?: UserWhereUniqueInput
   }
 
   export type LearningTaskCreateNestedManyWithoutLearningPlanInput = {
@@ -25585,20 +25585,20 @@ export namespace Prisma {
     push?: string | string[]
   }
 
-  export type UserUpdateOneRequiredWithoutLearningPlansNestedInput = {
-    create?: XOR<UserCreateWithoutLearningPlansInput, UserUncheckedCreateWithoutLearningPlansInput>
-    connectOrCreate?: UserCreateOrConnectWithoutLearningPlansInput
-    upsert?: UserUpsertWithoutLearningPlansInput
-    connect?: UserWhereUniqueInput
-    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutLearningPlansInput, UserUpdateWithoutLearningPlansInput>, UserUncheckedUpdateWithoutLearningPlansInput>
-  }
-
   export type GoalUpdateOneRequiredWithoutLearningPlansNestedInput = {
     create?: XOR<GoalCreateWithoutLearningPlansInput, GoalUncheckedCreateWithoutLearningPlansInput>
     connectOrCreate?: GoalCreateOrConnectWithoutLearningPlansInput
     upsert?: GoalUpsertWithoutLearningPlansInput
     connect?: GoalWhereUniqueInput
     update?: XOR<XOR<GoalUpdateToOneWithWhereWithoutLearningPlansInput, GoalUpdateWithoutLearningPlansInput>, GoalUncheckedUpdateWithoutLearningPlansInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutLearningPlansNestedInput = {
+    create?: XOR<UserCreateWithoutLearningPlansInput, UserUncheckedCreateWithoutLearningPlansInput>
+    connectOrCreate?: UserCreateOrConnectWithoutLearningPlansInput
+    upsert?: UserUpsertWithoutLearningPlansInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutLearningPlansInput, UserUpdateWithoutLearningPlansInput>, UserUncheckedUpdateWithoutLearningPlansInput>
   }
 
   export type LearningTaskUpdateManyWithoutLearningPlanNestedInput = {
@@ -25685,24 +25685,16 @@ export namespace Prisma {
     update?: XOR<XOR<QuestionUpdateToOneWithWhereWithoutLearningTasksInput, QuestionUpdateWithoutLearningTasksInput>, QuestionUncheckedUpdateWithoutLearningTasksInput>
   }
 
-  export type UserCreateNestedOneWithoutAttemptLogsInput = {
-    create?: XOR<UserCreateWithoutAttemptLogsInput, UserUncheckedCreateWithoutAttemptLogsInput>
-    connectOrCreate?: UserCreateOrConnectWithoutAttemptLogsInput
-    connect?: UserWhereUniqueInput
-  }
-
   export type QuestionCreateNestedOneWithoutAttemptLogsInput = {
     create?: XOR<QuestionCreateWithoutAttemptLogsInput, QuestionUncheckedCreateWithoutAttemptLogsInput>
     connectOrCreate?: QuestionCreateOrConnectWithoutAttemptLogsInput
     connect?: QuestionWhereUniqueInput
   }
 
-  export type UserUpdateOneRequiredWithoutAttemptLogsNestedInput = {
+  export type UserCreateNestedOneWithoutAttemptLogsInput = {
     create?: XOR<UserCreateWithoutAttemptLogsInput, UserUncheckedCreateWithoutAttemptLogsInput>
     connectOrCreate?: UserCreateOrConnectWithoutAttemptLogsInput
-    upsert?: UserUpsertWithoutAttemptLogsInput
     connect?: UserWhereUniqueInput
-    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutAttemptLogsInput, UserUpdateWithoutAttemptLogsInput>, UserUncheckedUpdateWithoutAttemptLogsInput>
   }
 
   export type QuestionUpdateOneRequiredWithoutAttemptLogsNestedInput = {
@@ -25711,6 +25703,14 @@ export namespace Prisma {
     upsert?: QuestionUpsertWithoutAttemptLogsInput
     connect?: QuestionWhereUniqueInput
     update?: XOR<XOR<QuestionUpdateToOneWithWhereWithoutAttemptLogsInput, QuestionUpdateWithoutAttemptLogsInput>, QuestionUncheckedUpdateWithoutAttemptLogsInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutAttemptLogsNestedInput = {
+    create?: XOR<UserCreateWithoutAttemptLogsInput, UserUncheckedCreateWithoutAttemptLogsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutAttemptLogsInput
+    upsert?: UserUpsertWithoutAttemptLogsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutAttemptLogsInput, UserUpdateWithoutAttemptLogsInput>, UserUncheckedUpdateWithoutAttemptLogsInput>
   }
 
   export type PlanRevisionCreateselectedStatusesInput = {
@@ -25847,6 +25847,17 @@ export namespace Prisma {
     _max?: NestedBoolFilter<$PrismaModel>
   }
 
+  export type NestedDateTimeFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
+  }
+
   export type NestedStringNullableFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
@@ -25861,7 +25872,7 @@ export namespace Prisma {
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
   }
 
-  export type NestedDateTimeFilter<$PrismaModel = never> = {
+  export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
     equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
     notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
@@ -25869,7 +25880,10 @@ export namespace Prisma {
     lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
   export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -25898,20 +25912,6 @@ export namespace Prisma {
     gt?: number | IntFieldRefInput<$PrismaModel>
     gte?: number | IntFieldRefInput<$PrismaModel>
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
-  }
-
-  export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedDateTimeFilter<$PrismaModel>
-    _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
   export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
@@ -25948,13 +25948,13 @@ export namespace Prisma {
     onboardingCompleted?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    dailyReflections?: DailyReflectionCreateNestedManyWithoutUserInput
     goals?: GoalCreateNestedManyWithoutUserInput
     learningPlans?: LearningPlanCreateNestedManyWithoutUserInput
     attemptLogs?: QuestionAttemptLogCreateNestedManyWithoutUserInput
-    dailyReflections?: DailyReflectionCreateNestedManyWithoutUserInput
-    weeklyReflections?: WeeklyReflectionCreateNestedManyWithoutUserInput
-    valuePrompts?: ValuePromptCreateNestedManyWithoutUserInput
     reflectionBadges?: ReflectionBadgeCreateNestedManyWithoutUserInput
+    valuePrompts?: ValuePromptCreateNestedManyWithoutUserInput
+    weeklyReflections?: WeeklyReflectionCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutAvatarInput = {
@@ -25964,13 +25964,13 @@ export namespace Prisma {
     onboardingCompleted?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    dailyReflections?: DailyReflectionUncheckedCreateNestedManyWithoutUserInput
     goals?: GoalUncheckedCreateNestedManyWithoutUserInput
     learningPlans?: LearningPlanUncheckedCreateNestedManyWithoutUserInput
     attemptLogs?: QuestionAttemptLogUncheckedCreateNestedManyWithoutUserInput
-    dailyReflections?: DailyReflectionUncheckedCreateNestedManyWithoutUserInput
-    weeklyReflections?: WeeklyReflectionUncheckedCreateNestedManyWithoutUserInput
-    valuePrompts?: ValuePromptUncheckedCreateNestedManyWithoutUserInput
     reflectionBadges?: ReflectionBadgeUncheckedCreateNestedManyWithoutUserInput
+    valuePrompts?: ValuePromptUncheckedCreateNestedManyWithoutUserInput
+    weeklyReflections?: WeeklyReflectionUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutAvatarInput = {
@@ -26006,27 +26006,36 @@ export namespace Prisma {
     id?: StringFilter<"User"> | string
     email?: StringFilter<"User"> | string
     displayName?: StringFilter<"User"> | string
-    avatarKey?: StringNullableFilter<"User"> | string | null
     onboardingCompleted?: BoolFilter<"User"> | boolean
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
+    avatarKey?: StringNullableFilter<"User"> | string | null
   }
 
-  export type AvatarCreateWithoutUsersInput = {
-    id: string
-    label: string
-    imagePath: string
+  export type DailyReflectionCreateWithoutUserInput = {
+    id?: string
+    date: Date | string
+    content: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
-  export type AvatarUncheckedCreateWithoutUsersInput = {
-    id: string
-    label: string
-    imagePath: string
+  export type DailyReflectionUncheckedCreateWithoutUserInput = {
+    id?: string
+    date: Date | string
+    content: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
-  export type AvatarCreateOrConnectWithoutUsersInput = {
-    where: AvatarWhereUniqueInput
-    create: XOR<AvatarCreateWithoutUsersInput, AvatarUncheckedCreateWithoutUsersInput>
+  export type DailyReflectionCreateOrConnectWithoutUserInput = {
+    where: DailyReflectionWhereUniqueInput
+    create: XOR<DailyReflectionCreateWithoutUserInput, DailyReflectionUncheckedCreateWithoutUserInput>
+  }
+
+  export type DailyReflectionCreateManyUserInputEnvelope = {
+    data: DailyReflectionCreateManyUserInput | DailyReflectionCreateManyUserInput[]
+    skipDuplicates?: boolean
   }
 
   export type GoalCreateWithoutUserInput = {
@@ -26135,29 +26144,70 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type DailyReflectionCreateWithoutUserInput = {
+  export type ReflectionBadgeCreateWithoutUserInput = {
     id?: string
-    date: Date | string
+    badgeType: string
+    awardedAt?: Date | string
+  }
+
+  export type ReflectionBadgeUncheckedCreateWithoutUserInput = {
+    id?: string
+    badgeType: string
+    awardedAt?: Date | string
+  }
+
+  export type ReflectionBadgeCreateOrConnectWithoutUserInput = {
+    where: ReflectionBadgeWhereUniqueInput
+    create: XOR<ReflectionBadgeCreateWithoutUserInput, ReflectionBadgeUncheckedCreateWithoutUserInput>
+  }
+
+  export type ReflectionBadgeCreateManyUserInputEnvelope = {
+    data: ReflectionBadgeCreateManyUserInput | ReflectionBadgeCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type AvatarCreateWithoutUsersInput = {
+    id: string
+    label: string
+    imagePath: string
+  }
+
+  export type AvatarUncheckedCreateWithoutUsersInput = {
+    id: string
+    label: string
+    imagePath: string
+  }
+
+  export type AvatarCreateOrConnectWithoutUsersInput = {
+    where: AvatarWhereUniqueInput
+    create: XOR<AvatarCreateWithoutUsersInput, AvatarUncheckedCreateWithoutUsersInput>
+  }
+
+  export type ValuePromptCreateWithoutUserInput = {
+    id?: string
+    promptType: string
     content: string
+    response?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
-  export type DailyReflectionUncheckedCreateWithoutUserInput = {
+  export type ValuePromptUncheckedCreateWithoutUserInput = {
     id?: string
-    date: Date | string
+    promptType: string
     content: string
+    response?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
 
-  export type DailyReflectionCreateOrConnectWithoutUserInput = {
-    where: DailyReflectionWhereUniqueInput
-    create: XOR<DailyReflectionCreateWithoutUserInput, DailyReflectionUncheckedCreateWithoutUserInput>
+  export type ValuePromptCreateOrConnectWithoutUserInput = {
+    where: ValuePromptWhereUniqueInput
+    create: XOR<ValuePromptCreateWithoutUserInput, ValuePromptUncheckedCreateWithoutUserInput>
   }
 
-  export type DailyReflectionCreateManyUserInputEnvelope = {
-    data: DailyReflectionCreateManyUserInput | DailyReflectionCreateManyUserInput[]
+  export type ValuePromptCreateManyUserInputEnvelope = {
+    data: ValuePromptCreateManyUserInput | ValuePromptCreateManyUserInput[]
     skipDuplicates?: boolean
   }
 
@@ -26189,77 +26239,32 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type ValuePromptCreateWithoutUserInput = {
-    id?: string
-    promptType: string
-    content: string
-    response?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
+  export type DailyReflectionUpsertWithWhereUniqueWithoutUserInput = {
+    where: DailyReflectionWhereUniqueInput
+    update: XOR<DailyReflectionUpdateWithoutUserInput, DailyReflectionUncheckedUpdateWithoutUserInput>
+    create: XOR<DailyReflectionCreateWithoutUserInput, DailyReflectionUncheckedCreateWithoutUserInput>
   }
 
-  export type ValuePromptUncheckedCreateWithoutUserInput = {
-    id?: string
-    promptType: string
-    content: string
-    response?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
+  export type DailyReflectionUpdateWithWhereUniqueWithoutUserInput = {
+    where: DailyReflectionWhereUniqueInput
+    data: XOR<DailyReflectionUpdateWithoutUserInput, DailyReflectionUncheckedUpdateWithoutUserInput>
   }
 
-  export type ValuePromptCreateOrConnectWithoutUserInput = {
-    where: ValuePromptWhereUniqueInput
-    create: XOR<ValuePromptCreateWithoutUserInput, ValuePromptUncheckedCreateWithoutUserInput>
+  export type DailyReflectionUpdateManyWithWhereWithoutUserInput = {
+    where: DailyReflectionScalarWhereInput
+    data: XOR<DailyReflectionUpdateManyMutationInput, DailyReflectionUncheckedUpdateManyWithoutUserInput>
   }
 
-  export type ValuePromptCreateManyUserInputEnvelope = {
-    data: ValuePromptCreateManyUserInput | ValuePromptCreateManyUserInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type ReflectionBadgeCreateWithoutUserInput = {
-    id?: string
-    badgeType: string
-    awardedAt?: Date | string
-  }
-
-  export type ReflectionBadgeUncheckedCreateWithoutUserInput = {
-    id?: string
-    badgeType: string
-    awardedAt?: Date | string
-  }
-
-  export type ReflectionBadgeCreateOrConnectWithoutUserInput = {
-    where: ReflectionBadgeWhereUniqueInput
-    create: XOR<ReflectionBadgeCreateWithoutUserInput, ReflectionBadgeUncheckedCreateWithoutUserInput>
-  }
-
-  export type ReflectionBadgeCreateManyUserInputEnvelope = {
-    data: ReflectionBadgeCreateManyUserInput | ReflectionBadgeCreateManyUserInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type AvatarUpsertWithoutUsersInput = {
-    update: XOR<AvatarUpdateWithoutUsersInput, AvatarUncheckedUpdateWithoutUsersInput>
-    create: XOR<AvatarCreateWithoutUsersInput, AvatarUncheckedCreateWithoutUsersInput>
-    where?: AvatarWhereInput
-  }
-
-  export type AvatarUpdateToOneWithWhereWithoutUsersInput = {
-    where?: AvatarWhereInput
-    data: XOR<AvatarUpdateWithoutUsersInput, AvatarUncheckedUpdateWithoutUsersInput>
-  }
-
-  export type AvatarUpdateWithoutUsersInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    label?: StringFieldUpdateOperationsInput | string
-    imagePath?: StringFieldUpdateOperationsInput | string
-  }
-
-  export type AvatarUncheckedUpdateWithoutUsersInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    label?: StringFieldUpdateOperationsInput | string
-    imagePath?: StringFieldUpdateOperationsInput | string
+  export type DailyReflectionScalarWhereInput = {
+    AND?: DailyReflectionScalarWhereInput | DailyReflectionScalarWhereInput[]
+    OR?: DailyReflectionScalarWhereInput[]
+    NOT?: DailyReflectionScalarWhereInput | DailyReflectionScalarWhereInput[]
+    id?: StringFilter<"DailyReflection"> | string
+    userId?: StringFilter<"DailyReflection"> | string
+    date?: DateTimeFilter<"DailyReflection"> | Date | string
+    content?: StringFilter<"DailyReflection"> | string
+    createdAt?: DateTimeFilter<"DailyReflection"> | Date | string
+    updatedAt?: DateTimeFilter<"DailyReflection"> | Date | string
   }
 
   export type GoalUpsertWithWhereUniqueWithoutUserInput = {
@@ -26357,61 +26362,53 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"QuestionAttemptLog"> | Date | string
   }
 
-  export type DailyReflectionUpsertWithWhereUniqueWithoutUserInput = {
-    where: DailyReflectionWhereUniqueInput
-    update: XOR<DailyReflectionUpdateWithoutUserInput, DailyReflectionUncheckedUpdateWithoutUserInput>
-    create: XOR<DailyReflectionCreateWithoutUserInput, DailyReflectionUncheckedCreateWithoutUserInput>
+  export type ReflectionBadgeUpsertWithWhereUniqueWithoutUserInput = {
+    where: ReflectionBadgeWhereUniqueInput
+    update: XOR<ReflectionBadgeUpdateWithoutUserInput, ReflectionBadgeUncheckedUpdateWithoutUserInput>
+    create: XOR<ReflectionBadgeCreateWithoutUserInput, ReflectionBadgeUncheckedCreateWithoutUserInput>
   }
 
-  export type DailyReflectionUpdateWithWhereUniqueWithoutUserInput = {
-    where: DailyReflectionWhereUniqueInput
-    data: XOR<DailyReflectionUpdateWithoutUserInput, DailyReflectionUncheckedUpdateWithoutUserInput>
+  export type ReflectionBadgeUpdateWithWhereUniqueWithoutUserInput = {
+    where: ReflectionBadgeWhereUniqueInput
+    data: XOR<ReflectionBadgeUpdateWithoutUserInput, ReflectionBadgeUncheckedUpdateWithoutUserInput>
   }
 
-  export type DailyReflectionUpdateManyWithWhereWithoutUserInput = {
-    where: DailyReflectionScalarWhereInput
-    data: XOR<DailyReflectionUpdateManyMutationInput, DailyReflectionUncheckedUpdateManyWithoutUserInput>
+  export type ReflectionBadgeUpdateManyWithWhereWithoutUserInput = {
+    where: ReflectionBadgeScalarWhereInput
+    data: XOR<ReflectionBadgeUpdateManyMutationInput, ReflectionBadgeUncheckedUpdateManyWithoutUserInput>
   }
 
-  export type DailyReflectionScalarWhereInput = {
-    AND?: DailyReflectionScalarWhereInput | DailyReflectionScalarWhereInput[]
-    OR?: DailyReflectionScalarWhereInput[]
-    NOT?: DailyReflectionScalarWhereInput | DailyReflectionScalarWhereInput[]
-    id?: StringFilter<"DailyReflection"> | string
-    userId?: StringFilter<"DailyReflection"> | string
-    date?: DateTimeFilter<"DailyReflection"> | Date | string
-    content?: StringFilter<"DailyReflection"> | string
-    createdAt?: DateTimeFilter<"DailyReflection"> | Date | string
-    updatedAt?: DateTimeFilter<"DailyReflection"> | Date | string
+  export type ReflectionBadgeScalarWhereInput = {
+    AND?: ReflectionBadgeScalarWhereInput | ReflectionBadgeScalarWhereInput[]
+    OR?: ReflectionBadgeScalarWhereInput[]
+    NOT?: ReflectionBadgeScalarWhereInput | ReflectionBadgeScalarWhereInput[]
+    id?: StringFilter<"ReflectionBadge"> | string
+    userId?: StringFilter<"ReflectionBadge"> | string
+    badgeType?: StringFilter<"ReflectionBadge"> | string
+    awardedAt?: DateTimeFilter<"ReflectionBadge"> | Date | string
   }
 
-  export type WeeklyReflectionUpsertWithWhereUniqueWithoutUserInput = {
-    where: WeeklyReflectionWhereUniqueInput
-    update: XOR<WeeklyReflectionUpdateWithoutUserInput, WeeklyReflectionUncheckedUpdateWithoutUserInput>
-    create: XOR<WeeklyReflectionCreateWithoutUserInput, WeeklyReflectionUncheckedCreateWithoutUserInput>
+  export type AvatarUpsertWithoutUsersInput = {
+    update: XOR<AvatarUpdateWithoutUsersInput, AvatarUncheckedUpdateWithoutUsersInput>
+    create: XOR<AvatarCreateWithoutUsersInput, AvatarUncheckedCreateWithoutUsersInput>
+    where?: AvatarWhereInput
   }
 
-  export type WeeklyReflectionUpdateWithWhereUniqueWithoutUserInput = {
-    where: WeeklyReflectionWhereUniqueInput
-    data: XOR<WeeklyReflectionUpdateWithoutUserInput, WeeklyReflectionUncheckedUpdateWithoutUserInput>
+  export type AvatarUpdateToOneWithWhereWithoutUsersInput = {
+    where?: AvatarWhereInput
+    data: XOR<AvatarUpdateWithoutUsersInput, AvatarUncheckedUpdateWithoutUsersInput>
   }
 
-  export type WeeklyReflectionUpdateManyWithWhereWithoutUserInput = {
-    where: WeeklyReflectionScalarWhereInput
-    data: XOR<WeeklyReflectionUpdateManyMutationInput, WeeklyReflectionUncheckedUpdateManyWithoutUserInput>
+  export type AvatarUpdateWithoutUsersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    label?: StringFieldUpdateOperationsInput | string
+    imagePath?: StringFieldUpdateOperationsInput | string
   }
 
-  export type WeeklyReflectionScalarWhereInput = {
-    AND?: WeeklyReflectionScalarWhereInput | WeeklyReflectionScalarWhereInput[]
-    OR?: WeeklyReflectionScalarWhereInput[]
-    NOT?: WeeklyReflectionScalarWhereInput | WeeklyReflectionScalarWhereInput[]
-    id?: StringFilter<"WeeklyReflection"> | string
-    userId?: StringFilter<"WeeklyReflection"> | string
-    weekStart?: DateTimeFilter<"WeeklyReflection"> | Date | string
-    weekEnd?: DateTimeFilter<"WeeklyReflection"> | Date | string
-    content?: StringFilter<"WeeklyReflection"> | string
-    createdAt?: DateTimeFilter<"WeeklyReflection"> | Date | string
-    updatedAt?: DateTimeFilter<"WeeklyReflection"> | Date | string
+  export type AvatarUncheckedUpdateWithoutUsersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    label?: StringFieldUpdateOperationsInput | string
+    imagePath?: StringFieldUpdateOperationsInput | string
   }
 
   export type ValuePromptUpsertWithWhereUniqueWithoutUserInput = {
@@ -26443,30 +26440,33 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"ValuePrompt"> | Date | string
   }
 
-  export type ReflectionBadgeUpsertWithWhereUniqueWithoutUserInput = {
-    where: ReflectionBadgeWhereUniqueInput
-    update: XOR<ReflectionBadgeUpdateWithoutUserInput, ReflectionBadgeUncheckedUpdateWithoutUserInput>
-    create: XOR<ReflectionBadgeCreateWithoutUserInput, ReflectionBadgeUncheckedCreateWithoutUserInput>
+  export type WeeklyReflectionUpsertWithWhereUniqueWithoutUserInput = {
+    where: WeeklyReflectionWhereUniqueInput
+    update: XOR<WeeklyReflectionUpdateWithoutUserInput, WeeklyReflectionUncheckedUpdateWithoutUserInput>
+    create: XOR<WeeklyReflectionCreateWithoutUserInput, WeeklyReflectionUncheckedCreateWithoutUserInput>
   }
 
-  export type ReflectionBadgeUpdateWithWhereUniqueWithoutUserInput = {
-    where: ReflectionBadgeWhereUniqueInput
-    data: XOR<ReflectionBadgeUpdateWithoutUserInput, ReflectionBadgeUncheckedUpdateWithoutUserInput>
+  export type WeeklyReflectionUpdateWithWhereUniqueWithoutUserInput = {
+    where: WeeklyReflectionWhereUniqueInput
+    data: XOR<WeeklyReflectionUpdateWithoutUserInput, WeeklyReflectionUncheckedUpdateWithoutUserInput>
   }
 
-  export type ReflectionBadgeUpdateManyWithWhereWithoutUserInput = {
-    where: ReflectionBadgeScalarWhereInput
-    data: XOR<ReflectionBadgeUpdateManyMutationInput, ReflectionBadgeUncheckedUpdateManyWithoutUserInput>
+  export type WeeklyReflectionUpdateManyWithWhereWithoutUserInput = {
+    where: WeeklyReflectionScalarWhereInput
+    data: XOR<WeeklyReflectionUpdateManyMutationInput, WeeklyReflectionUncheckedUpdateManyWithoutUserInput>
   }
 
-  export type ReflectionBadgeScalarWhereInput = {
-    AND?: ReflectionBadgeScalarWhereInput | ReflectionBadgeScalarWhereInput[]
-    OR?: ReflectionBadgeScalarWhereInput[]
-    NOT?: ReflectionBadgeScalarWhereInput | ReflectionBadgeScalarWhereInput[]
-    id?: StringFilter<"ReflectionBadge"> | string
-    userId?: StringFilter<"ReflectionBadge"> | string
-    badgeType?: StringFilter<"ReflectionBadge"> | string
-    awardedAt?: DateTimeFilter<"ReflectionBadge"> | Date | string
+  export type WeeklyReflectionScalarWhereInput = {
+    AND?: WeeklyReflectionScalarWhereInput | WeeklyReflectionScalarWhereInput[]
+    OR?: WeeklyReflectionScalarWhereInput[]
+    NOT?: WeeklyReflectionScalarWhereInput | WeeklyReflectionScalarWhereInput[]
+    id?: StringFilter<"WeeklyReflection"> | string
+    userId?: StringFilter<"WeeklyReflection"> | string
+    weekStart?: DateTimeFilter<"WeeklyReflection"> | Date | string
+    weekEnd?: DateTimeFilter<"WeeklyReflection"> | Date | string
+    content?: StringFilter<"WeeklyReflection"> | string
+    createdAt?: DateTimeFilter<"WeeklyReflection"> | Date | string
+    updatedAt?: DateTimeFilter<"WeeklyReflection"> | Date | string
   }
 
   export type UserCreateWithoutGoalsInput = {
@@ -26476,29 +26476,29 @@ export namespace Prisma {
     onboardingCompleted?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
-    avatar?: AvatarCreateNestedOneWithoutUsersInput
+    dailyReflections?: DailyReflectionCreateNestedManyWithoutUserInput
     learningPlans?: LearningPlanCreateNestedManyWithoutUserInput
     attemptLogs?: QuestionAttemptLogCreateNestedManyWithoutUserInput
-    dailyReflections?: DailyReflectionCreateNestedManyWithoutUserInput
-    weeklyReflections?: WeeklyReflectionCreateNestedManyWithoutUserInput
-    valuePrompts?: ValuePromptCreateNestedManyWithoutUserInput
     reflectionBadges?: ReflectionBadgeCreateNestedManyWithoutUserInput
+    avatar?: AvatarCreateNestedOneWithoutUsersInput
+    valuePrompts?: ValuePromptCreateNestedManyWithoutUserInput
+    weeklyReflections?: WeeklyReflectionCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutGoalsInput = {
     id?: string
     email: string
     displayName: string
-    avatarKey?: string | null
     onboardingCompleted?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    avatarKey?: string | null
+    dailyReflections?: DailyReflectionUncheckedCreateNestedManyWithoutUserInput
     learningPlans?: LearningPlanUncheckedCreateNestedManyWithoutUserInput
     attemptLogs?: QuestionAttemptLogUncheckedCreateNestedManyWithoutUserInput
-    dailyReflections?: DailyReflectionUncheckedCreateNestedManyWithoutUserInput
-    weeklyReflections?: WeeklyReflectionUncheckedCreateNestedManyWithoutUserInput
-    valuePrompts?: ValuePromptUncheckedCreateNestedManyWithoutUserInput
     reflectionBadges?: ReflectionBadgeUncheckedCreateNestedManyWithoutUserInput
+    valuePrompts?: ValuePromptUncheckedCreateNestedManyWithoutUserInput
+    weeklyReflections?: WeeklyReflectionUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutGoalsInput = {
@@ -26564,29 +26564,29 @@ export namespace Prisma {
     onboardingCompleted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    avatar?: AvatarUpdateOneWithoutUsersNestedInput
+    dailyReflections?: DailyReflectionUpdateManyWithoutUserNestedInput
     learningPlans?: LearningPlanUpdateManyWithoutUserNestedInput
     attemptLogs?: QuestionAttemptLogUpdateManyWithoutUserNestedInput
-    dailyReflections?: DailyReflectionUpdateManyWithoutUserNestedInput
-    weeklyReflections?: WeeklyReflectionUpdateManyWithoutUserNestedInput
-    valuePrompts?: ValuePromptUpdateManyWithoutUserNestedInput
     reflectionBadges?: ReflectionBadgeUpdateManyWithoutUserNestedInput
+    avatar?: AvatarUpdateOneWithoutUsersNestedInput
+    valuePrompts?: ValuePromptUpdateManyWithoutUserNestedInput
+    weeklyReflections?: WeeklyReflectionUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutGoalsInput = {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     displayName?: StringFieldUpdateOperationsInput | string
-    avatarKey?: NullableStringFieldUpdateOperationsInput | string | null
     onboardingCompleted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    avatarKey?: NullableStringFieldUpdateOperationsInput | string | null
+    dailyReflections?: DailyReflectionUncheckedUpdateManyWithoutUserNestedInput
     learningPlans?: LearningPlanUncheckedUpdateManyWithoutUserNestedInput
     attemptLogs?: QuestionAttemptLogUncheckedUpdateManyWithoutUserNestedInput
-    dailyReflections?: DailyReflectionUncheckedUpdateManyWithoutUserNestedInput
-    weeklyReflections?: WeeklyReflectionUncheckedUpdateManyWithoutUserNestedInput
-    valuePrompts?: ValuePromptUncheckedUpdateManyWithoutUserNestedInput
     reflectionBadges?: ReflectionBadgeUncheckedUpdateManyWithoutUserNestedInput
+    valuePrompts?: ValuePromptUncheckedUpdateManyWithoutUserNestedInput
+    weeklyReflections?: WeeklyReflectionUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type LearningPlanUpsertWithWhereUniqueWithoutGoalInput = {
@@ -26761,29 +26761,6 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Section"> | Date | string
   }
 
-  export type ChapterCreateWithoutSectionsInput = {
-    id?: string
-    title: string
-    orderIndex: number
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    textbook: TextbookCreateNestedOneWithoutChaptersInput
-  }
-
-  export type ChapterUncheckedCreateWithoutSectionsInput = {
-    id?: string
-    textbookId: string
-    title: string
-    orderIndex: number
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type ChapterCreateOrConnectWithoutSectionsInput = {
-    where: ChapterWhereUniqueInput
-    create: XOR<ChapterCreateWithoutSectionsInput, ChapterUncheckedCreateWithoutSectionsInput>
-  }
-
   export type QuestionCreateWithoutSectionInput = {
     id?: string
     content: string
@@ -26814,33 +26791,27 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type ChapterUpsertWithoutSectionsInput = {
-    update: XOR<ChapterUpdateWithoutSectionsInput, ChapterUncheckedUpdateWithoutSectionsInput>
+  export type ChapterCreateWithoutSectionsInput = {
+    id?: string
+    title: string
+    orderIndex: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    textbook: TextbookCreateNestedOneWithoutChaptersInput
+  }
+
+  export type ChapterUncheckedCreateWithoutSectionsInput = {
+    id?: string
+    textbookId: string
+    title: string
+    orderIndex: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ChapterCreateOrConnectWithoutSectionsInput = {
+    where: ChapterWhereUniqueInput
     create: XOR<ChapterCreateWithoutSectionsInput, ChapterUncheckedCreateWithoutSectionsInput>
-    where?: ChapterWhereInput
-  }
-
-  export type ChapterUpdateToOneWithWhereWithoutSectionsInput = {
-    where?: ChapterWhereInput
-    data: XOR<ChapterUpdateWithoutSectionsInput, ChapterUncheckedUpdateWithoutSectionsInput>
-  }
-
-  export type ChapterUpdateWithoutSectionsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    title?: StringFieldUpdateOperationsInput | string
-    orderIndex?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    textbook?: TextbookUpdateOneRequiredWithoutChaptersNestedInput
-  }
-
-  export type ChapterUncheckedUpdateWithoutSectionsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    textbookId?: StringFieldUpdateOperationsInput | string
-    title?: StringFieldUpdateOperationsInput | string
-    orderIndex?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type QuestionUpsertWithWhereUniqueWithoutSectionInput = {
@@ -26871,27 +26842,33 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Question"> | Date | string
   }
 
-  export type SectionCreateWithoutQuestionsInput = {
-    id?: string
-    title: string
-    orderIndex: number
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    chapter: ChapterCreateNestedOneWithoutSectionsInput
+  export type ChapterUpsertWithoutSectionsInput = {
+    update: XOR<ChapterUpdateWithoutSectionsInput, ChapterUncheckedUpdateWithoutSectionsInput>
+    create: XOR<ChapterCreateWithoutSectionsInput, ChapterUncheckedCreateWithoutSectionsInput>
+    where?: ChapterWhereInput
   }
 
-  export type SectionUncheckedCreateWithoutQuestionsInput = {
-    id?: string
-    chapterId: string
-    title: string
-    orderIndex: number
-    createdAt?: Date | string
-    updatedAt?: Date | string
+  export type ChapterUpdateToOneWithWhereWithoutSectionsInput = {
+    where?: ChapterWhereInput
+    data: XOR<ChapterUpdateWithoutSectionsInput, ChapterUncheckedUpdateWithoutSectionsInput>
   }
 
-  export type SectionCreateOrConnectWithoutQuestionsInput = {
-    where: SectionWhereUniqueInput
-    create: XOR<SectionCreateWithoutQuestionsInput, SectionUncheckedCreateWithoutQuestionsInput>
+  export type ChapterUpdateWithoutSectionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    orderIndex?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    textbook?: TextbookUpdateOneRequiredWithoutChaptersNestedInput
+  }
+
+  export type ChapterUncheckedUpdateWithoutSectionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    textbookId?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    orderIndex?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type LearningTaskCreateWithoutQuestionInput = {
@@ -26952,33 +26929,27 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type SectionUpsertWithoutQuestionsInput = {
-    update: XOR<SectionUpdateWithoutQuestionsInput, SectionUncheckedUpdateWithoutQuestionsInput>
+  export type SectionCreateWithoutQuestionsInput = {
+    id?: string
+    title: string
+    orderIndex: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    chapter: ChapterCreateNestedOneWithoutSectionsInput
+  }
+
+  export type SectionUncheckedCreateWithoutQuestionsInput = {
+    id?: string
+    chapterId: string
+    title: string
+    orderIndex: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type SectionCreateOrConnectWithoutQuestionsInput = {
+    where: SectionWhereUniqueInput
     create: XOR<SectionCreateWithoutQuestionsInput, SectionUncheckedCreateWithoutQuestionsInput>
-    where?: SectionWhereInput
-  }
-
-  export type SectionUpdateToOneWithWhereWithoutQuestionsInput = {
-    where?: SectionWhereInput
-    data: XOR<SectionUpdateWithoutQuestionsInput, SectionUncheckedUpdateWithoutQuestionsInput>
-  }
-
-  export type SectionUpdateWithoutQuestionsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    title?: StringFieldUpdateOperationsInput | string
-    orderIndex?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    chapter?: ChapterUpdateOneRequiredWithoutSectionsNestedInput
-  }
-
-  export type SectionUncheckedUpdateWithoutQuestionsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    chapterId?: StringFieldUpdateOperationsInput | string
-    title?: StringFieldUpdateOperationsInput | string
-    orderIndex?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type LearningTaskUpsertWithWhereUniqueWithoutQuestionInput = {
@@ -27027,41 +26998,33 @@ export namespace Prisma {
     data: XOR<QuestionAttemptLogUpdateManyMutationInput, QuestionAttemptLogUncheckedUpdateManyWithoutQuestionInput>
   }
 
-  export type UserCreateWithoutLearningPlansInput = {
-    id?: string
-    email: string
-    displayName: string
-    onboardingCompleted?: boolean
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    avatar?: AvatarCreateNestedOneWithoutUsersInput
-    goals?: GoalCreateNestedManyWithoutUserInput
-    attemptLogs?: QuestionAttemptLogCreateNestedManyWithoutUserInput
-    dailyReflections?: DailyReflectionCreateNestedManyWithoutUserInput
-    weeklyReflections?: WeeklyReflectionCreateNestedManyWithoutUserInput
-    valuePrompts?: ValuePromptCreateNestedManyWithoutUserInput
-    reflectionBadges?: ReflectionBadgeCreateNestedManyWithoutUserInput
+  export type SectionUpsertWithoutQuestionsInput = {
+    update: XOR<SectionUpdateWithoutQuestionsInput, SectionUncheckedUpdateWithoutQuestionsInput>
+    create: XOR<SectionCreateWithoutQuestionsInput, SectionUncheckedCreateWithoutQuestionsInput>
+    where?: SectionWhereInput
   }
 
-  export type UserUncheckedCreateWithoutLearningPlansInput = {
-    id?: string
-    email: string
-    displayName: string
-    avatarKey?: string | null
-    onboardingCompleted?: boolean
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    goals?: GoalUncheckedCreateNestedManyWithoutUserInput
-    attemptLogs?: QuestionAttemptLogUncheckedCreateNestedManyWithoutUserInput
-    dailyReflections?: DailyReflectionUncheckedCreateNestedManyWithoutUserInput
-    weeklyReflections?: WeeklyReflectionUncheckedCreateNestedManyWithoutUserInput
-    valuePrompts?: ValuePromptUncheckedCreateNestedManyWithoutUserInput
-    reflectionBadges?: ReflectionBadgeUncheckedCreateNestedManyWithoutUserInput
+  export type SectionUpdateToOneWithWhereWithoutQuestionsInput = {
+    where?: SectionWhereInput
+    data: XOR<SectionUpdateWithoutQuestionsInput, SectionUncheckedUpdateWithoutQuestionsInput>
   }
 
-  export type UserCreateOrConnectWithoutLearningPlansInput = {
-    where: UserWhereUniqueInput
-    create: XOR<UserCreateWithoutLearningPlansInput, UserUncheckedCreateWithoutLearningPlansInput>
+  export type SectionUpdateWithoutQuestionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    orderIndex?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    chapter?: ChapterUpdateOneRequiredWithoutSectionsNestedInput
+  }
+
+  export type SectionUncheckedUpdateWithoutQuestionsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    chapterId?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    orderIndex?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type GoalCreateWithoutLearningPlansInput = {
@@ -27095,6 +27058,43 @@ export namespace Prisma {
   export type GoalCreateOrConnectWithoutLearningPlansInput = {
     where: GoalWhereUniqueInput
     create: XOR<GoalCreateWithoutLearningPlansInput, GoalUncheckedCreateWithoutLearningPlansInput>
+  }
+
+  export type UserCreateWithoutLearningPlansInput = {
+    id?: string
+    email: string
+    displayName: string
+    onboardingCompleted?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    dailyReflections?: DailyReflectionCreateNestedManyWithoutUserInput
+    goals?: GoalCreateNestedManyWithoutUserInput
+    attemptLogs?: QuestionAttemptLogCreateNestedManyWithoutUserInput
+    reflectionBadges?: ReflectionBadgeCreateNestedManyWithoutUserInput
+    avatar?: AvatarCreateNestedOneWithoutUsersInput
+    valuePrompts?: ValuePromptCreateNestedManyWithoutUserInput
+    weeklyReflections?: WeeklyReflectionCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutLearningPlansInput = {
+    id?: string
+    email: string
+    displayName: string
+    onboardingCompleted?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    avatarKey?: string | null
+    dailyReflections?: DailyReflectionUncheckedCreateNestedManyWithoutUserInput
+    goals?: GoalUncheckedCreateNestedManyWithoutUserInput
+    attemptLogs?: QuestionAttemptLogUncheckedCreateNestedManyWithoutUserInput
+    reflectionBadges?: ReflectionBadgeUncheckedCreateNestedManyWithoutUserInput
+    valuePrompts?: ValuePromptUncheckedCreateNestedManyWithoutUserInput
+    weeklyReflections?: WeeklyReflectionUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutLearningPlansInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutLearningPlansInput, UserUncheckedCreateWithoutLearningPlansInput>
   }
 
   export type LearningTaskCreateWithoutLearningPlanInput = {
@@ -27151,49 +27151,6 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type UserUpsertWithoutLearningPlansInput = {
-    update: XOR<UserUpdateWithoutLearningPlansInput, UserUncheckedUpdateWithoutLearningPlansInput>
-    create: XOR<UserCreateWithoutLearningPlansInput, UserUncheckedCreateWithoutLearningPlansInput>
-    where?: UserWhereInput
-  }
-
-  export type UserUpdateToOneWithWhereWithoutLearningPlansInput = {
-    where?: UserWhereInput
-    data: XOR<UserUpdateWithoutLearningPlansInput, UserUncheckedUpdateWithoutLearningPlansInput>
-  }
-
-  export type UserUpdateWithoutLearningPlansInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    displayName?: StringFieldUpdateOperationsInput | string
-    onboardingCompleted?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    avatar?: AvatarUpdateOneWithoutUsersNestedInput
-    goals?: GoalUpdateManyWithoutUserNestedInput
-    attemptLogs?: QuestionAttemptLogUpdateManyWithoutUserNestedInput
-    dailyReflections?: DailyReflectionUpdateManyWithoutUserNestedInput
-    weeklyReflections?: WeeklyReflectionUpdateManyWithoutUserNestedInput
-    valuePrompts?: ValuePromptUpdateManyWithoutUserNestedInput
-    reflectionBadges?: ReflectionBadgeUpdateManyWithoutUserNestedInput
-  }
-
-  export type UserUncheckedUpdateWithoutLearningPlansInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    displayName?: StringFieldUpdateOperationsInput | string
-    avatarKey?: NullableStringFieldUpdateOperationsInput | string | null
-    onboardingCompleted?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    goals?: GoalUncheckedUpdateManyWithoutUserNestedInput
-    attemptLogs?: QuestionAttemptLogUncheckedUpdateManyWithoutUserNestedInput
-    dailyReflections?: DailyReflectionUncheckedUpdateManyWithoutUserNestedInput
-    weeklyReflections?: WeeklyReflectionUncheckedUpdateManyWithoutUserNestedInput
-    valuePrompts?: ValuePromptUncheckedUpdateManyWithoutUserNestedInput
-    reflectionBadges?: ReflectionBadgeUncheckedUpdateManyWithoutUserNestedInput
-  }
-
   export type GoalUpsertWithoutLearningPlansInput = {
     update: XOR<GoalUpdateWithoutLearningPlansInput, GoalUncheckedUpdateWithoutLearningPlansInput>
     create: XOR<GoalCreateWithoutLearningPlansInput, GoalUncheckedCreateWithoutLearningPlansInput>
@@ -27231,6 +27188,49 @@ export namespace Prisma {
     reasonText?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserUpsertWithoutLearningPlansInput = {
+    update: XOR<UserUpdateWithoutLearningPlansInput, UserUncheckedUpdateWithoutLearningPlansInput>
+    create: XOR<UserCreateWithoutLearningPlansInput, UserUncheckedCreateWithoutLearningPlansInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutLearningPlansInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutLearningPlansInput, UserUncheckedUpdateWithoutLearningPlansInput>
+  }
+
+  export type UserUpdateWithoutLearningPlansInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    displayName?: StringFieldUpdateOperationsInput | string
+    onboardingCompleted?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    dailyReflections?: DailyReflectionUpdateManyWithoutUserNestedInput
+    goals?: GoalUpdateManyWithoutUserNestedInput
+    attemptLogs?: QuestionAttemptLogUpdateManyWithoutUserNestedInput
+    reflectionBadges?: ReflectionBadgeUpdateManyWithoutUserNestedInput
+    avatar?: AvatarUpdateOneWithoutUsersNestedInput
+    valuePrompts?: ValuePromptUpdateManyWithoutUserNestedInput
+    weeklyReflections?: WeeklyReflectionUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutLearningPlansInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    displayName?: StringFieldUpdateOperationsInput | string
+    onboardingCompleted?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    avatarKey?: NullableStringFieldUpdateOperationsInput | string | null
+    dailyReflections?: DailyReflectionUncheckedUpdateManyWithoutUserNestedInput
+    goals?: GoalUncheckedUpdateManyWithoutUserNestedInput
+    attemptLogs?: QuestionAttemptLogUncheckedUpdateManyWithoutUserNestedInput
+    reflectionBadges?: ReflectionBadgeUncheckedUpdateManyWithoutUserNestedInput
+    valuePrompts?: ValuePromptUncheckedUpdateManyWithoutUserNestedInput
+    weeklyReflections?: WeeklyReflectionUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type LearningTaskUpsertWithWhereUniqueWithoutLearningPlanInput = {
@@ -27286,8 +27286,8 @@ export namespace Prisma {
     reviewWeekdays?: LearningPlanCreatereviewWeekdaysInput | string[]
     createdAt?: Date | string
     updatedAt?: Date | string
-    user: UserCreateNestedOneWithoutLearningPlansInput
     goal: GoalCreateNestedOneWithoutLearningPlansInput
+    user: UserCreateNestedOneWithoutLearningPlansInput
     planRevisions?: PlanRevisionCreateNestedManyWithoutLearningPlanInput
   }
 
@@ -27317,8 +27317,8 @@ export namespace Prisma {
     difficulty: number
     createdAt?: Date | string
     updatedAt?: Date | string
-    section: SectionCreateNestedOneWithoutQuestionsInput
     attemptLogs?: QuestionAttemptLogCreateNestedManyWithoutQuestionInput
+    section: SectionCreateNestedOneWithoutQuestionsInput
   }
 
   export type QuestionUncheckedCreateWithoutLearningTasksInput = {
@@ -27357,8 +27357,8 @@ export namespace Prisma {
     reviewWeekdays?: LearningPlanUpdatereviewWeekdaysInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    user?: UserUpdateOneRequiredWithoutLearningPlansNestedInput
     goal?: GoalUpdateOneRequiredWithoutLearningPlansNestedInput
+    user?: UserUpdateOneRequiredWithoutLearningPlansNestedInput
     planRevisions?: PlanRevisionUpdateManyWithoutLearningPlanNestedInput
   }
 
@@ -27394,8 +27394,8 @@ export namespace Prisma {
     difficulty?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    section?: SectionUpdateOneRequiredWithoutQuestionsNestedInput
     attemptLogs?: QuestionAttemptLogUpdateManyWithoutQuestionNestedInput
+    section?: SectionUpdateOneRequiredWithoutQuestionsNestedInput
   }
 
   export type QuestionUncheckedUpdateWithoutLearningTasksInput = {
@@ -27408,51 +27408,14 @@ export namespace Prisma {
     attemptLogs?: QuestionAttemptLogUncheckedUpdateManyWithoutQuestionNestedInput
   }
 
-  export type UserCreateWithoutAttemptLogsInput = {
-    id?: string
-    email: string
-    displayName: string
-    onboardingCompleted?: boolean
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    avatar?: AvatarCreateNestedOneWithoutUsersInput
-    goals?: GoalCreateNestedManyWithoutUserInput
-    learningPlans?: LearningPlanCreateNestedManyWithoutUserInput
-    dailyReflections?: DailyReflectionCreateNestedManyWithoutUserInput
-    weeklyReflections?: WeeklyReflectionCreateNestedManyWithoutUserInput
-    valuePrompts?: ValuePromptCreateNestedManyWithoutUserInput
-    reflectionBadges?: ReflectionBadgeCreateNestedManyWithoutUserInput
-  }
-
-  export type UserUncheckedCreateWithoutAttemptLogsInput = {
-    id?: string
-    email: string
-    displayName: string
-    avatarKey?: string | null
-    onboardingCompleted?: boolean
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    goals?: GoalUncheckedCreateNestedManyWithoutUserInput
-    learningPlans?: LearningPlanUncheckedCreateNestedManyWithoutUserInput
-    dailyReflections?: DailyReflectionUncheckedCreateNestedManyWithoutUserInput
-    weeklyReflections?: WeeklyReflectionUncheckedCreateNestedManyWithoutUserInput
-    valuePrompts?: ValuePromptUncheckedCreateNestedManyWithoutUserInput
-    reflectionBadges?: ReflectionBadgeUncheckedCreateNestedManyWithoutUserInput
-  }
-
-  export type UserCreateOrConnectWithoutAttemptLogsInput = {
-    where: UserWhereUniqueInput
-    create: XOR<UserCreateWithoutAttemptLogsInput, UserUncheckedCreateWithoutAttemptLogsInput>
-  }
-
   export type QuestionCreateWithoutAttemptLogsInput = {
     id?: string
     content: string
     difficulty: number
     createdAt?: Date | string
     updatedAt?: Date | string
-    section: SectionCreateNestedOneWithoutQuestionsInput
     learningTasks?: LearningTaskCreateNestedManyWithoutQuestionInput
+    section: SectionCreateNestedOneWithoutQuestionsInput
   }
 
   export type QuestionUncheckedCreateWithoutAttemptLogsInput = {
@@ -27468,6 +27431,74 @@ export namespace Prisma {
   export type QuestionCreateOrConnectWithoutAttemptLogsInput = {
     where: QuestionWhereUniqueInput
     create: XOR<QuestionCreateWithoutAttemptLogsInput, QuestionUncheckedCreateWithoutAttemptLogsInput>
+  }
+
+  export type UserCreateWithoutAttemptLogsInput = {
+    id?: string
+    email: string
+    displayName: string
+    onboardingCompleted?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    dailyReflections?: DailyReflectionCreateNestedManyWithoutUserInput
+    goals?: GoalCreateNestedManyWithoutUserInput
+    learningPlans?: LearningPlanCreateNestedManyWithoutUserInput
+    reflectionBadges?: ReflectionBadgeCreateNestedManyWithoutUserInput
+    avatar?: AvatarCreateNestedOneWithoutUsersInput
+    valuePrompts?: ValuePromptCreateNestedManyWithoutUserInput
+    weeklyReflections?: WeeklyReflectionCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutAttemptLogsInput = {
+    id?: string
+    email: string
+    displayName: string
+    onboardingCompleted?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    avatarKey?: string | null
+    dailyReflections?: DailyReflectionUncheckedCreateNestedManyWithoutUserInput
+    goals?: GoalUncheckedCreateNestedManyWithoutUserInput
+    learningPlans?: LearningPlanUncheckedCreateNestedManyWithoutUserInput
+    reflectionBadges?: ReflectionBadgeUncheckedCreateNestedManyWithoutUserInput
+    valuePrompts?: ValuePromptUncheckedCreateNestedManyWithoutUserInput
+    weeklyReflections?: WeeklyReflectionUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutAttemptLogsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutAttemptLogsInput, UserUncheckedCreateWithoutAttemptLogsInput>
+  }
+
+  export type QuestionUpsertWithoutAttemptLogsInput = {
+    update: XOR<QuestionUpdateWithoutAttemptLogsInput, QuestionUncheckedUpdateWithoutAttemptLogsInput>
+    create: XOR<QuestionCreateWithoutAttemptLogsInput, QuestionUncheckedCreateWithoutAttemptLogsInput>
+    where?: QuestionWhereInput
+  }
+
+  export type QuestionUpdateToOneWithWhereWithoutAttemptLogsInput = {
+    where?: QuestionWhereInput
+    data: XOR<QuestionUpdateWithoutAttemptLogsInput, QuestionUncheckedUpdateWithoutAttemptLogsInput>
+  }
+
+  export type QuestionUpdateWithoutAttemptLogsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    difficulty?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    learningTasks?: LearningTaskUpdateManyWithoutQuestionNestedInput
+    section?: SectionUpdateOneRequiredWithoutQuestionsNestedInput
+  }
+
+  export type QuestionUncheckedUpdateWithoutAttemptLogsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    sectionId?: StringFieldUpdateOperationsInput | string
+    content?: StringFieldUpdateOperationsInput | string
+    difficulty?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    learningTasks?: LearningTaskUncheckedUpdateManyWithoutQuestionNestedInput
   }
 
   export type UserUpsertWithoutAttemptLogsInput = {
@@ -27488,60 +27519,29 @@ export namespace Prisma {
     onboardingCompleted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    avatar?: AvatarUpdateOneWithoutUsersNestedInput
+    dailyReflections?: DailyReflectionUpdateManyWithoutUserNestedInput
     goals?: GoalUpdateManyWithoutUserNestedInput
     learningPlans?: LearningPlanUpdateManyWithoutUserNestedInput
-    dailyReflections?: DailyReflectionUpdateManyWithoutUserNestedInput
-    weeklyReflections?: WeeklyReflectionUpdateManyWithoutUserNestedInput
-    valuePrompts?: ValuePromptUpdateManyWithoutUserNestedInput
     reflectionBadges?: ReflectionBadgeUpdateManyWithoutUserNestedInput
+    avatar?: AvatarUpdateOneWithoutUsersNestedInput
+    valuePrompts?: ValuePromptUpdateManyWithoutUserNestedInput
+    weeklyReflections?: WeeklyReflectionUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAttemptLogsInput = {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     displayName?: StringFieldUpdateOperationsInput | string
-    avatarKey?: NullableStringFieldUpdateOperationsInput | string | null
     onboardingCompleted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    avatarKey?: NullableStringFieldUpdateOperationsInput | string | null
+    dailyReflections?: DailyReflectionUncheckedUpdateManyWithoutUserNestedInput
     goals?: GoalUncheckedUpdateManyWithoutUserNestedInput
     learningPlans?: LearningPlanUncheckedUpdateManyWithoutUserNestedInput
-    dailyReflections?: DailyReflectionUncheckedUpdateManyWithoutUserNestedInput
-    weeklyReflections?: WeeklyReflectionUncheckedUpdateManyWithoutUserNestedInput
-    valuePrompts?: ValuePromptUncheckedUpdateManyWithoutUserNestedInput
     reflectionBadges?: ReflectionBadgeUncheckedUpdateManyWithoutUserNestedInput
-  }
-
-  export type QuestionUpsertWithoutAttemptLogsInput = {
-    update: XOR<QuestionUpdateWithoutAttemptLogsInput, QuestionUncheckedUpdateWithoutAttemptLogsInput>
-    create: XOR<QuestionCreateWithoutAttemptLogsInput, QuestionUncheckedCreateWithoutAttemptLogsInput>
-    where?: QuestionWhereInput
-  }
-
-  export type QuestionUpdateToOneWithWhereWithoutAttemptLogsInput = {
-    where?: QuestionWhereInput
-    data: XOR<QuestionUpdateWithoutAttemptLogsInput, QuestionUncheckedUpdateWithoutAttemptLogsInput>
-  }
-
-  export type QuestionUpdateWithoutAttemptLogsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    content?: StringFieldUpdateOperationsInput | string
-    difficulty?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    section?: SectionUpdateOneRequiredWithoutQuestionsNestedInput
-    learningTasks?: LearningTaskUpdateManyWithoutQuestionNestedInput
-  }
-
-  export type QuestionUncheckedUpdateWithoutAttemptLogsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    sectionId?: StringFieldUpdateOperationsInput | string
-    content?: StringFieldUpdateOperationsInput | string
-    difficulty?: IntFieldUpdateOperationsInput | number
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    learningTasks?: LearningTaskUncheckedUpdateManyWithoutQuestionNestedInput
+    valuePrompts?: ValuePromptUncheckedUpdateManyWithoutUserNestedInput
+    weeklyReflections?: WeeklyReflectionUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type LearningPlanCreateWithoutPlanRevisionsInput = {
@@ -27554,8 +27554,8 @@ export namespace Prisma {
     reviewWeekdays?: LearningPlanCreatereviewWeekdaysInput | string[]
     createdAt?: Date | string
     updatedAt?: Date | string
-    user: UserCreateNestedOneWithoutLearningPlansInput
     goal: GoalCreateNestedOneWithoutLearningPlansInput
+    user: UserCreateNestedOneWithoutLearningPlansInput
     learningTasks?: LearningTaskCreateNestedManyWithoutLearningPlanInput
   }
 
@@ -27600,8 +27600,8 @@ export namespace Prisma {
     reviewWeekdays?: LearningPlanUpdatereviewWeekdaysInput | string[]
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    user?: UserUpdateOneRequiredWithoutLearningPlansNestedInput
     goal?: GoalUpdateOneRequiredWithoutLearningPlansNestedInput
+    user?: UserUpdateOneRequiredWithoutLearningPlansNestedInput
     learningTasks?: LearningTaskUpdateManyWithoutLearningPlanNestedInput
   }
 
@@ -27627,29 +27627,29 @@ export namespace Prisma {
     onboardingCompleted?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
-    avatar?: AvatarCreateNestedOneWithoutUsersInput
     goals?: GoalCreateNestedManyWithoutUserInput
     learningPlans?: LearningPlanCreateNestedManyWithoutUserInput
     attemptLogs?: QuestionAttemptLogCreateNestedManyWithoutUserInput
-    weeklyReflections?: WeeklyReflectionCreateNestedManyWithoutUserInput
-    valuePrompts?: ValuePromptCreateNestedManyWithoutUserInput
     reflectionBadges?: ReflectionBadgeCreateNestedManyWithoutUserInput
+    avatar?: AvatarCreateNestedOneWithoutUsersInput
+    valuePrompts?: ValuePromptCreateNestedManyWithoutUserInput
+    weeklyReflections?: WeeklyReflectionCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutDailyReflectionsInput = {
     id?: string
     email: string
     displayName: string
-    avatarKey?: string | null
     onboardingCompleted?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    avatarKey?: string | null
     goals?: GoalUncheckedCreateNestedManyWithoutUserInput
     learningPlans?: LearningPlanUncheckedCreateNestedManyWithoutUserInput
     attemptLogs?: QuestionAttemptLogUncheckedCreateNestedManyWithoutUserInput
-    weeklyReflections?: WeeklyReflectionUncheckedCreateNestedManyWithoutUserInput
-    valuePrompts?: ValuePromptUncheckedCreateNestedManyWithoutUserInput
     reflectionBadges?: ReflectionBadgeUncheckedCreateNestedManyWithoutUserInput
+    valuePrompts?: ValuePromptUncheckedCreateNestedManyWithoutUserInput
+    weeklyReflections?: WeeklyReflectionUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutDailyReflectionsInput = {
@@ -27675,29 +27675,29 @@ export namespace Prisma {
     onboardingCompleted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    avatar?: AvatarUpdateOneWithoutUsersNestedInput
     goals?: GoalUpdateManyWithoutUserNestedInput
     learningPlans?: LearningPlanUpdateManyWithoutUserNestedInput
     attemptLogs?: QuestionAttemptLogUpdateManyWithoutUserNestedInput
-    weeklyReflections?: WeeklyReflectionUpdateManyWithoutUserNestedInput
-    valuePrompts?: ValuePromptUpdateManyWithoutUserNestedInput
     reflectionBadges?: ReflectionBadgeUpdateManyWithoutUserNestedInput
+    avatar?: AvatarUpdateOneWithoutUsersNestedInput
+    valuePrompts?: ValuePromptUpdateManyWithoutUserNestedInput
+    weeklyReflections?: WeeklyReflectionUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutDailyReflectionsInput = {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     displayName?: StringFieldUpdateOperationsInput | string
-    avatarKey?: NullableStringFieldUpdateOperationsInput | string | null
     onboardingCompleted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    avatarKey?: NullableStringFieldUpdateOperationsInput | string | null
     goals?: GoalUncheckedUpdateManyWithoutUserNestedInput
     learningPlans?: LearningPlanUncheckedUpdateManyWithoutUserNestedInput
     attemptLogs?: QuestionAttemptLogUncheckedUpdateManyWithoutUserNestedInput
-    weeklyReflections?: WeeklyReflectionUncheckedUpdateManyWithoutUserNestedInput
-    valuePrompts?: ValuePromptUncheckedUpdateManyWithoutUserNestedInput
     reflectionBadges?: ReflectionBadgeUncheckedUpdateManyWithoutUserNestedInput
+    valuePrompts?: ValuePromptUncheckedUpdateManyWithoutUserNestedInput
+    weeklyReflections?: WeeklyReflectionUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutWeeklyReflectionsInput = {
@@ -27707,29 +27707,29 @@ export namespace Prisma {
     onboardingCompleted?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
-    avatar?: AvatarCreateNestedOneWithoutUsersInput
+    dailyReflections?: DailyReflectionCreateNestedManyWithoutUserInput
     goals?: GoalCreateNestedManyWithoutUserInput
     learningPlans?: LearningPlanCreateNestedManyWithoutUserInput
     attemptLogs?: QuestionAttemptLogCreateNestedManyWithoutUserInput
-    dailyReflections?: DailyReflectionCreateNestedManyWithoutUserInput
-    valuePrompts?: ValuePromptCreateNestedManyWithoutUserInput
     reflectionBadges?: ReflectionBadgeCreateNestedManyWithoutUserInput
+    avatar?: AvatarCreateNestedOneWithoutUsersInput
+    valuePrompts?: ValuePromptCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutWeeklyReflectionsInput = {
     id?: string
     email: string
     displayName: string
-    avatarKey?: string | null
     onboardingCompleted?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    avatarKey?: string | null
+    dailyReflections?: DailyReflectionUncheckedCreateNestedManyWithoutUserInput
     goals?: GoalUncheckedCreateNestedManyWithoutUserInput
     learningPlans?: LearningPlanUncheckedCreateNestedManyWithoutUserInput
     attemptLogs?: QuestionAttemptLogUncheckedCreateNestedManyWithoutUserInput
-    dailyReflections?: DailyReflectionUncheckedCreateNestedManyWithoutUserInput
-    valuePrompts?: ValuePromptUncheckedCreateNestedManyWithoutUserInput
     reflectionBadges?: ReflectionBadgeUncheckedCreateNestedManyWithoutUserInput
+    valuePrompts?: ValuePromptUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutWeeklyReflectionsInput = {
@@ -27755,29 +27755,29 @@ export namespace Prisma {
     onboardingCompleted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    avatar?: AvatarUpdateOneWithoutUsersNestedInput
+    dailyReflections?: DailyReflectionUpdateManyWithoutUserNestedInput
     goals?: GoalUpdateManyWithoutUserNestedInput
     learningPlans?: LearningPlanUpdateManyWithoutUserNestedInput
     attemptLogs?: QuestionAttemptLogUpdateManyWithoutUserNestedInput
-    dailyReflections?: DailyReflectionUpdateManyWithoutUserNestedInput
-    valuePrompts?: ValuePromptUpdateManyWithoutUserNestedInput
     reflectionBadges?: ReflectionBadgeUpdateManyWithoutUserNestedInput
+    avatar?: AvatarUpdateOneWithoutUsersNestedInput
+    valuePrompts?: ValuePromptUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutWeeklyReflectionsInput = {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     displayName?: StringFieldUpdateOperationsInput | string
-    avatarKey?: NullableStringFieldUpdateOperationsInput | string | null
     onboardingCompleted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    avatarKey?: NullableStringFieldUpdateOperationsInput | string | null
+    dailyReflections?: DailyReflectionUncheckedUpdateManyWithoutUserNestedInput
     goals?: GoalUncheckedUpdateManyWithoutUserNestedInput
     learningPlans?: LearningPlanUncheckedUpdateManyWithoutUserNestedInput
     attemptLogs?: QuestionAttemptLogUncheckedUpdateManyWithoutUserNestedInput
-    dailyReflections?: DailyReflectionUncheckedUpdateManyWithoutUserNestedInput
-    valuePrompts?: ValuePromptUncheckedUpdateManyWithoutUserNestedInput
     reflectionBadges?: ReflectionBadgeUncheckedUpdateManyWithoutUserNestedInput
+    valuePrompts?: ValuePromptUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutValuePromptsInput = {
@@ -27787,29 +27787,29 @@ export namespace Prisma {
     onboardingCompleted?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
-    avatar?: AvatarCreateNestedOneWithoutUsersInput
+    dailyReflections?: DailyReflectionCreateNestedManyWithoutUserInput
     goals?: GoalCreateNestedManyWithoutUserInput
     learningPlans?: LearningPlanCreateNestedManyWithoutUserInput
     attemptLogs?: QuestionAttemptLogCreateNestedManyWithoutUserInput
-    dailyReflections?: DailyReflectionCreateNestedManyWithoutUserInput
-    weeklyReflections?: WeeklyReflectionCreateNestedManyWithoutUserInput
     reflectionBadges?: ReflectionBadgeCreateNestedManyWithoutUserInput
+    avatar?: AvatarCreateNestedOneWithoutUsersInput
+    weeklyReflections?: WeeklyReflectionCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutValuePromptsInput = {
     id?: string
     email: string
     displayName: string
-    avatarKey?: string | null
     onboardingCompleted?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    avatarKey?: string | null
+    dailyReflections?: DailyReflectionUncheckedCreateNestedManyWithoutUserInput
     goals?: GoalUncheckedCreateNestedManyWithoutUserInput
     learningPlans?: LearningPlanUncheckedCreateNestedManyWithoutUserInput
     attemptLogs?: QuestionAttemptLogUncheckedCreateNestedManyWithoutUserInput
-    dailyReflections?: DailyReflectionUncheckedCreateNestedManyWithoutUserInput
-    weeklyReflections?: WeeklyReflectionUncheckedCreateNestedManyWithoutUserInput
     reflectionBadges?: ReflectionBadgeUncheckedCreateNestedManyWithoutUserInput
+    weeklyReflections?: WeeklyReflectionUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutValuePromptsInput = {
@@ -27835,29 +27835,29 @@ export namespace Prisma {
     onboardingCompleted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    avatar?: AvatarUpdateOneWithoutUsersNestedInput
+    dailyReflections?: DailyReflectionUpdateManyWithoutUserNestedInput
     goals?: GoalUpdateManyWithoutUserNestedInput
     learningPlans?: LearningPlanUpdateManyWithoutUserNestedInput
     attemptLogs?: QuestionAttemptLogUpdateManyWithoutUserNestedInput
-    dailyReflections?: DailyReflectionUpdateManyWithoutUserNestedInput
-    weeklyReflections?: WeeklyReflectionUpdateManyWithoutUserNestedInput
     reflectionBadges?: ReflectionBadgeUpdateManyWithoutUserNestedInput
+    avatar?: AvatarUpdateOneWithoutUsersNestedInput
+    weeklyReflections?: WeeklyReflectionUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutValuePromptsInput = {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     displayName?: StringFieldUpdateOperationsInput | string
-    avatarKey?: NullableStringFieldUpdateOperationsInput | string | null
     onboardingCompleted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    avatarKey?: NullableStringFieldUpdateOperationsInput | string | null
+    dailyReflections?: DailyReflectionUncheckedUpdateManyWithoutUserNestedInput
     goals?: GoalUncheckedUpdateManyWithoutUserNestedInput
     learningPlans?: LearningPlanUncheckedUpdateManyWithoutUserNestedInput
     attemptLogs?: QuestionAttemptLogUncheckedUpdateManyWithoutUserNestedInput
-    dailyReflections?: DailyReflectionUncheckedUpdateManyWithoutUserNestedInput
-    weeklyReflections?: WeeklyReflectionUncheckedUpdateManyWithoutUserNestedInput
     reflectionBadges?: ReflectionBadgeUncheckedUpdateManyWithoutUserNestedInput
+    weeklyReflections?: WeeklyReflectionUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutReflectionBadgesInput = {
@@ -27867,29 +27867,29 @@ export namespace Prisma {
     onboardingCompleted?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
-    avatar?: AvatarCreateNestedOneWithoutUsersInput
+    dailyReflections?: DailyReflectionCreateNestedManyWithoutUserInput
     goals?: GoalCreateNestedManyWithoutUserInput
     learningPlans?: LearningPlanCreateNestedManyWithoutUserInput
     attemptLogs?: QuestionAttemptLogCreateNestedManyWithoutUserInput
-    dailyReflections?: DailyReflectionCreateNestedManyWithoutUserInput
-    weeklyReflections?: WeeklyReflectionCreateNestedManyWithoutUserInput
+    avatar?: AvatarCreateNestedOneWithoutUsersInput
     valuePrompts?: ValuePromptCreateNestedManyWithoutUserInput
+    weeklyReflections?: WeeklyReflectionCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutReflectionBadgesInput = {
     id?: string
     email: string
     displayName: string
-    avatarKey?: string | null
     onboardingCompleted?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
+    avatarKey?: string | null
+    dailyReflections?: DailyReflectionUncheckedCreateNestedManyWithoutUserInput
     goals?: GoalUncheckedCreateNestedManyWithoutUserInput
     learningPlans?: LearningPlanUncheckedCreateNestedManyWithoutUserInput
     attemptLogs?: QuestionAttemptLogUncheckedCreateNestedManyWithoutUserInput
-    dailyReflections?: DailyReflectionUncheckedCreateNestedManyWithoutUserInput
-    weeklyReflections?: WeeklyReflectionUncheckedCreateNestedManyWithoutUserInput
     valuePrompts?: ValuePromptUncheckedCreateNestedManyWithoutUserInput
+    weeklyReflections?: WeeklyReflectionUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutReflectionBadgesInput = {
@@ -27915,29 +27915,29 @@ export namespace Prisma {
     onboardingCompleted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    avatar?: AvatarUpdateOneWithoutUsersNestedInput
+    dailyReflections?: DailyReflectionUpdateManyWithoutUserNestedInput
     goals?: GoalUpdateManyWithoutUserNestedInput
     learningPlans?: LearningPlanUpdateManyWithoutUserNestedInput
     attemptLogs?: QuestionAttemptLogUpdateManyWithoutUserNestedInput
-    dailyReflections?: DailyReflectionUpdateManyWithoutUserNestedInput
-    weeklyReflections?: WeeklyReflectionUpdateManyWithoutUserNestedInput
+    avatar?: AvatarUpdateOneWithoutUsersNestedInput
     valuePrompts?: ValuePromptUpdateManyWithoutUserNestedInput
+    weeklyReflections?: WeeklyReflectionUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutReflectionBadgesInput = {
     id?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     displayName?: StringFieldUpdateOperationsInput | string
-    avatarKey?: NullableStringFieldUpdateOperationsInput | string | null
     onboardingCompleted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    avatarKey?: NullableStringFieldUpdateOperationsInput | string | null
+    dailyReflections?: DailyReflectionUncheckedUpdateManyWithoutUserNestedInput
     goals?: GoalUncheckedUpdateManyWithoutUserNestedInput
     learningPlans?: LearningPlanUncheckedUpdateManyWithoutUserNestedInput
     attemptLogs?: QuestionAttemptLogUncheckedUpdateManyWithoutUserNestedInput
-    dailyReflections?: DailyReflectionUncheckedUpdateManyWithoutUserNestedInput
-    weeklyReflections?: WeeklyReflectionUncheckedUpdateManyWithoutUserNestedInput
     valuePrompts?: ValuePromptUncheckedUpdateManyWithoutUserNestedInput
+    weeklyReflections?: WeeklyReflectionUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyAvatarInput = {
@@ -27956,13 +27956,13 @@ export namespace Prisma {
     onboardingCompleted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    dailyReflections?: DailyReflectionUpdateManyWithoutUserNestedInput
     goals?: GoalUpdateManyWithoutUserNestedInput
     learningPlans?: LearningPlanUpdateManyWithoutUserNestedInput
     attemptLogs?: QuestionAttemptLogUpdateManyWithoutUserNestedInput
-    dailyReflections?: DailyReflectionUpdateManyWithoutUserNestedInput
-    weeklyReflections?: WeeklyReflectionUpdateManyWithoutUserNestedInput
-    valuePrompts?: ValuePromptUpdateManyWithoutUserNestedInput
     reflectionBadges?: ReflectionBadgeUpdateManyWithoutUserNestedInput
+    valuePrompts?: ValuePromptUpdateManyWithoutUserNestedInput
+    weeklyReflections?: WeeklyReflectionUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAvatarInput = {
@@ -27972,13 +27972,13 @@ export namespace Prisma {
     onboardingCompleted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    dailyReflections?: DailyReflectionUncheckedUpdateManyWithoutUserNestedInput
     goals?: GoalUncheckedUpdateManyWithoutUserNestedInput
     learningPlans?: LearningPlanUncheckedUpdateManyWithoutUserNestedInput
     attemptLogs?: QuestionAttemptLogUncheckedUpdateManyWithoutUserNestedInput
-    dailyReflections?: DailyReflectionUncheckedUpdateManyWithoutUserNestedInput
-    weeklyReflections?: WeeklyReflectionUncheckedUpdateManyWithoutUserNestedInput
-    valuePrompts?: ValuePromptUncheckedUpdateManyWithoutUserNestedInput
     reflectionBadges?: ReflectionBadgeUncheckedUpdateManyWithoutUserNestedInput
+    valuePrompts?: ValuePromptUncheckedUpdateManyWithoutUserNestedInput
+    weeklyReflections?: WeeklyReflectionUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateManyWithoutAvatarInput = {
@@ -27988,6 +27988,14 @@ export namespace Prisma {
     onboardingCompleted?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DailyReflectionCreateManyUserInput = {
+    id?: string
+    date: Date | string
+    content: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type GoalCreateManyUserInput = {
@@ -28025,10 +28033,17 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
-  export type DailyReflectionCreateManyUserInput = {
+  export type ReflectionBadgeCreateManyUserInput = {
     id?: string
-    date: Date | string
+    badgeType: string
+    awardedAt?: Date | string
+  }
+
+  export type ValuePromptCreateManyUserInput = {
+    id?: string
+    promptType: string
     content: string
+    response?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -28042,19 +28057,28 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
-  export type ValuePromptCreateManyUserInput = {
-    id?: string
-    promptType: string
-    content: string
-    response?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
+  export type DailyReflectionUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type ReflectionBadgeCreateManyUserInput = {
-    id?: string
-    badgeType: string
-    awardedAt?: Date | string
+  export type DailyReflectionUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DailyReflectionUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type GoalUpdateWithoutUserInput = {
@@ -28168,55 +28192,22 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type DailyReflectionUpdateWithoutUserInput = {
+  export type ReflectionBadgeUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
-    date?: DateTimeFieldUpdateOperationsInput | Date | string
-    content?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    badgeType?: StringFieldUpdateOperationsInput | string
+    awardedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type DailyReflectionUncheckedUpdateWithoutUserInput = {
+  export type ReflectionBadgeUncheckedUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
-    date?: DateTimeFieldUpdateOperationsInput | Date | string
-    content?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    badgeType?: StringFieldUpdateOperationsInput | string
+    awardedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type DailyReflectionUncheckedUpdateManyWithoutUserInput = {
+  export type ReflectionBadgeUncheckedUpdateManyWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
-    date?: DateTimeFieldUpdateOperationsInput | Date | string
-    content?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type WeeklyReflectionUpdateWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    weekStart?: DateTimeFieldUpdateOperationsInput | Date | string
-    weekEnd?: DateTimeFieldUpdateOperationsInput | Date | string
-    content?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type WeeklyReflectionUncheckedUpdateWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    weekStart?: DateTimeFieldUpdateOperationsInput | Date | string
-    weekEnd?: DateTimeFieldUpdateOperationsInput | Date | string
-    content?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type WeeklyReflectionUncheckedUpdateManyWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    weekStart?: DateTimeFieldUpdateOperationsInput | Date | string
-    weekEnd?: DateTimeFieldUpdateOperationsInput | Date | string
-    content?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    badgeType?: StringFieldUpdateOperationsInput | string
+    awardedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ValuePromptUpdateWithoutUserInput = {
@@ -28246,22 +28237,31 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type ReflectionBadgeUpdateWithoutUserInput = {
+  export type WeeklyReflectionUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
-    badgeType?: StringFieldUpdateOperationsInput | string
-    awardedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    weekStart?: DateTimeFieldUpdateOperationsInput | Date | string
+    weekEnd?: DateTimeFieldUpdateOperationsInput | Date | string
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type ReflectionBadgeUncheckedUpdateWithoutUserInput = {
+  export type WeeklyReflectionUncheckedUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
-    badgeType?: StringFieldUpdateOperationsInput | string
-    awardedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    weekStart?: DateTimeFieldUpdateOperationsInput | Date | string
+    weekEnd?: DateTimeFieldUpdateOperationsInput | Date | string
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type ReflectionBadgeUncheckedUpdateManyWithoutUserInput = {
+  export type WeeklyReflectionUncheckedUpdateManyWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
-    badgeType?: StringFieldUpdateOperationsInput | string
-    awardedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    weekStart?: DateTimeFieldUpdateOperationsInput | Date | string
+    weekEnd?: DateTimeFieldUpdateOperationsInput | Date | string
+    content?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type LearningPlanCreateManyGoalInput = {

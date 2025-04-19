@@ -8,13 +8,11 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// 共通マスターテーブル
 model Avatar {
   id        String @id
   label     String
   imagePath String @map("image_path")
-
-  users User[]
+  users     User[]
 
   @@map("avatars")
 }
@@ -37,143 +35,123 @@ model ReasonOption {
   @@map("reason_options")
 }
 
-// ユーザー情報
 model User {
-  id                  String   @id @default(uuid())
-  email               String   @unique
-  displayName         String   @map("display_name")
-  avatarKey           String?  @map("avatar_key")
-  onboardingCompleted Boolean  @default(false) @map("onboarding_completed")
-  createdAt           DateTime @default(now()) @map("created_at")
-  updatedAt           DateTime @updatedAt @map("updated_at")
-
-  // 関連
-  avatar            Avatar?              @relation(fields: [avatarKey], references: [id])
-  goals             Goal[]
-  learningPlans     LearningPlan[]
-  attemptLogs       QuestionAttemptLog[]
-  dailyReflections  DailyReflection[]
-  weeklyReflections WeeklyReflection[]
-  valuePrompts      ValuePrompt[]
-  reflectionBadges  ReflectionBadge[]
+  id                  String               @id @default(uuid())
+  email               String               @unique
+  displayName         String               @map("display_name")
+  onboardingCompleted Boolean              @default(false) @map("onboarding_completed")
+  createdAt           DateTime             @default(now()) @map("created_at")
+  updatedAt           DateTime             @updatedAt @map("updated_at")
+  avatarKey           String?              @map("avatar_key")
+  dailyReflections    DailyReflection[]
+  goals               Goal[]
+  learningPlans       LearningPlan[]
+  attemptLogs         QuestionAttemptLog[]
+  reflectionBadges    ReflectionBadge[]
+  avatar              Avatar?              @relation(fields: [avatarKey], references: [id])
+  valuePrompts        ValuePrompt[]
+  weeklyReflections   WeeklyReflection[]
 
   @@map("users")
 }
 
-// 目標・試験範囲管理
 model Goal {
-  id            String   @id @default(uuid())
-  userId        String   @map("user_id")
-  testName      String   @map("test_name")
-  testStartDate DateTime @map("test_start_date") @db.Date
-  testEndDate   DateTime @map("test_end_date") @db.Date
-  totalStudents Int      @map("total_students")
-  targetRank    Int      @map("target_rank")
-  reasonType    String   @map("reason_type")
-  reasonText    String   @map("reason_text") @db.Text
-  createdAt     DateTime @default(now()) @map("created_at")
-  updatedAt     DateTime @updatedAt @map("updated_at")
-
-  // 関連
+  id            String         @id @default(uuid())
+  userId        String         @map("user_id")
+  testName      String         @map("test_name")
+  testStartDate DateTime       @map("test_start_date") @db.Date
+  testEndDate   DateTime       @map("test_end_date") @db.Date
+  totalStudents Int            @map("total_students")
+  targetRank    Int            @map("target_rank")
+  reasonType    String         @map("reason_type")
+  reasonText    String         @map("reason_text")
+  createdAt     DateTime       @default(now()) @map("created_at")
+  updatedAt     DateTime       @updatedAt @map("updated_at")
   user          User           @relation(fields: [userId], references: [id])
   learningPlans LearningPlan[]
 
   @@map("goals")
 }
 
-// 教材構造（マスターデータ）
 model Textbook {
-  id        String   @id @default(uuid())
+  id        String    @id @default(uuid())
   title     String
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
-
-  // 関連
-  chapters Chapter[]
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+  chapters  Chapter[]
 
   @@map("textbooks")
 }
 
 model Chapter {
-  id         String   @id @default(uuid())
-  textbookId String   @map("textbook_id")
+  id         String    @id @default(uuid())
+  textbookId String    @map("textbook_id")
   title      String
-  orderIndex Int      @map("order_index")
-  createdAt  DateTime @default(now()) @map("created_at")
-  updatedAt  DateTime @updatedAt @map("updated_at")
-
-  // 関連
-  textbook Textbook  @relation(fields: [textbookId], references: [id])
-  sections Section[]
+  orderIndex Int       @map("order_index")
+  createdAt  DateTime  @default(now()) @map("created_at")
+  updatedAt  DateTime  @updatedAt @map("updated_at")
+  textbook   Textbook  @relation(fields: [textbookId], references: [id])
+  sections   Section[]
 
   @@map("chapters")
 }
 
 model Section {
-  id         String   @id @default(uuid())
-  chapterId  String   @map("chapter_id")
+  id         String     @id @default(uuid())
+  chapterId  String     @map("chapter_id")
   title      String
-  orderIndex Int      @map("order_index")
-  createdAt  DateTime @default(now()) @map("created_at")
-  updatedAt  DateTime @updatedAt @map("updated_at")
-
-  // 関連
-  chapter   Chapter    @relation(fields: [chapterId], references: [id])
-  questions Question[]
+  orderIndex Int        @map("order_index")
+  createdAt  DateTime   @default(now()) @map("created_at")
+  updatedAt  DateTime   @updatedAt @map("updated_at")
+  questions  Question[]
+  chapter    Chapter    @relation(fields: [chapterId], references: [id])
 
   @@map("sections")
 }
 
 model Question {
-  id         String   @id @default(uuid())
-  sectionId  String   @map("section_id")
-  content    String   @db.Text
-  difficulty Int
-  createdAt  DateTime @default(now()) @map("created_at")
-  updatedAt  DateTime @updatedAt @map("updated_at")
-
-  // 関連
-  section       Section              @relation(fields: [sectionId], references: [id])
+  id            String               @id @default(uuid())
+  sectionId     String               @map("section_id")
+  content       String
+  difficulty    Int
+  createdAt     DateTime             @default(now()) @map("created_at")
+  updatedAt     DateTime             @updatedAt @map("updated_at")
   learningTasks LearningTask[]
   attemptLogs   QuestionAttemptLog[]
+  section       Section              @relation(fields: [sectionId], references: [id])
 
   @@map("questions")
 }
 
-// 学習計画
 model LearningPlan {
-  id             String   @id @default(uuid())
-  userId         String   @map("user_id")
-  goalId         String   @map("goal_id")
-  generatedBy    String   @map("generated_by")
-  maxDays        Int      @map("max_days")
-  baseDays       Int      @map("base_days")
-  finalStudyDate DateTime @map("final_study_date") @db.Date
-  reviewDays     Int      @map("review_days")
-  reviewWeekdays String[] @map("review_weekdays")
-  createdAt      DateTime @default(now()) @map("created_at")
-  updatedAt      DateTime @updatedAt @map("updated_at")
-
-  // 関連
-  user          User           @relation(fields: [userId], references: [id])
-  goal          Goal           @relation(fields: [goalId], references: [id])
-  learningTasks LearningTask[]
-  planRevisions PlanRevision[]
+  id             String         @id @default(uuid())
+  userId         String         @map("user_id")
+  goalId         String         @map("goal_id")
+  generatedBy    String         @map("generated_by")
+  maxDays        Int            @map("max_days")
+  baseDays       Int            @map("base_days")
+  finalStudyDate DateTime       @map("final_study_date") @db.Date
+  reviewDays     Int            @map("review_days")
+  reviewWeekdays String[]       @map("review_weekdays")
+  createdAt      DateTime       @default(now()) @map("created_at")
+  updatedAt      DateTime       @updatedAt @map("updated_at")
+  goal           Goal           @relation(fields: [goalId], references: [id])
+  user           User           @relation(fields: [userId], references: [id])
+  learningTasks  LearningTask[]
+  planRevisions  PlanRevision[]
 
   @@map("learning_plans")
 }
 
 model LearningTask {
-  id          String   @id @default(uuid())
-  planId      String   @map("plan_id")
-  date        DateTime @db.Date
-  questionId  String   @map("question_id")
-  orderInDay  Int      @map("order_in_day")
-  isReviewDay Boolean  @map("is_review_day")
-  createdAt   DateTime @default(now()) @map("created_at")
-  updatedAt   DateTime @updatedAt @map("updated_at")
-
-  // 関連
+  id           String       @id @default(uuid())
+  planId       String       @map("plan_id")
+  date         DateTime     @db.Date
+  questionId   String       @map("question_id")
+  orderInDay   Int          @map("order_in_day")
+  isReviewDay  Boolean      @map("is_review_day")
+  createdAt    DateTime     @default(now()) @map("created_at")
+  updatedAt    DateTime     @updatedAt @map("updated_at")
   learningPlan LearningPlan @relation(fields: [planId], references: [id])
   question     Question     @relation(fields: [questionId], references: [id])
 
@@ -188,38 +166,31 @@ model QuestionAttemptLog {
   status     String
   source     String
   updatedAt  DateTime @updatedAt @map("updated_at")
-
-  // 関連
-  user     User     @relation(fields: [userId], references: [id])
-  question Question @relation(fields: [questionId], references: [id])
+  question   Question @relation(fields: [questionId], references: [id])
+  user       User     @relation(fields: [userId], references: [id])
 
   @@map("question_attempt_logs")
 }
 
 model PlanRevision {
-  id               String   @id @default(uuid())
-  planId           String   @map("plan_id")
-  revisionType     String   @map("revision_type")
-  selectedStatuses String[] @map("selected_statuses")
-  revisedAt        DateTime @default(now()) @map("revised_at")
-
-  // 関連
-  learningPlan LearningPlan @relation(fields: [planId], references: [id])
+  id               String       @id @default(uuid())
+  planId           String       @map("plan_id")
+  revisionType     String       @map("revision_type")
+  selectedStatuses String[]     @map("selected_statuses")
+  revisedAt        DateTime     @default(now()) @map("revised_at")
+  learningPlan     LearningPlan @relation(fields: [planId], references: [id])
 
   @@map("plan_revisions")
 }
 
-// トーク機能（内省記録）
 model DailyReflection {
   id        String   @id @default(uuid())
   userId    String   @map("user_id")
   date      DateTime @db.Date
-  content   String   @db.Text
+  content   String
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
-
-  // 関連
-  user User @relation(fields: [userId], references: [id])
+  user      User     @relation(fields: [userId], references: [id])
 
   @@map("daily_reflections")
 }
@@ -229,12 +200,10 @@ model WeeklyReflection {
   userId    String   @map("user_id")
   weekStart DateTime @map("week_start") @db.Date
   weekEnd   DateTime @map("week_end") @db.Date
-  content   String   @db.Text
+  content   String
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
-
-  // 関連
-  user User @relation(fields: [userId], references: [id])
+  user      User     @relation(fields: [userId], references: [id])
 
   @@map("weekly_reflections")
 }
@@ -243,13 +212,11 @@ model ValuePrompt {
   id         String   @id @default(uuid())
   userId     String   @map("user_id")
   promptType String   @map("prompt_type")
-  content    String   @db.Text
-  response   String?  @db.Text
+  content    String
+  response   String?
   createdAt  DateTime @default(now()) @map("created_at")
   updatedAt  DateTime @updatedAt @map("updated_at")
-
-  // 関連
-  user User @relation(fields: [userId], references: [id])
+  user       User     @relation(fields: [userId], references: [id])
 
   @@map("value_prompts")
 }
@@ -259,9 +226,7 @@ model ReflectionBadge {
   userId    String   @map("user_id")
   badgeType String   @map("badge_type")
   awardedAt DateTime @default(now()) @map("awarded_at")
-
-  // 関連
-  user User @relation(fields: [userId], references: [id])
+  user      User     @relation(fields: [userId], references: [id])
 
   @@map("reflection_badges")
 }
